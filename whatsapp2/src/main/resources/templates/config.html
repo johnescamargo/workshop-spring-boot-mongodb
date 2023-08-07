@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+	xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<script src="/webjars/jquery/jquery.min.js"></script>
+	<script src="/webjars/sockjs-client/sockjs.min.js"></script>
+	<script src="/webjars/stomp-websocket/stomp.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+	<link rel="stylesheet" th:href="@{/css/config.css}" />
+</head>
+
+<body onload="connect()">
+
+	<nav class="nav-bar">
+		<ul>
+			<li><a onclick="disconnect()" th:href="home">Enviar Agenda</a></li>
+			<li><a onclick="disconnect()" th:href="send">Enviar</a></li>
+			<li><a onclick="disconnect()" th:href="chat">Chat</a></li>
+			<li><a onclick="disconnect()" th:href="confirmation">Confirmação</a></li>
+			<div sec:authorize="hasAuthority('ADMIN')">
+				<li><a onclick="disconnect()" th:href="register">Novo Usuário</a></li>
+				<li><a onclick="disconnect()" th:href="settings">Configurações</a></li>
+			</div>
+			<li class="exit">
+				<a onclick="disconnect()" th:href="@{/logout}"><i class="fa fa-sign-out fa-1.5x" aria-hidden="true">
+						Sair</i></a>
+			</li>
+			<li class="exit">
+				<a onclick="disconnect()" id="active" class="active" th:href="config"><i class="fa fa-user fa-1.5x"
+						aria-hidden="true"><span> </span><span id="my-username">
+							<span th:remove="tag" sec:authentication="name"></span></span></i></a>
+			</li>
+
+			<li id="exit" class="exit">
+				<!-- Websocket alert goes here -->
+			</li>
+
+		</ul>
+	</nav>
+
+	<form class="form-div">
+		<div class="container">
+			<h3>Nova senha</h3>
+			<hr />
+
+			<label for="psw"><b>Senha</b></label>
+			<input type="password" placeholder="Senha" name="psw" id="psw" required />
+
+			<label for="psw-repeat"><b> Confirmar senha</b></label>
+			<input type="password" placeholder="Repita a Senha" name="psw-repeat" id="psw-repeat" required />
+			<hr />
+
+			<button type="submit" onClick="newPassword()" class="registerbtn">
+				Salvar
+			</button>
+		</div>
+	</form>
+
+	<script th:src="@{/js/config.js}"></script>
+	<script th:src="@{/js/websocket.js}"></script>
+
+</body>
+
+</html>

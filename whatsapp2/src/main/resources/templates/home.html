@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+	xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+
+<head>
+	<meta charset="utf-8" />
+	<title>Envio de Mensagens</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+		integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous" />
+	<script type="text/javascript" src="https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+	<script src="/webjars/jquery/jquery.min.js"></script>
+	<script src="/webjars/sockjs-client/sockjs.min.js"></script>
+	<script src="/webjars/stomp-websocket/stomp.min.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+	<link rel="icon"
+		href="https://yata-apix-d8c7d1db-242c-4bd0-940d-c5c9177aa1a3.s3-object.locaweb.com.br/78bea5d20ec8468baec749b9b9f707d9.png">
+	<link rel="stylesheet" th:href="@{/css/home.css}" />
+</head>
+
+<body onload="connect()">
+
+	<nav class="nav-bar">
+		<ul>
+			<li><a onclick="disconnect()" id="active" class="active" th:href="home">Enviar Agenda</a></li>
+			<li><a onclick="disconnect()" th:href="send">Enviar</a></li>
+			<li><a onclick="disconnect()" th:href="chat">Chat</a></li>
+			<li><a onclick="disconnect()" th:href="confirmation">Confirmação</a></li>
+			<div sec:authorize="hasAuthority('ADMIN')">
+				<li><a onclick="disconnect()" th:href="register">Novo Usuário</a></li>
+				<li><a onclick="disconnect()" th:href="settings">Configurações</a></li>
+			</div>
+			<li class="exit">
+				<a onclick="disconnect()" th:href="@{/logout}"><i class="fa fa-sign-out fa-1.5x" aria-hidden="true">
+						Sair</i></a>
+			</li>
+			<li class="exit">
+				<a onclick="disconnect()" th:href="config"><i class="fa fa-user fa-1.5x" aria-hidden="true"><span>
+						</span><span id="my-username">
+							<span th:remove="tag" sec:authentication="name"></span></span></i></a>
+			</li>
+			<li id="exit" class="exit">
+				<!-- websocket alert  -->
+			</li>
+		</ul>
+	</nav>
+
+	<div class="container">
+		<div class="card">
+			<div class="card-body">
+				<!-- This input is working as a button  -->
+				<input type="file" id="excel_file" />
+				<!-- Export  -->
+				<button type="button" id="export_button" class="btn btn-success btn-sm">
+					Exportar para XLS
+				</button>
+
+			</div>
+		</div>
+		<div id="excel_data" class="mt-3"></div>
+	</div>
+
+	<!-- The Modal -->
+	<div id="myModal" class="modal">
+		<!-- Modal content -->
+		<div class="modal-content">
+			<div class="form-save">
+				<div class="container2">
+					<label for="waiting"><b>Enviando mensagens, aguarde </b></label>
+					<div class="col-3">
+						<div class="snippet" data-title="dot-typing">
+							<div class="stage">
+								<div class="dot-typing"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script th:src="@{/js/home.js}"></script>
+	<script th:src="@{/js/websocket.js}"></script>
+</body>
+
+</html>

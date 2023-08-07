@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+	xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<script src="/webjars/jquery/jquery.min.js"></script>
+	<script src="/webjars/sockjs-client/sockjs.min.js"></script>
+	<script src="/webjars/stomp-websocket/stomp.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+	<link rel="stylesheet" th:href="@{/css/chat.css}" />
+	<title>Chat</title>
+</head>
+
+<body onload="connect()">
+
+	<nav class="nav-bar">
+		<ul>
+			<li><a onclick="disconnect()" th:href="home">Enviar Agenda</a></li>
+			<li><a onclick="disconnect()" th:href="send">Enviar</a></li>
+			<li><a onclick="disconnect()" class="active" th:href="chat">Chat</a></li>
+			<li><a onclick="disconnect()" th:href="confirmation">Confirmação</a></li>
+			<div sec:authorize="hasAuthority('ADMIN')">
+				<!-- Only ADMIN has access to it -->
+				<li><a onclick="disconnect()" th:href="register">Novo Usuário</a></li>
+				<li><a onclick="disconnect()" th:href="settings">Configurações</a></li>
+			</div>
+			<li class="exit">
+				<a th:href="@{/logout}" onclick="disconnect()">
+					<i class="fa fa-sign-out fa-1.5x" aria-hidden="true"> Sair</i>
+				</a>
+			</li>
+			<li class="exit">
+				<a onclick="disconnect()" th:href="config">
+					<i class="fa fa-user fa-1.5x" aria-hidden="true">
+						<span> </span>
+						<span th:remove="tag" sec:authentication="name"> </span>
+					</i>
+				</a>
+			</li>
+			<li id="exit" class="exit">
+				<!-- Websocket alert goes here -->
+			</li>
+		</ul>
+	</nav>
+
+	<div class="search-and-header">
+		<div class="search-bar">
+			<i class="fa fa-search fa-2x" aria-hidden="true"></i>
+			<input type="text" id="search-bar-text" />
+		</div>
+
+		<header class="div-header">
+			<!-- Customer head tag goes here -->
+		</header>
+	</div>
+
+	<div class="main-div">
+		<div class="box-contacts" id="box-customers">
+			<!-- Customer head tag goes here -->
+		</div>
+
+		<div class="chat" id="chat-box">
+			<!-- Customer head tag goes here -->
+		</div>
+	</div>
+
+	<div id="insert-text">
+		<input type="text" id="insert-text-text" />
+		<button id="send-message" onclick="sendMessageChat()">Enviar</button>
+	</div>
+
+	<div id="footer"></div>
+
+	<!-- Modal Image div -->
+	<div id="myModal" class="modal">
+		<span class="close">&times;</span>
+		<img class="modal-content" id="img01">
+		<div id="caption"></div>
+	</div>
+	<!-- Modal Image div - end -->
+
+	<script th:src="@{/js/chat.js}"></script>
+</body>
+
+</html>

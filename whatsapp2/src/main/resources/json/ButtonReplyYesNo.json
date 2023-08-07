@@ -1,0 +1,30 @@
+{
+   "messaging_product":"whatsapp",
+   "recipient_type":"individual",
+   "to":"",
+   "type":"interactive",
+   "interactive":{
+      "type":"button",
+      "body":{
+         "text":"Por favor, clique no botão SIM para confirmar ou REMARCAR para remarcar. Ou caso queira falar com a nossa recepção digite o número 0."
+      },
+      "action":{
+         "buttons":[
+            {
+               "type":"reply",
+               "reply":{
+                  "id":"button-sim",
+                  "title":"SIM"
+               }
+            },
+            {
+               "type":"reply",
+               "reply":{
+                  "id":"button-nao",
+                  "title":"REMARCAR"
+               }
+            }
+         ]
+      }
+   }
+}

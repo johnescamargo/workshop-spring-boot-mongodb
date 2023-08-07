@@ -1,0 +1,14 @@
+{
+   "messaging_product":"whatsapp",
+   "contacts":[
+      {
+         "input":"5511994022187",
+         "wa_id":"5511994022187"
+      }
+   ],
+   "messages":[
+      {
+         "id":"200"
+      }
+   ]
+}

@@ -1,0 +1,37 @@
+{
+	"messaging_product": "whatsapp",
+	"recipient_type": "individual",
+	"to": "",
+	"type": "interactive",
+	"interactive": {
+		"type": "button",
+		"body": {
+			"text": "Clínica de olhos IMAV. Olá, espero que esteja bem. Obrigado por nos procurar. Este é um canal exclusivo para confirmação de consultas e exames, porém, podemos lhe ajudar. Clique na opção abaixo que melhor atende a tua necessidade."
+		},
+		"action": {
+			"buttons": [
+				{
+					"type": "reply",
+					"reply": {
+						"id": "button-telefone",
+						"title": "TELEFONE DA IMAV"
+					}
+				},
+				{
+					"type": "reply",
+					"reply": {
+						"id": "button-whatsapp",
+						"title": "WHATSAPP DA IMAV"
+					}
+				},
+				{
+					"type": "reply",
+					"reply": {
+						"id": "button-localizacao",
+						"title": "LOCALIZAÇÃO"
+					}
+				}
+			]
+		}
+	}
+}

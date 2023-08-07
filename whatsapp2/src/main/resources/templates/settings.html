@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+	xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<script src="/webjars/jquery/jquery.min.js"></script>
+	<script src="/webjars/sockjs-client/sockjs.min.js"></script>
+	<script src="/webjars/stomp-websocket/stomp.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+	<link rel="stylesheet" th:href="@{/css/settings.css}" />
+</head>
+
+<body onload="connect()">
+
+	<nav class="nav-bar">
+		<ul>
+			<li><a onclick="disconnect()" th:href="home">Enviar Agenda</a></li>
+			<li><a onclick="disconnect()" th:href="send">Enviar</a></li>
+			<li><a onclick="disconnect()" th:href="chat">Chat</a></li>
+			<li><a onclick="disconnect()" th:href="confirmation">Confirmação</a></li>
+			<div sec:authorize="hasAuthority('ADMIN')">
+				<li><a onclick="disconnect()" th:href="register">Novo Usuário</a></li>
+				<li><a onclick="disconnect()" class="active" th:href="settings">Configurações</a></li>
+			</div>
+			<li class="exit">
+				<a onclick="disconnect()" th:href="@{/logout}"><i class="fa fa-sign-out fa-1.5x" aria-hidden="true">
+						Sair</i></a>
+			</li>
+			<li class="exit">
+				<a onclick="disconnect()" th:href="config"><i class="fa fa-user fa-1.5x" aria-hidden="true"><span>
+						</span><span th:remove="tag" sec:authentication="name"> </span></i></a>
+			</li>
+			<li id="exit" class="exit">
+				<!-- Websocket alert goes here -->
+			</li>
+		</ul>
+	</nav>
+
+	<div class="main-div">
+		<div class="week">
+			<label class="days" for="week">Segunda-feira</label>
+			<label for="segunda-comeco">De</label>
+			<input type="time" id="segunda-comeco" name="segunda-comeco">
+			<label for="segunda-fim">Até</label>
+			<input type="time" id="segunda-fim" name="segunda-fim">
+			<label class="switch">
+				<input type="checkbox" id="segunda-off">
+				<span class="slider round"></span>
+			</label>
+		</div>
+		<div class="week">
+			<label class="days" for="week">Terça-feira</label>
+			<label for="terca-comeco">De</label>
+			<input type="time" id="terca-comeco" name="appt">
+			<label for="appt">Até</label>
+			<input type="time" id="terca-fim" name="terca-fim">
+			<label class="switch">
+				<input type="checkbox" id="terca-off">
+				<span class="slider round"></span>
+			</label>
+		</div>
+		<div class="week">
+			<label class="days" for="week">Quarta-feira</label>
+			<label for="quarta-comeco">De</label>
+			<input type="time" id="quarta-comeco" name="quarta-comeco">
+			<label for="appt">Até</label>
+			<input type="time" id="quarta-fim" name="quarta-fim">
+			<label class="switch">
+				<input type="checkbox" id="quarta-off">
+				<span class="slider round"></span>
+			</label>
+		</div>
+		<div class="week">
+			<label class="days" for="week">Quinta-feira</label>
+			<label for="quinta-comeco">De</label>
+			<input type="time" id="quinta-comeco" name="quinta-comeco">
+			<label for="appt">Até</label>
+			<input type="time" id="quinta-fim" name="quinta-fim">
+			<label class="switch">
+				<input type="checkbox" id="quinta-off">
+				<span class="slider round"></span>
+			</label>
+		</div>
+		<div class="week">
+			<label class="days" for="week">Sexta-feira</label>
+			<label for="sexta-comeco">De</label>
+			<input type="time" id="sexta-comeco" name="appt">
+			<label for="appt">Até</label>
+			<input type="time" id="sexta-fim" name="sexta-fim">
+			<label class="switch">
+				<input type="checkbox" id="sexta-off">
+				<span class="slider round"></span>
+			</label>
+		</div>
+		<div class="week">
+			<label class="days" for="week">Sábado</label>
+			<label for="sabado-comeco">De</label>
+			<input type="time" id="sabado-comeco" name="appt">
+			<label for="appt">Até</label>
+			<input type="time" id="sabado-fim" name="sabado-fim">
+			<label class="switch">
+				<input type="checkbox" id="sabado-off">
+				<span class="slider round"></span>
+			</label>
+		</div>
+		<div class="week">
+			<label class="days" for="week">Domingo</label>
+			<label for="domingo-comeco">De</label>
+			<input type="time" id="domingo-comeco" name="domingo-comeco">
+			<label for="domingo-fim">Até</label>
+			<input type="time" id="domingo-fim" name="domingo-fim">
+			<label class="switch">
+				<input type="checkbox" id="domingo-off">
+				<span class="slider round"></span>
+			</label>
+		</div>
+		<button onclick="updateTime()" class="savebtn">Salvar</button>
+	</div>
+
+	<div id="snackbarOk">Horários salvos com sucesso..</div>
+	<div id="snackbarError">Erro, falha ao salvar horários..</div>
+
+	<script th:src="@{/js/settings.js}"></script>
+
+</body>
+
+</html>
