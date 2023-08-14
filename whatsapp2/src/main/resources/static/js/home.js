@@ -213,8 +213,8 @@ function htmlDisplay() {
 		"</div>" +
 		"</div>" +
 		'<div class="form-group">' +
-		'<label for="exampleFormControlTextarea1">Texto base</label>' +
-		'<textarea class="form-control" id="textarea" rows="7">' +
+		'<label for="textarea1">Texto base</label>' +
+		'<textarea onkeyup="updateTemplate(this)" class="form-control" id="textarea1" rows="7">' +
 		messageBase.join("\n") +
 		"</textarea>" +
 		"</div>" +
@@ -288,14 +288,14 @@ function displayHtmlTemplate() {
 	var test = '<div class="message-dialogue">' +
 		'<div class="my-message">' +
 		'<p>Olá <b>NOME DO PACIENTE</b>, espero que esteja bem. 😊</p>' +
-		'<p>Somos da Clínica de Olhos <b>IMAV</b> e estamos entrando em contato' +
+		'<p>Somos da Clínica de Olhos <b>IMAV</b> e estamos entrando em contato ' +
 		'para confirmar seu exame e/ou consulta conosco.</p>' +
 		'<p>Serviço: <b id="servico-temp">' + excel_service + '</b></p>' +
 		'<p>Data: <b id="data-temp">' + excel_date_row + '</b></p>' +
 		'<p>Hora: <b>08:44</b></p>' +
 		'<p>Medico: <b id="medico-temp">' + excel_doctor + '</b></p>' +
 		'<p></p>' +
-		'<p><div id="texto-temp"><b>' + messageBase.join("\n") + '</b></div></p><br>' +
+		'<p><b id="texto-temp">' + messageBase.join("\n") + '</b></p><br>' +
 		'<p>Podemos confirmar sua presença?</p>' +
 		'<p>Aguardamos sua confirmação.</p>' +
 		'<p>Obrigado</p>' +
@@ -478,7 +478,7 @@ function checkMessageType() {
 }
 
 function saveArrayOfMessage() {
-	let textArea = document.getElementById("textarea");
+	let textArea = document.getElementById("textarea1");
 	messageBaseToBeSentToServer = [];
 	messageBaseToBeSentToServer = textArea.value.split("\n");
 }
@@ -527,7 +527,10 @@ const messageMapeamento = [
 	"Se possível, chegue com pelo menos 10 minutos de antecedência."
 ];
 
-
+function updateTemplate(e) {
+	document.getElementById("texto-temp").innerHTML = "";
+	document.getElementById("texto-temp").innerHTML = e.value;
+}
 
 
 
