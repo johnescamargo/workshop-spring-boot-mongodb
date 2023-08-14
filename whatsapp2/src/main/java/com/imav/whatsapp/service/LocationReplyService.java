@@ -40,7 +40,7 @@ public class LocationReplyService {
 
 		try {
 
-			try (InputStream inputStream = getClass().getResourceAsStream("/json/Location.json");
+			try (InputStream inputStream = getClass().getResourceAsStream("/json/location.json");
 					BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream))) {
 				json = reader.lines().collect(Collectors.joining(System.lineSeparator()));
 			}

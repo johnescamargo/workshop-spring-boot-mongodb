@@ -60,7 +60,8 @@ public class MessageRestController {
 		logger.info("Sending POST /send-chat");
 		logger.info(msg);
 
-		int ownerOfMessage = 0;// O (zero) is from us | 1 (one) is from customers
+		// O (zero) is from us | 1 (one) is from customers
+		int ownerOfMessage = 0;
 
 		try {
 			messageService.sendMessage(msg, ownerOfMessage);
@@ -93,17 +94,15 @@ public class MessageRestController {
 	@PostMapping("/send")
 	public ResponseEntity<Object> sendInitMessage(@RequestBody MessageInitDto obj) throws Exception {
 
-		logger.info("Sending POST /send");
-		logger.info(obj);
-
 		boolean response = true;
 
-		// response = messageUtil.checkPhoneNumber(obj);//checking if phone number
-		// contains number 9 in the beginning.
+		// Checking if phone number contains number 55 and 9 in the beginning.
+		// This is for mobile phones and national calls
+		response = messageUtil.checkPhoneNumber(obj);
 
 		if (response) {
 			//String msg = messageUtil.messageOrganizer(obj);
-			response = messageService.sendInitMessage(obj); // Call method
+			response = messageService.sendInitMessageImav(obj); // Call method
 
 			return new ResponseEntity<>(response, HttpStatus.OK);
 		} else {
@@ -113,7 +112,6 @@ public class MessageRestController {
 
 	@PostMapping("/sendAll")
 	public List<ResponseMessageSent> sendAllInitMessages(@RequestBody List<MessageInitDto> obj) {
-		logger.info("Sending POST /sendAll");
 
 		List<ResponseMessageSent> list = new ArrayList<>();
 
@@ -125,14 +123,14 @@ public class MessageRestController {
 				boolean response = false;
 
 				boolean checkPhoneNumber = true;
-				// checkPhoneNumber = messageUtil.checkPhoneNumber(obj.get(i));
+				checkPhoneNumber = messageUtil.checkPhoneNumber(obj.get(i));
 
 				if (checkPhoneNumber) {
-					String msg = messageUtil.messageOrganizer(obj.get(i));
-					response = messageService.sendInitMessage(obj.get(i));
+					//String msg = messageUtil.messageOrganizer(obj.get(i));
+					response = messageService.sendInitMessageImav(obj.get(i));
 
 					if (response) {
-						Thread.sleep(200);
+						Thread.sleep(300);
 						resp.setId(obj.get(i).getId());
 						resp.setSent(true);
 						list.add(resp);

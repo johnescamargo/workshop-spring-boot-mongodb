@@ -94,6 +94,9 @@ li a:hover:not(.active) {
 
 .container {
   margin-top: 25px;
+  max-width: 1000px;
+  margin-left: 5px;
+  margin-right: 5px;
 }
 
 /* Dot typing */
@@ -216,3 +219,67 @@ li button:focus {
 .show {
   display: block;
 }
+
+.home-div {
+    display: flex;
+    justify-content: center;
+}
+
+.showcase{
+    min-width: 400px;
+    max-width: 400px;
+    height: fit-content;
+    background-color: rgb(85 87 83 / 29%);
+    display: flex;
+    justify-content: space-around;
+    margin-top: 25px;
+        margin-right: 14px;
+    border-radius: 0.25rem;
+}
+
+.message-dialogue {
+  max-width: 80%;
+  margin-bottom: 25px;
+}
+
+.my-message {
+  border-radius: 10px;
+  display: flow-root;
+  background-color: rgb(188, 233, 229);
+  font-size: 14px;
+  color: rgb(0, 0, 0);
+  margin-bottom: 5px;
+  margin-top: 14px;
+  margin-right: 20px;
+  padding-left: 5px;
+  padding-right: 5px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.my-message-button {
+  border-radius: 10px;
+  text-align: center;
+  height: 29px;
+  background-color: rgb(188, 233, 229);
+  font-size: 14px;
+  color: rgb(0, 0, 0);
+  margin-bottom: 2px;
+  margin-top: 2px;
+  margin-right: 20px;
+  padding-left: 5px;
+  padding-right: 5px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+p {
+	margin: auto;
+    padding-top: 2px;
+    padding-left: 2px;
+}
+
+.time {
+    justify-content: space-between;
+    display: flex;
+}
+
+

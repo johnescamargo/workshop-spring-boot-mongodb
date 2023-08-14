@@ -50,19 +50,17 @@ public class WebhookRestController {
 
 		logger.info("Receiving POST webhook /");
 		logger.info(obj);
-		//System.out.println(obj);
-
-		String resp = "";
+		String type = "";
 
 		try {
 
-			resp = webhookUtil.findTypeOfWebhookMessage(obj);
+			type = webhookUtil.findTypeOfWebhook(obj);
 
-			if (resp.equals("not found")) {
+			if (type.equals("not found")) {
 				return new ResponseEntity<>("Type not found", HttpStatus.NOT_FOUND);
 			}
 
-			webhookService.setWebhookClass(resp, obj);
+			webhookService.checkWebHookType(type, obj);
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -71,7 +69,7 @@ public class WebhookRestController {
 			return new ResponseEntity<>("not found", HttpStatus.NOT_FOUND);
 		}
 
-		return new ResponseEntity<>(resp, HttpStatus.OK);
+		return new ResponseEntity<>(type, HttpStatus.OK);
 	}
 
 }

@@ -24,24 +24,28 @@ public class Customer implements Serializable {
 
 	@Id
 	@Column(length = 20)
-	private String c_phone_number;
+	private String phoneNumber;
 
-	private String c_name;
+	private String name;
 
-	private String c_timestamp;
+	private String timestamp;
+
+	private int step = 0;
 
 	// This attribute is used to check if out BOT will replay or not
-	private String c_timelimit = "0";
+	private String timelimit = "0";
+
+	private String mode = "normal";
 
 	private boolean talk;
 
 	@OneToMany(mappedBy = "customer")
 	private List<CustomerMessage> messages = new ArrayList<>();
 
-	public Customer(String phone_number, String name, String timestamp) {
-		this.c_phone_number = phone_number;
-		this.c_name = name;
-		this.c_timestamp = timestamp;
+	public Customer(String phoneNumber, String name, String timestamp) {
+		this.phoneNumber = phoneNumber;
+		this.name = name;
+		this.timestamp = timestamp;
 		this.talk = false;
 	}
 
@@ -49,28 +53,36 @@ public class Customer implements Serializable {
 
 	}
 
-	public String getC_phone_number() {
-		return c_phone_number;
+	public String getPhoneNumber() {
+		return phoneNumber;
 	}
 
-	public void setC_phone_number(String c_phone_number) {
-		this.c_phone_number = c_phone_number;
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
 	}
 
-	public String getC_name() {
-		return c_name;
+	public String getName() {
+		return name;
 	}
 
-	public void setC_name(String c_name) {
-		this.c_name = c_name;
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	public String getC_timestamp() {
-		return c_timestamp;
+	public String getTimestamp() {
+		return timestamp;
 	}
 
-	public void setC_timestamp(String c_timestamp) {
-		this.c_timestamp = c_timestamp;
+	public void setTimestamp(String timestamp) {
+		this.timestamp = timestamp;
+	}
+
+	public String getTimelimit() {
+		return timelimit;
+	}
+
+	public void setTimelimit(String timelimit) {
+		this.timelimit = timelimit;
 	}
 
 	public List<CustomerMessage> getMessages() {
@@ -81,14 +93,6 @@ public class Customer implements Serializable {
 		this.messages = messages;
 	}
 
-	public String getC_timelimit() {
-		return c_timelimit;
-	}
-
-	public void setC_timelimit(String c_timelimit) {
-		this.c_timelimit = c_timelimit;
-	}
-
 	public boolean isTalk() {
 		return talk;
 	}
@@ -97,9 +101,25 @@ public class Customer implements Serializable {
 		this.talk = talk;
 	}
 
+	public String getMode() {
+		return mode;
+	}
+
+	public void setMode(String mode) {
+		this.mode = mode;
+	}
+
+	public int getStep() {
+		return step;
+	}
+
+	public void setStep(int step) {
+		this.step = step;
+	}
+
 	@Override
 	public int hashCode() {
-		return Objects.hash(c_phone_number, id);
+		return Objects.hash(phoneNumber, id);
 	}
 
 	@Override
@@ -111,13 +131,14 @@ public class Customer implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Customer other = (Customer) obj;
-		return Objects.equals(c_phone_number, other.c_phone_number) && id == other.id;
+		return Objects.equals(phoneNumber, other.phoneNumber) && id == other.id;
 	}
 
 	@Override
 	public String toString() {
-		return "Customer [id=" + id + ", c_phone_number=" + c_phone_number + ", c_name=" + c_name + ", c_timestamp="
-				+ c_timestamp + ", c_timelimit=" + c_timelimit + ", talk=" + talk + ", messages=" + messages + "]";
+		return "Customer [id=" + id + ", phoneNumber=" + phoneNumber + ", name=" + name + ", timestamp=" + timestamp
+				+ ", step=" + step + ", timelimit=" + timelimit + ", mode=" + mode + ", talk=" + talk + ", messages="
+				+ messages + "]";
 	}
 
 }

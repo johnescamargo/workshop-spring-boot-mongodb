@@ -53,10 +53,15 @@ public class MessageUtil {
 		return hashMap;
 	}
 
+	// For Brazilian phone numbers only
 	public boolean checkPhoneNumber(MessageInitDto obj) {
 
-		String phone = String.valueOf(obj.getPhone().charAt(2));
-		if (phone.equals("9")) {
+		int phoneLength = obj.getPhone().length();
+		String phone = String.valueOf(obj.getPhone().charAt(4));
+		String phoneDDI = String.valueOf(obj.getPhone().charAt(0));
+		phoneDDI += String.valueOf(obj.getPhone().charAt(1));
+		
+		if (phone.equals("9") && phoneDDI.equals("55") && phoneLength == 13) {
 			return true;
 		} else {
 			return false;
@@ -107,7 +112,7 @@ public class MessageUtil {
 		String message = "";
 
 		message += "Olá " + dto.getName() + ", espero que esteja bem. 😊" + System.lineSeparator();
-		message += "Somos da Clínica de Olhos *IMAV* e estamos entrando em contato" + System.lineSeparator();
+		message += "Somos da Clínica de Olhos IMAV e estamos entrando em contato" + System.lineSeparator();
 		message += "para confirmar seu exame e/ou consulta conosco." + System.lineSeparator();
 		message += "Serviço: " + dto.getService() + System.lineSeparator();
 		message += "Data: " + dto.getDate() + System.lineSeparator();
@@ -138,6 +143,7 @@ public class MessageUtil {
 		return message;
 	}
 
+	@SuppressWarnings("unchecked")
 	public InitMessageTemplate messageInitOrganizer(MessageInitDto dto) {
 
 		InitMessageTemplate initMessageTemplate = new InitMessageTemplate();
@@ -235,14 +241,19 @@ public class MessageUtil {
 		return buttonMessage;
 	}
 
+	/*
+	 * Set messages in one line because template does not accept 
+	 * "next line" or more than 4 spaces
+	 */
 	private String setMessages(MessageInitDto dto) {
+		
 		String message = "";
+		
 		for (int i = 0; i < dto.getMessages().size(); i++) {
 			message += dto.getMessages().get(i);
 		}
-
-		System.out.println("Messages ********************** ");
-		System.out.println(message);
+		//System.out.println("Messages ********************** ");
+		//System.out.println(message);
 		return message;
 	}
 

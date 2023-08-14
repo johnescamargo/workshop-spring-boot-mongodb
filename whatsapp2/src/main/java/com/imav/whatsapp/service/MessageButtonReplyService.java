@@ -19,12 +19,14 @@ import com.imav.whatsapp.entity.ConfirmationResponse;
 import com.imav.whatsapp.entity.Customer;
 import com.imav.whatsapp.entity.ImageDb;
 import com.imav.whatsapp.entity.ImavMessage;
+import com.imav.whatsapp.entity.WantsToTalk;
 import com.imav.whatsapp.model.ButtonReply;
 import com.imav.whatsapp.model.ImageResponse;
 import com.imav.whatsapp.model.MessageModel;
 import com.imav.whatsapp.repository.ConfirmationResponseRepository;
 import com.imav.whatsapp.repository.CustomerRepository;
 import com.imav.whatsapp.repository.ImageDbRepository;
+import com.imav.whatsapp.repository.WantsToTalkRepository;
 import com.imav.whatsapp.resource.DBImavMessageButtonReplyResource;
 import com.imav.whatsapp.resource.DBMessageResource;
 import com.imav.whatsapp.service.http.HttpImageService;
@@ -36,12 +38,12 @@ import com.imav.whatsapp.webhookModel.WebhookReceivedMediaMessageWithImage;
 public class MessageButtonReplyService {
 
 	private Logger logger = LogManager.getLogger(MessageButtonReplyService.class);
-	
+
 	private static Gson GSON = new Gson();
 
 	@Autowired
 	private HttpMessageService httpMessageService;
-	
+
 	@Autowired
 	private HttpImageService httpImageService;
 
@@ -58,50 +60,50 @@ public class MessageButtonReplyService {
 	private DBMessageResource dbMessageResource;
 
 	@Autowired
+	private SendWebSocketService websocket;
+
+	@Autowired
 	private ConfirmationResponseRepository confirmationRespository;
 
 	@Autowired
 	private CustomerRepository customerRepository;
-	
+
 	@Autowired
 	private ImageDbRepository imageDbRepository;
+
+	@Autowired
+	private WantsToTalkRepository talkRepository;
 
 	public void sendButtonReplyYesNo(MessageInitDto dto) {
 
 		String json = "";
 		HashMap<String, String> hashMap = new HashMap<>();
-		String from = dto.getPhone();
-
-		boolean limit = checkTimelimit(from);
 
 		try {
 
-			if (!limit) {
+			String path = ("/json/button_reply_yes_no.json");
 
-				String path = ("/json/ButtonReplyYesNo.json");
+			json = readJsonFiles(path);
 
-				json = readJsonFiles(path);
+			ButtonReply button = new ButtonReply();
 
-				ButtonReply button = new ButtonReply();
+			button = GSON.fromJson(json, ButtonReply.class);
+			button.setTo(dto.getPhone());
+			String jsonMessage = GSON.toJson(button, ButtonReply.class);
 
-				button = GSON.fromJson(json, ButtonReply.class);
-				button.setTo(dto.getPhone());
-				String jsonMessage = GSON.toJson(button, ButtonReply.class);
+			String response = httpMessageService.sendMessage(jsonMessage);
 
-				String response = httpMessageService.sendMessage(jsonMessage);
+			hashMap = messageUtil.checkResponseMessageSent(response);
+			String resp = hashMap.get("resp");
 
-				hashMap = messageUtil.checkResponseMessageSent(response);
-				String resp = hashMap.get("resp");
-
-				if (resp.equals("success")) {
-					String idWamid = hashMap.get("idWamid");
-					dbOurButtonReplyResource.saveImavMessageButtonReplyIntoDatabase(button, idWamid);
-					websocketService.convertMessageButtonSend(button, idWamid);
-					saveListOfConfirmationResponse(dto, idWamid);
-				} else {
-					String timestamp = hashMap.get("timestamp");
-					System.out.println("Message Not sent - timestamp: " + timestamp);
-				}
+			if (resp.equals("success")) {
+				String idWamid = hashMap.get("idWamid");
+				dbOurButtonReplyResource.saveImavMessageButtonReplyIntoDatabase(button, idWamid);
+				websocketService.convertMessageButtonSend(button, idWamid);
+				saveListOfConfirmationResponse(dto, idWamid);
+			} else {
+				String timestamp = hashMap.get("timestamp");
+				System.out.println("Message Not sent - timestamp: " + timestamp);
 			}
 
 		} catch (Exception e) {
@@ -109,58 +111,18 @@ public class MessageButtonReplyService {
 		}
 	}
 
-	public void sendButtonResponse(String from) {
-
-		HashMap<String, String> hashMap = new HashMap<>();
-		boolean limit = checkTimelimit(from);
-
-		try {
-
-			if (!limit) {
-				String path = ("/json/MessageResponse.json");
-
-				String json = readJsonFiles(path);
-
-				ButtonReply button = new ButtonReply();
-
-				button = GSON.fromJson(json, ButtonReply.class);
-				button.setTo(from);
-				String jsonMessage = GSON.toJson(button, ButtonReply.class);
-
-				String response = httpMessageService.sendMessage(jsonMessage);
-
-				hashMap = messageUtil.checkResponseMessageSent(response);
-				String resp = hashMap.get("resp");
-
-				if (resp.equals("success")) {
-					String idWamid = hashMap.get("idWamid");
-					dbOurButtonReplyResource.saveImavMessageButtonReplyIntoDatabase(button, idWamid);
-					websocketService.convertMessageButtonSend(button, idWamid);
-				} else {
-					System.out.println("Message not sent");
-				}
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-			logger.info("sendButtonResponse error *****");
-			logger.info(e);
-		}
-	}
-
-	public void sendButtonResponseWorkOff(String from) {
+	public void sendButtonResponse(String phone, String path) {
 
 		HashMap<String, String> hashMap = new HashMap<>();
 
 		try {
-
-			String path = ("/json/MessageResponseWorkOff.json");
 
 			String json = readJsonFiles(path);
 
 			ButtonReply button = new ButtonReply();
 
 			button = GSON.fromJson(json, ButtonReply.class);
-			button.setTo(from);
+			button.setTo(phone);
 			String jsonMessage = GSON.toJson(button, ButtonReply.class);
 
 			String response = httpMessageService.sendMessage(jsonMessage);
@@ -183,39 +145,77 @@ public class MessageButtonReplyService {
 		}
 	}
 
-	public void messageZeroResponse(String from, String name) {
+
+	public void messageTalkToUsResponse(String phone, String name) {
 
 		String json = "";
 		int ownerOfMessage = 0;
 		HashMap<String, String> hashMap = new HashMap<>();
-		boolean limit = checkTimelimit(from);
 
 		try {
 
-			if (limit) {
+			String path = ("/json/message_talk_to_us_response.json");
 
-				String path = ("/json/MessageZeroResponse.json");
+			json = readJsonFiles(path);
 
-				json = readJsonFiles(path);
+			MessageModel message = new MessageModel();
 
-				MessageModel message = new MessageModel();
+			message = GSON.fromJson(json, MessageModel.class);
+			message.setTo(phone);
+			String jsonMessage = GSON.toJson(message, MessageModel.class);
 
-				message = GSON.fromJson(json, MessageModel.class);
-				message.setTo(from);
-				String jsonMessage = GSON.toJson(message, MessageModel.class);
+			String response = httpMessageService.sendMessage(jsonMessage);
+			hashMap = messageUtil.checkResponseMessageSent(response);
+			String resp = hashMap.get("resp");
 
-				String response = httpMessageService.sendMessage(jsonMessage);
-				hashMap = messageUtil.checkResponseMessageSent(response);
-				String resp = hashMap.get("resp");
+			if (resp.equals("success")) {
+				String idWamid = hashMap.get("idWamid");
+				ImavMessage mess = dbMessageResource.saveImavMessageIntoDatabase(message, name, idWamid, false);
+				updateCustomerWantToTalk(phone);
+				websocketService.convertMessageSendChat(mess, ownerOfMessage);
+			} else {
+				String timestamp = hashMap.get("timestamp");
+				System.out.println("Message Not sent - timestamp: " + timestamp);
+			}
 
-				if (resp.equals("success")) {
-					String idWamid = hashMap.get("idWamid");
-					ImavMessage mess = dbMessageResource.saveImavMessageIntoDatabase(message, name, idWamid, false);
-					websocketService.convertMessageSendChat(mess, ownerOfMessage);
-				} else {
-					String timestamp = hashMap.get("timestamp");
-					System.out.println("Message Not sent - timestamp: " + timestamp);
-				}
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.info("messageZeroResponse error *****");
+			logger.info(e);
+		}
+
+	}
+	
+	public void messageTalkToUsResponseDayOff(String phone, String name) {
+
+		String json = "";
+		int ownerOfMessage = 0;
+		HashMap<String, String> hashMap = new HashMap<>();
+
+		try {
+
+			String path = ("/json/message_talk_to_us_response_day_off.json");
+
+			json = readJsonFiles(path);
+
+			MessageModel message = new MessageModel();
+
+			message = GSON.fromJson(json, MessageModel.class);
+			message.setTo(phone);
+			String jsonMessage = GSON.toJson(message, MessageModel.class);
+
+			String response = httpMessageService.sendMessage(jsonMessage);
+			hashMap = messageUtil.checkResponseMessageSent(response);
+			String resp = hashMap.get("resp");
+
+			if (resp.equals("success")) {
+				String idWamid = hashMap.get("idWamid");
+				ImavMessage mess = dbMessageResource.saveImavMessageIntoDatabase(message, name, idWamid, false);
+				updateCustomerWantToTalk(phone);
+				websocketService.convertMessageSendChat(mess, ownerOfMessage);
+			} else {
+				String timestamp = hashMap.get("timestamp");
+				System.out.println("Message Not sent - timestamp: " + timestamp);
 			}
 
 		} catch (Exception e) {
@@ -226,39 +226,35 @@ public class MessageButtonReplyService {
 
 	}
 
-	public void messageNoAudio(String from, String name) {
+	public void messageNoAudio(String phone, String name) {
 
 		String json = "";
 		int ownerOfMessage = 0;
 		HashMap<String, String> hashMap = new HashMap<>();
-		boolean limit = checkTimelimit(from);
 
 		try {
 
-			if (!limit) {
-				String path = ("/json/MessageNoAudio.json");
+			String path = ("/json/message_no_audio.json");
 
-				json = readJsonFiles(path);
+			json = readJsonFiles(path);
 
-				MessageModel message = new MessageModel();
+			MessageModel message = new MessageModel();
 
-				message = GSON.fromJson(json, MessageModel.class);
-				message.setTo(from);
-				String jsonMessage = GSON.toJson(message, MessageModel.class);
+			message = GSON.fromJson(json, MessageModel.class);
+			message.setTo(phone);
+			String jsonMessage = GSON.toJson(message, MessageModel.class);
 
-				String response = httpMessageService.sendMessage(jsonMessage);
-				hashMap = messageUtil.checkResponseMessageSent(response);
-				String resp = hashMap.get("resp");
+			String response = httpMessageService.sendMessage(jsonMessage);
+			hashMap = messageUtil.checkResponseMessageSent(response);
+			String resp = hashMap.get("resp");
 
-				if (resp.equals("success")) {
-					String idWamid = hashMap.get("idWamid");
-					ImavMessage mess = dbMessageResource.saveImavMessageIntoDatabase(message, name, idWamid, false);
-					websocketService.convertMessageSendChat(mess, ownerOfMessage);
-				} else {
-					String timestamp = hashMap.get("timestamp");
-					System.out.println("Message Not sent - timestamp: " + timestamp);
-				}
-
+			if (resp.equals("success")) {
+				String idWamid = hashMap.get("idWamid");
+				ImavMessage mess = dbMessageResource.saveImavMessageIntoDatabase(message, name, idWamid, false);
+				websocketService.convertMessageSendChat(mess, ownerOfMessage);
+			} else {
+				String timestamp = hashMap.get("timestamp");
+				System.out.println("Message Not sent - timestamp: " + timestamp);
 			}
 
 		} catch (Exception e) {
@@ -315,7 +311,7 @@ public class MessageButtonReplyService {
 		return json;
 	}
 
-	private boolean checkTimelimit(String phone) {
+	public boolean checkTimelimit(String phone) {
 		Customer customer = new Customer();
 
 		try {
@@ -328,7 +324,7 @@ public class MessageButtonReplyService {
 			}
 
 			// check if limit is less than 7200 2 hours calc
-			long timelimit = Long.parseLong(customer.getC_timelimit());
+			long timelimit = Long.parseLong(customer.getTimelimit());
 			long timestamp = System.currentTimeMillis() / 1000;
 
 			long result = timestamp - timelimit;
@@ -352,75 +348,85 @@ public class MessageButtonReplyService {
 		ImageResponse imageResp = new ImageResponse();
 
 		try {
-			
+
 			img = GSON.fromJson(obj, WebhookReceivedMediaMessageWithImage.class);
-			String idImage = img
-					.getEntry().get(0)
-					.getChanges().get(0)
-					.getValue()
-					.getMessages().get(0)
-					.getImage()
+			String idImage = img.getEntry().get(0).getChanges().get(0).getValue().getMessages().get(0).getImage()
 					.getId();
-			
+
 			// Text from image
-			String caption = img
-					.getEntry().get(0)
-					.getChanges().get(0)
-					.getValue()
-					.getMessages().get(0)
-					.getImage()
+			String caption = img.getEntry().get(0).getChanges().get(0).getValue().getMessages().get(0).getImage()
 					.getCaption();
-			
+
 			// Customer's phone number from image WebHook
-			String phone = img
-					.getEntry().get(0)
-					.getChanges().get(0)
-					.getValue()
-					.getContacts().get(0)
-					.getWa_id();
-			
-			String idWamid = img
-					.getEntry().get(0)
-					.getChanges().get(0)
-					.getValue()
-					.getMessages().get(0)
-					.getId();
-			
+			String phone = img.getEntry().get(0).getChanges().get(0).getValue().getContacts().get(0).getWa_id();
+
+			String idWamid = img.getEntry().get(0).getChanges().get(0).getValue().getMessages().get(0).getId();
+
 			imageResp = httpImageService.getImageUrl(idImage);
 			byte[] content = httpImageService.getImage(imageResp);
-			
+
 			// TODO
-			// make a statement for errors 
+			// make a statement for errors
 			saveImageDb(imageResp, caption, idImage, content, phone, idWamid, type);
-						
+
 		} catch (Exception e) {
 			e.printStackTrace();
-			
-			logger.info("Image  and caption not saved... " + Long.toString(System.currentTimeMillis() / 1000));			
+
+			logger.info("Image  and caption not saved... " + Long.toString(System.currentTimeMillis() / 1000));
 		}
 
 	}
-	
-	private void saveImageDb (ImageResponse imageResp, String caption, String idImage, byte[] content, String phone, String idWamid, String type) {
+
+	private void saveImageDb(ImageResponse imageResp, String caption, String idImage, byte[] content, String phone,
+			String idWamid, String type) {
 		ImageDb imgDb = new ImageDb();
-				
+
 		try {
-			
+
 			imgDb.setCaption(caption);
 			imgDb.setId(idImage);
 			imgDb.setMimeType(imageResp.getMime_type());
 			imgDb.setTimestamp(Long.toString(System.currentTimeMillis() / 1000));
-			imgDb.setContent(content);;
+			imgDb.setContent(content);
 			imgDb.setPhone(phone);
 			imgDb.setIdWamid(idWamid);
 			imgDb.setType(type);
-			
+
 			imageDbRepository.save(imgDb);
 			websocketService.convertImageSendChat(imgDb);
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	public void updateCustomerWantToTalk(String phone) {
+
+		Customer customer = new Customer();
+
+		try {
+
+			String timestamp = Long.toString(System.currentTimeMillis() / 1000);
+			customer = customerRepository.findByPhoneNumber(phone);
+			customer.setTalk(true);
+			customer.setTimelimit(timestamp);
+			
+			String name = customer.getName();
+			
+			WantsToTalk talk = new WantsToTalk(name, phone);
+			
+			talkRepository.save(talk);
+			customerRepository.save(customer);
+			
+			websocket.updateWantsToTalk();
+			websocket.updateWebsocket();
+
+
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
 	}
 
 }

@@ -3,9 +3,11 @@ package com.imav.whatsapp.resource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.imav.whatsapp.entity.ConfirmationResponse;
 import com.imav.whatsapp.entity.ImavButtonMessage;
 import com.imav.whatsapp.entity.ImavLocationMessage;
 import com.imav.whatsapp.entity.ImavMessage;
+import com.imav.whatsapp.repository.ConfirmationResponseRepository;
 import com.imav.whatsapp.repository.ImavButtonMessageRepository;
 import com.imav.whatsapp.repository.ImavLocationMessageRepository;
 import com.imav.whatsapp.repository.ImavMessageRepository;
@@ -21,8 +23,16 @@ public class DBStatusesResource {
 
 	@Autowired
 	private ImavLocationMessageRepository imavLocationMessageRepository;
+	
+	@Autowired
+	private ConfirmationResponseRepository confirmationRepository;
 
 	public boolean findIdWamid(String phone, String idWamid, int statusCode) {
+		
+		// Confirmation status
+		if(confirmationRepository.existsByIdWamid(idWamid)) {
+			findConfirmationIdWamid(phone, idWamid, statusCode);
+		}
 
 		if (imavMessageRepository.existsByIdWamid(idWamid)) {
 			findImavMessage(phone, idWamid, statusCode);
@@ -39,6 +49,7 @@ public class DBStatusesResource {
 		} else {
 			return false;
 		}
+		
 	}
 
 	public boolean findImavMessage(String phone, String idWamid, int statusCode) {
@@ -117,6 +128,41 @@ public class DBStatusesResource {
 		}
 		return true;
 	}
+	
+	public boolean findConfirmationIdWamid(String phone, String idWamid, int statusCode) {
+		
+		ConfirmationResponse confirmationResponse = new ConfirmationResponse();
+
+		try {
+			confirmationResponse = confirmationRepository.findByIdWamid(idWamid);
+
+			int status = confirmationResponse.getStatus();
+
+			if (status == 1) {
+				confirmationResponse.setStatus(statusCode);
+				updateConfirmation(confirmationResponse);
+			}
+			
+			if (status == 2) {
+				confirmationResponse.setStatus(statusCode);
+				confirmationResponse.setResponse("RECEBIDO");
+				updateConfirmation(confirmationResponse);
+			}
+
+			if (status == 3 || statusCode == 3) {
+				confirmationResponse.setStatus(3);
+				confirmationResponse.setResponse("VISUALIZADO");
+				
+				updateConfirmation(confirmationResponse);
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println(confirmationResponse);
+			return false;
+		}
+		return true;
+	}
 
 	public void updateImavMessage(ImavMessage message) {
 		try {
@@ -137,6 +183,14 @@ public class DBStatusesResource {
 	public void updateImavLocationMessage(ImavLocationMessage message) {
 		try {
 			imavLocationMessageRepository.save(message);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void updateConfirmation(ConfirmationResponse confirmation) {
+		try {
+			confirmationRepository.save(confirmation);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

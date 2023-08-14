@@ -140,7 +140,7 @@ function wantsTotalkToHtml(data) {
 	document.getElementById("exit").innerHTML = dataHtml;
 }
 
-function putCustomersIntoArray(customers) {
+function putCustomersIntoArrayOld(customers) {
 	customerArray = [];
 
 	if (customerObject !== null) {
@@ -155,6 +155,26 @@ function putCustomersIntoArray(customers) {
 				customerArray.push(customers[i]);
 			}
 		}
+		loopShowCustomers();
+	} else {
+		if (customers !== "") {
+			for (var i = 0; i < customers.length; i++) {
+				customerArray.push(customers[i]);
+			}
+			loopShowCustomers();
+		}
+	}
+
+}
+
+function putCustomersIntoArray(customers) {
+	customerArray = [];
+
+	if (customerObject !== null) {
+		for (var i = 0; i < customers.length; i++) {
+				customerArray.push(customers[i]);
+			}		
+		
 		loopShowCustomers();
 	} else {
 		if (customers !== "") {
@@ -194,9 +214,9 @@ function sendMessageChat() {
 function loopShowCustomers() {
 	$("#box-customers").html("");
 
-	if (customerObject !== null) {
-		showCustomer(customerObject);
-	}
+//	if (customerObject !== null) {
+//		showCustomer(customerObject);
+//	}
 
 	for (var i = 0; i < customerArray.length; i++) {
 		if (customerObject !== customerArray[i]) {
@@ -495,7 +515,7 @@ function loadCustomers() {
 	}).then(function(response) {
 		if (response.status === 200) {
 			putCustomersIntoArray(response.data);
-			console.log("Ok...");
+			//console.log("Ok...");
 		} else if (response.status === 404) {
 			console.log("404 - Pacientes não encontrados...");
 		} else {
@@ -518,7 +538,7 @@ function loadCustomerMessages(phoneNumber) {
 				showCustomerHeader(customerObject);
 				loadMessages(response.data);
 				loadCustomers();
-				console.log("Ok...");
+				//console.log("Ok...");
 			} else if (response.status === 404) {
 				console.log("404 - Mensagens não encontradas...");
 			} else {
@@ -542,6 +562,7 @@ function loadMessages(message) {
 		if (customerObject.phone_number === message[0].phone_from) {
 			loopShowMessages();
 		}
+
 	}
 }
 
@@ -556,7 +577,27 @@ function replyClick(clickedId) {
 			if (response.status === 200) {
 				customerObject = response.data;
 				conversationNumber = clickedId;
+				turnOffTalk(conversationNumber);
 				loadCustomerMessages(clickedId);
+				
+			} else if (response.status === 404) {
+				console.log("404 - Paciente não encontrado...");
+			} else {
+				console.log(response);
+			}
+		});
+}
+
+function turnOffTalk(number) {
+	axios
+		.get("/customer/turnofftalk", {
+			params: {
+				phone: number,
+			},
+		})
+		.then(function(response) {
+			if (response.status === 200) {
+				console.log("ok off");
 			} else if (response.status === 404) {
 				console.log("404 - Paciente não encontrado...");
 			} else {

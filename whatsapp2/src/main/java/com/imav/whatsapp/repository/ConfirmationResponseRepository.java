@@ -21,4 +21,8 @@ public interface ConfirmationResponseRepository extends JpaRepository<Confirmati
 	ConfirmationResponse findById_Wamid(@Param("id_wamid") String id_wamid);
 	
 	Boolean existsByIdWamid(@Param("id_wamid") String id_wamid);
+
+	List<ConfirmationResponse> findByServiceDate(String service_date);
+
+	ConfirmationResponse findByIdWamid(String idWamid);
 }

@@ -26,12 +26,13 @@ public class ConfirmationResponseController {
 	private Logger logger = LogManager.getLogger(ConfirmationResponseController.class);
 
 	@GetMapping("/getdate")
-	public ResponseEntity<List<ConfirmationResponse>> getByShippingDate(@RequestParam String shippingDate) {
-		logger.info("Get /list of date...");
+	public ResponseEntity<List<ConfirmationResponse>> getByShippingDate(@RequestParam String appointmentDate) {
+		
 		List<ConfirmationResponse> objs = new ArrayList<>();
 
 		try {
-			objs = confirmationRespository.findByShippingDate(shippingDate);
+			//objs = confirmationRespository.findByShippingDate(appointmentDate);
+			objs = confirmationRespository.findByServiceDate(appointmentDate);
 
 		} catch (Exception e) {
 			e.printStackTrace();

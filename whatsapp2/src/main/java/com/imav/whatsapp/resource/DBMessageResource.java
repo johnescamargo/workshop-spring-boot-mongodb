@@ -63,20 +63,20 @@ public class DBMessageResource {
 	@Autowired
 	private ImageDbRepository imageRepository;
 
-	public List<GenericMessageDto> loadMessages(String phoneFrom) {
+	public List<GenericMessageDto> loadMessages(String phone) {
 		List<GenericMessageDto> dtos = new ArrayList<>();
 
 		try {
 
-			dtos.addAll(convertCustomerMessage(messageRepo.findAllByPhone_from(phoneFrom)));
+			dtos.addAll(convertCustomerMessage(messageRepo.findAllByPhone_from(phone)));
 
-			dtos.addAll(convertImavMessage(imavMessageRepo.findAllByPhone_to(phoneFrom)));
+			dtos.addAll(convertImavMessage(imavMessageRepo.findAllByPhone_to(phone)));
 
-			dtos.addAll(convertImavButtonMessage(imavButtonMessageRepository.findAllByPhone_to(phoneFrom)));
+			dtos.addAll(convertImavButtonMessage(imavButtonMessageRepository.findAllByPhone_to(phone)));
 
-			dtos.addAll(convertImavLocationMessage(locationRepository.findAllByPhone_to(phoneFrom)));
+			dtos.addAll(convertImavLocationMessage(locationRepository.findAllByPhone_to(phone)));
 
-			dtos.addAll(convertImageDb(imageRepository.findAllByPhone(phoneFrom)));
+			dtos.addAll(convertImageDb(imageRepository.findAllByPhone(phone)));
 
 			Collections.sort(dtos, Comparator.comparing(GenericMessageDto::getTimestamp));
 
@@ -93,16 +93,6 @@ public class DBMessageResource {
 		ImavMessage messagedb = new ImavMessage();
 		String timestamp = Long.toString(System.currentTimeMillis() / 1000);
 		String phoneNumber = message.getTo();
-
-		boolean exist = customerRepository.existsById(message.getTo());
-
-		if (!exist) {
-			Customer customer = new Customer();
-			customer.setC_name(name);
-			customer.setC_phone_number(message.getTo());
-			customer.setC_timestamp(timestamp);
-			saveCustomerIntoDB(customer);
-		}
 
 		messagedb.setStatus(1);
 		messagedb.setText(message.getText().getBody());
@@ -176,7 +166,7 @@ public class DBMessageResource {
 		updateCustomersTimestamp(phone, timestamp);
 	}
 
-	public boolean saveMessageIntoDatabase(WebhookReceivedTextMessage messageReceived, Customer customer) {
+	public void saveMessageIntoDatabase(WebhookReceivedTextMessage messageReceived, Customer customer) {
 		CustomerMessage message = new CustomerMessage();
 		// String timestamp =
 		// messageReceived.getEntry().get(0).getChanges().get(0).getValue().getMessages().get(0).getTimestamp();
@@ -185,8 +175,7 @@ public class DBMessageResource {
 		String phone = messageReceived.getEntry().get(0).getChanges().get(0).getValue().getContacts().get(0).getWa_id();
 
 		message.setCustomer(customer);
-		message.setM_name(messageReceived.getEntry().get(0).getChanges().get(0).getValue().getContacts().get(0)
-				.getProfile().getName());
+		message.setM_name(customer.getName());
 		message.setM_phone_from(phone);
 		message.setM_status(1);// **** TODO check how to set ENUMS
 		message.setM_text(messageReceived.getEntry().get(0).getChanges().get(0).getValue().getMessages().get(0)
@@ -201,14 +190,14 @@ public class DBMessageResource {
 		logger.info("Saving messagge: text....");
 		updateCustomersTimestamp(phone, timestamp);
 
-		String responseBody = messageReceived.getEntry().get(0).getChanges().get(0).getValue().getMessages().get(0)
-				.getText().getBody();
+//		String responseBody = messageReceived.getEntry().get(0).getChanges().get(0).getValue().getMessages().get(0)
+//				.getText().getBody();
 
-		if (responseBody.equals("0")) {
-			return true;
-		} else {
-			return false;
-		}
+//		if (responseBody.equals("0")) {
+//			return true;
+//		} else {
+//			return false;
+//		}
 
 	}
 
@@ -223,8 +212,7 @@ public class DBMessageResource {
 		String phone = obj.getEntry().get(0).getChanges().get(0).getValue().getContacts().get(0).getWa_id();
 
 		message.setCustomer(customer);
-		message.setM_name(
-				obj.getEntry().get(0).getChanges().get(0).getValue().getContacts().get(0).getProfile().getName());
+		message.setM_name(customer.getName());
 		message.setM_phone_from(phone);
 		message.setM_status(1);// **** TODO check how to set ENUMS
 		message.setM_text(obj.getEntry().get(0).getChanges().get(0).getValue().getMessages().get(0).getInteractive()
@@ -250,7 +238,7 @@ public class DBMessageResource {
 		String phone = obj.getEntry().get(0).getChanges().get(0).getValue().getContacts().get(0).getWa_id();
 
 		message.setCustomer(customer);
-		message.setM_name(obj.getEntry().get(0).getChanges().get(0).getValue().getContacts().get(0).getProfile().getName());
+		message.setM_name(customer.getName());
 		message.setM_phone_from(phone);
 		message.setM_status(1);// **** TODO check how to set ENUMS
 		message.setM_text(obj.getEntry().get(0).getChanges().get(0).getValue().getMessages().get(0).getButton().getText());
@@ -275,8 +263,7 @@ public class DBMessageResource {
 		String timestamp = Long.toString(System.currentTimeMillis() / 1000);
 
 		message.setCustomer(customer);
-		message.setM_name(interactive.getEntry().get(0).getChanges().get(0).getValue().getContacts().get(0).getProfile()
-				.getName());
+		message.setM_name(customer.getName());
 		message.setM_phone_from(phone);
 		message.setM_status(1);// **** TODO check how to set ENUMS
 		message.setM_text(interactive.getEntry().get(0).getChanges().get(0).getValue().getMessages().get(0)
@@ -513,7 +500,7 @@ public class DBMessageResource {
 
 		try {
 			customer = customerRepository.findByPhoneNumber(phoneNumber);
-			customer.setC_timestamp(timestamp);
+			customer.setTimestamp(timestamp);
 			customerRepository.save(customer);
 			logger.info(phoneNumber + ": Updated!");
 		} catch (Exception e) {
@@ -526,7 +513,7 @@ public class DBMessageResource {
 
 		try {
 			customer = customerRepository.findByPhoneNumber(phoneNumber);
-			customer.setC_timestamp(timestamp);
+			customer.setTimestamp(timestamp);
 			customer.setTalk(true);
 			customerRepository.save(customer);
 			logger.info(phoneNumber + ": Updated!");
@@ -540,8 +527,8 @@ public class DBMessageResource {
 
 		try {
 			customer = customerRepository.findByPhoneNumber(phoneNumber);
-			customer.setC_timestamp(timestamp);
-			customer.setC_timelimit(timestamp);
+			customer.setTimestamp(timestamp);
+			customer.setTimelimit(timestamp);
 			customerRepository.save(customer);
 			logger.info(phoneNumber + " phone and timelimit: Updated!");
 		} catch (Exception e) {

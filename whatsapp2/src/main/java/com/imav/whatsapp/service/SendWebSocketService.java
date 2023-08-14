@@ -169,7 +169,7 @@ public class SendWebSocketService {
 		sendMessageToWebSocket(dto);
 	}
 
-	public void convertMessageFromOutsideSend(WebhookReceivedTextMessage message, int code) {
+	public void convertMessageFromCustomer(WebhookReceivedTextMessage message, int code) {
 		GenericMessageDto dto = new GenericMessageDto();
 
 		dto.setStatus(1);
@@ -336,5 +336,6 @@ public class SendWebSocketService {
 		sendMessageToWebSocket(dto);
 
 	}
+
 
 }

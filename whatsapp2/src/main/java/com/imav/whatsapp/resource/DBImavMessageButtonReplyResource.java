@@ -73,6 +73,9 @@ public class DBImavMessageButtonReplyResource {
 
 		try {
 
+			String phone = obj.getB_to();
+			String timestamp = obj.getB_timestamp();
+			
 			ImavButtonMessage button = new ImavButtonMessage();
 			List<ImavButton> buttonMessages = new ArrayList<>();
 
@@ -97,7 +100,7 @@ public class DBImavMessageButtonReplyResource {
 			}
 
 			buttonMessageRepo.saveAll(buttonMessages);
-			updateCustomersTimestamp(obj.getB_to(), obj.getB_timestamp());
+			updateCustomersTimestamp(phone, timestamp);
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -114,12 +117,11 @@ public class DBImavMessageButtonReplyResource {
 	}
 
 	public void updateCustomersTimestamp(String phoneNumber, String timestamp) {
-		Customer customer = new Customer();
 
 		try {
-
+			Customer customer = new Customer();
 			customer = customerRepository.findByPhoneNumber(phoneNumber);
-			customer.setC_timestamp(timestamp);
+			customer.setTimestamp(timestamp);
 			customerRepository.save(customer);
 			System.out.println(phoneNumber + ": Updated!");
 		} catch (Exception e) {

@@ -10,7 +10,7 @@ function loadContent(date) {
 	axios
 		.get("/confirmation/getdate", {
 			params: {
-				shippingDate: formattedDate,
+				appointmentDate: formattedDate,
 			},
 		})
 		.then(function(data) {
@@ -30,14 +30,14 @@ function htmlDisplay(data) {
 		'<table class="table table-striped table-bordered">' +
 		'<thead class="thead-dark">' +
 		"<tr>" +
-		"<th>Data do Serviço</th>" +
+		"<th>Data do Envio</th>" +
 		"<th>Medico</th>" +
 		"<th>Serviço</th>" +
 		"<th>Nome</th>" +
 		"<th>Telefone</th>" +
 		"<th>Hora</th>" +
 		"<th>Resposta</th>" +
-		"<th>Data do envio</th>" +
+		"<th>Data da Consulta/Exame</th>" +
 		"</tr>" +
 		"</thead>" +
 		"<tbody>";
@@ -47,8 +47,8 @@ function htmlDisplay(data) {
 			'<tr id="' +
 			data[i].id +
 			'">' +
-			'<th id="data">' +
-			data[i].serviceDate +
+			'<th id="data-envio">' +
+			data[i].shippingDate +
 			"</th>" +
 			'<th id="medico">' +
 			data[i].doctor +
@@ -67,12 +67,27 @@ function htmlDisplay(data) {
 			"</th>";
 		if (data[i].response === "SIM") {
 			table_output +=
-				'<th style="background-color: green;color: white;display: flex;justify-content: center;border-color: green;" id="resposta">' +
+				'<th style="background-color: green;color: white;display: flex;justify-content: center;border-color: #014900;" id="resposta">' +
 				data[i].response +
 				"</th>";
-		} else if (data[i].response === "NÃO") {
+		} else if (data[i].response === "REMARCAR") {
 			table_output +=
-				'<th style="background-color: red;color: white;display: flex;justify-content: center;border-color: red;" id="resposta">' +
+				'<th style="background-color: yellow;color: black;display: flex;justify-content: center;border-color: #d7b004;" id="resposta">' +
+				data[i].response +
+				"</th>";
+		} else if (data[i].response === "VISUALIZADO") {
+			table_output +=
+				'<th style="background-color: #0066ff;color: white;display: flex;justify-content: center;border-color: #1800ff;" id="resposta">' +
+				data[i].response +
+				"</th>";		
+		} else if (data[i].response === "CANCELADO") {
+			table_output +=
+				'<th style="background-color: red;color: white;display: flex;justify-content: center;border-color: #850000;" id="resposta">' +
+				data[i].response +
+				"</th>";
+		} else if (data[i].response === "RECEBIDO") {
+			table_output +=
+				'<th style="background-color: #1200ff6e;color: white;display: flex;justify-content: center;border-color: #0052ff66;" id="resposta">' +
 				data[i].response +
 				"</th>";
 		} else {
@@ -81,7 +96,7 @@ function htmlDisplay(data) {
 				data[i].response +
 				"</th>";
 		}
-		table_output += '<th id="data-envio">' + data[i].shippingDate + "</th>" + "</tr>";
+		table_output += '<th id="data">' + data[i].serviceDate + "</th>" + "</tr>";
 	}
 
 	table_output += "</tbody>" + "</table>";
@@ -133,7 +148,7 @@ function findCustomer(search) {
 
 search.addEventListener("input", function() {
 	if (this.value !== "") {
-		console.log(this.value);
+		//console.log(this.value);
 		findCustomer(this.value);
 	} else {
 		loadContent(datepicked);

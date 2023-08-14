@@ -1,0 +1,30 @@
+{
+   "messaging_product":"whatsapp",
+   "recipient_type":"individual",
+   "to":"",
+   "type":"interactive",
+   "interactive":{
+      "type":"button",
+      "body":{
+         "text":"Obrigado por nos avisar .No momento não estamos atendendo. Nosso horário de atendimento é de segunda à sexta-feira das 8h às 17h e aos sábados das 8h às 12h. Agradecemos o teu contato. Falaremos contigo assim que possível ou clique nos botões abaixo para falar conosco através de outros meios de comunicação. Obrigado"
+      },
+      "action":{
+         "buttons":[
+            {
+               "type":"reply",
+               "reply":{
+                  "id":"button-telefone",
+                  "title":"TELEFONE DA IMAVE"
+               }
+            },
+            {
+               "type":"reply",
+               "reply":{
+                  "id":"button-whatsapp",
+                  "title":"WHATSAPP DA IMAV"
+               }
+            }
+         ]
+      }
+   }
+}

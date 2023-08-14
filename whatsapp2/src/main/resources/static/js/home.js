@@ -97,6 +97,7 @@ function filterExcel(sheet_data) {
 
 		// Display data sheet to HTML
 		htmlDisplay();
+		displayHtmlTemplate();
 	}
 }
 
@@ -124,6 +125,7 @@ function clearPhoneNumber(value) {
 	}
 
 	let onlyNumbers = phone.replace(/\D/g, "");
+	onlyNumbers = "55" + onlyNumbers;
 
 	return onlyNumbers;
 }
@@ -205,14 +207,14 @@ function htmlDisplay() {
 		"</div>" +
 		'<div class="col">' +
 		'<label for="input2">Serviço</label>' +
-		'<input id="doctor" type="text" class="form-control" value="' +
+		'<input id="service" type="text" class="form-control" value="' +
 		excel_service +
 		'" >' +
 		"</div>" +
 		"</div>" +
 		'<div class="form-group">' +
 		'<label for="exampleFormControlTextarea1">Texto base</label>' +
-		'<textarea class="form-control" id="textarea" rows="8" >' +
+		'<textarea class="form-control" id="textarea" rows="7">' +
 		messageBase.join("\n") +
 		"</textarea>" +
 		"</div>" +
@@ -252,7 +254,7 @@ function htmlDisplay() {
 			//"<th id='phone-" + i + "'>" + excel_array[i].excel_phone + "</th>";
 			"<th><input id='phone-" +
 			i +
-			"' type='text' value='55" +
+			"' type='text' value='" +
 			excel_array[i].excel_phone +
 			"'></input></th>";
 		table_output +=
@@ -280,6 +282,36 @@ function htmlDisplay() {
 	table_output += "</table>";
 
 	document.getElementById("excel_data").innerHTML = table_output;
+}
+
+function displayHtmlTemplate() {
+	var test = '<div class="message-dialogue">' +
+		'<div class="my-message">' +
+		'<p>Olá <b>NOME DO PACIENTE</b>, espero que esteja bem. 😊</p>' +
+		'<p>Somos da Clínica de Olhos <b>IMAV</b> e estamos entrando em contato' +
+		'para confirmar seu exame e/ou consulta conosco.</p>' +
+		'<p>Serviço: <b id="servico-temp">' + excel_service + '</b></p>' +
+		'<p>Data: <b id="data-temp">' + excel_date_row + '</b></p>' +
+		'<p>Hora: <b>08:44</b></p>' +
+		'<p>Medico: <b id="medico-temp">' + excel_doctor + '</b></p>' +
+		'<p></p>' +
+		'<p><div id="texto-temp"><b>' + messageBase.join("\n") + '</b></div></p><br>' +
+		'<p>Podemos confirmar sua presença?</p>' +
+		'<p>Aguardamos sua confirmação.</p>' +
+		'<p>Obrigado</p>' +
+		'<br>' +
+		'<p id="imav-temp">IMAV - Instituto de Medicina Avançada da Visão</p>' +
+		'<div class="time" id="time">' +
+		'<div id="time-conversation">01/01/2023 11:03</div>' +
+		'</div>' +
+		'</div>' +
+		'<div class="button-dialogue">' +
+		'<div class="my-message-button">SIM</div>' +
+		'<div class="my-message-button">REMARCAR</div>' +
+		'</div>' +
+		'</div>';
+
+	document.getElementById("showcase").innerHTML = test;
 }
 
 // Displaying data on HTML
@@ -480,6 +512,7 @@ function updateArrayOfAllMessages() {
 	}
 }
 
+
 // Message Base to be sent to server *********************************************************
 const messageConsulta = [
 	"Se possível, chegue com pelo menos 10 minutos de antecedência."
@@ -490,6 +523,11 @@ const messageExame = [
 ];
 
 const messageMapeamento = [
-	"Este exame exige dilatação das pupilas. Não venha dirigindo, pois você não conseguirá retomar as atividades normais por longas horas do dia devido a este procedimento.",
+	"Este exame exige dilatação das pupilas. Não venha dirigindo, pois você não conseguirá retomar as tuas atividades normais por longas horas do dia.",
 	"Se possível, chegue com pelo menos 10 minutos de antecedência."
 ];
+
+
+
+
+

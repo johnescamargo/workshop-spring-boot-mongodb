@@ -3,167 +3,192 @@ package com.imav.whatsapp.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.google.gson.Gson;
-import com.imav.whatsapp.resource.DBCustomerResource;
+import com.imav.whatsapp.entity.Customer;
+import com.imav.whatsapp.repository.CustomerRepository;
+import com.imav.whatsapp.util.CustomerUtil;
+import com.imav.whatsapp.util.WebhookUtil;
 import com.imav.whatsapp.util.WeekUtil;
-import com.imav.whatsapp.webhookModel.WebhookReceivedTextMessage;
 
 @Service
 public class WebhookService {
-
-	private static Gson GSON = new Gson();
-
-	@Autowired
-	private ButtonReplyService button;
-
-	@Autowired
-	private MessageButtonReplyService message;
-
-	@Autowired
-	private LocationReplyService location;
-
-	@Autowired
-	private DBCustomerResource resource;
 
 	@Autowired
 	private StatusesService statusesService;
 
 	@Autowired
-	private SendWebSocketService websocket;
+	private WebhookCustomerNormalService customerNormalService;
+
+	@Autowired
+	private WebhookCustomerNormalDayOffService customerNormalDayOffService;
+
+	@Autowired
+	private WebhookCustomerConfirmationService confirmationService;
+
+	@Autowired
+	private WebhookCustomerTalkingService talkingService;
+
+	@Autowired
+	private WebhookUtil webhookUtil;
 
 	@Autowired
 	private WeekUtil weekUtil;
-	
 
-	public void setWebhookClass(String type, String obj) {
+	@Autowired
+	private CustomerUtil customerUtil;
 
-		boolean response = false;
-		String from = "";
-		String name = "";
+	@Autowired
+	private CustomerRepository customerRepository;
 
-		if (!type.equals("status")) {
-			WebhookReceivedTextMessage messageReceived = new WebhookReceivedTextMessage();
-			messageReceived = GSON.fromJson(obj, WebhookReceivedTextMessage.class);
-			from = messageReceived
-					.getEntry()
-					.get(0)
-					.getChanges()
-					.get(0)
-					.getValue()
-					.getMessages()
-					.get(0)
-					.getFrom();
-			
-			name = messageReceived
-					.getEntry()
-					.get(0)
-					.getChanges()
-					.get(0)
-					.getValue()
-					.getContacts()
-					.get(0)
-					.getProfile()
-					.getName();
-		}
+	public void checkWebHookType(String type, String obj) {
 
-		switch (type) {
+		// Check if customer exists on DB
+		String phone = webhookUtil.getPhoneNumber(obj);
+		String name = webhookUtil.getName(obj);
+		existsCustomer(phone, name);
 
-		case "text":
-			resource.checkNewCustomer(obj);
-
-			response = weekUtil.checkIfDayIsOff();
-			if (response) {
-				message.sendButtonResponse(from);
-			} else {
-				message.sendButtonResponseWorkOff(from);
-			}
-			websocket.showCustomerToWebSocket();
-			break;
-			
-		case "image":
-			response = weekUtil.checkIfDayIsOff();
-			
-			if (response) {
-				message.getImage(obj, type);
-			} else {
-				message.getImage(obj, type);
-				message.sendButtonResponseWorkOff(from);
-			}
-			
-			websocket.showCustomerToWebSocket();
-			break;
-			
-		case "reaction":
-//			response = weekUtil.checkIfDayIsOff();
-//			
-//			if (response) {
-//				message.getImage(obj, type);
-//			} else {
-//				message.getImage(obj, type);
-//				message.sendButtonResponseWorkOff(from);
-//			}
-			
-			websocket.showCustomerToWebSocket();
-			break;
-			
-		case "sticker":
-//			response = weekUtil.checkIfDayIsOff();
-//			
-//			if (response) {
-//				message.getImage(obj, type);
-//			} else {
-//				message.getImage(obj, type);
-//				message.sendButtonResponseWorkOff(from);
-//			}
-			
-			websocket.showCustomerToWebSocket();
-			break;
-			
-		case "unknown":
-//			response = weekUtil.checkIfDayIsOff();
-//			
-//			if (response) {
-//				message.getImage(obj, type);
-//			} else {
-//				message.getImage(obj, type);
-//				message.sendButtonResponseWorkOff(from);
-//			}
-			
-			websocket.showCustomerToWebSocket();
-			break;
-			
-		case "audio":
-			message.messageNoAudio(from, name);
-			button.sendResponseToAudio(from);
-			websocket.showCustomerToWebSocket();
-			break;
-			
-		case "interactive":
-			button.sendResponseToButtonClicked(obj, from);
-			websocket.showCustomerToWebSocket();
-			break;
-			
-		case "button":
-			button.sendResponseToInitButtonClicked(obj, from);
-			websocket.showCustomerToWebSocket();
-			break;
-			
-		case "location":
-			button.saveInteractiveButtonLocation(obj, from);
-			location.sendLocation(from);
-			websocket.showCustomerToWebSocket();
-			break;
-			
-		case "status":
+		// Update Status regardless of filter
+		if (type.equals("status")) {
 			statusesService.checkTypeOfStatus(obj);
-			break;
+		} else {
+			isDayOff(type, obj, phone, name);
+		}
+	}
 
-		default:
-			websocket.showCustomerToWebSocket();
-			break;
+	public void isDayOff(String type, String obj, String phone, String name) {
+
+		// if true, talk
+		boolean response = weekUtil.checkIfDayIsOff();
+
+		if (response) {
+			customerMode(type, obj, phone, name);
+		} else {
+			customerModeDayOff(type, obj, phone, name);
 		}
 
-		websocket.showCustomerToWebSocket();
+	}
+
+	public void customerMode(String type, String obj, String phone, String name) {
+
+		String mode = "";
+
+		try {
+
+			mode = getCustomerMode(phone);
+
+			// Timelimit. if timelimit < 1 hour turn off any response from BOT
+			// true means value is less than 1h minutes, so Turn off bot
+			boolean limit = customerUtil.checkTimelimit(phone);
+
+			if (!limit) {
+				switch (mode) {
+
+				case "normal":
+					customerNormalService.setWebhookClass(type, obj, phone, name);
+
+					break;
+
+				case "confirmation":
+					confirmationService.setWebhookConfirmation(type, obj, phone, name);
+					break;
+
+				case "appointment":
+					// Create medical appointment
+					break;
+
+				default:
+
+					break;
+
+				}
+
+			} else {
+				talkingService.setWebhookTalking(type, obj, phone, name);
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	public void customerModeDayOff(String type, String obj, String phone, String name) {
+
+		String mode = "";
+
+		try {
+
+			mode = getCustomerMode(phone);
+
+			switch (mode) {
+
+			case "normal":
+				customerNormalDayOffService.setWebhookNormalDayOff(type, obj, phone, name);
+
+				break;
+
+			case "confirmation":
+				customerNormalDayOffService.setWebhookConfirmationDayOff(type, obj, phone, name);
+				
+				break;
+
+			case "appointment":
+				// Create medical appointment
+				break;
+
+			default:
+
+				break;
+
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	public void existsCustomer(String phone, String name) {
+
+		try {
+
+			boolean resp = customerRepository.existsByPhoneNumber(phone);
+
+			if (!resp) {
+				Customer customer = new Customer();
+				String timestamp = Long.toString(System.currentTimeMillis() / 1000);
+
+				customer.setMode("normal");
+				customer.setName(name);
+				customer.setPhoneNumber(phone);
+				customer.setTimestamp(timestamp);
+				customer.setTimelimit("0");
+				customer.setStep(0);
+				customer.setTalk(false);
+
+				customerRepository.save(customer);
+
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	public String getCustomerMode(String phone) {
+
+		String mode = "";
+
+		try {
+
+			Customer cust = customerRepository.findByPhoneNumber(phone);
+			mode = cust.getMode();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			mode = "normal";
+		}
+		return mode;
 	}
 
 }

@@ -70,4 +70,19 @@ public class CustomerRestController {
 		return new ResponseEntity<>(dtos, HttpStatus.OK);
 	}
 
+	@GetMapping("/turnofftalk")
+	public ResponseEntity<Boolean> updateCustomerTalk(@RequestParam String phone) {
+
+		boolean resp = false;
+		
+		try {
+			
+			resp = customerResource.updateCustomerTalk(phone);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return new ResponseEntity<>(resp, HttpStatus.OK);
+	}
+
 }

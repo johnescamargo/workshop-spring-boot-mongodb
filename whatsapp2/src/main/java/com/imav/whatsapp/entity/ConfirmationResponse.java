@@ -27,12 +27,13 @@ public class ConfirmationResponse implements Serializable {
 	private String hour;
 	private String response;
 	private String shippingDate;
+	private int status;
 
 	@Column(length = 20)
 	private String phoneNumber;
 
 	public ConfirmationResponse(String doctor, String service, String name, String serviceDate, String hour,
-			String response, String shippingDate, String phoneNumber) {
+			String response, String shippingDate, String phoneNumber, int status) {
 		this.doctor = doctor;
 		this.service = service;
 		this.name = name;
@@ -41,6 +42,7 @@ public class ConfirmationResponse implements Serializable {
 		this.response = response;
 		this.shippingDate = shippingDate;
 		this.phoneNumber = phoneNumber;
+		this.status = status;
 	}
 
 	public ConfirmationResponse() {
@@ -123,6 +125,14 @@ public class ConfirmationResponse implements Serializable {
 		this.phoneNumber = phoneNumber;
 	}
 
+	public int getStatus() {
+		return status;
+	}
+
+	public void setStatus(int status) {
+		this.status = status;
+	}
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(id, idWamid);
@@ -144,7 +154,7 @@ public class ConfirmationResponse implements Serializable {
 	public String toString() {
 		return "ConfirmationResponse [id=" + id + ", idWamid=" + idWamid + ", doctor=" + doctor + ", service=" + service
 				+ ", name=" + name + ", serviceDate=" + serviceDate + ", hour=" + hour + ", response=" + response
-				+ ", shippingDate=" + shippingDate + ", phoneNumber=" + phoneNumber + "]";
+				+ ", shippingDate=" + shippingDate + ", status=" + status + ", phoneNumber=" + phoneNumber + "]";
 	}
 
 }

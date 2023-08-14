@@ -1,0 +1,30 @@
+{
+   "messaging_product":"whatsapp",
+   "recipient_type":"individual",
+   "to":"",
+   "type":"interactive",
+   "interactive":{
+      "type":"button",
+      "body":{
+         "text":"Para iniciar uma conversa com a IMAV aqui no WhatsApp clique no botão FALAR C/ ATENDENTE. Ou clique no botão TELEFONE para visualizar nosso número de telefone. Muito Obrigado."
+      },
+      "action":{
+         "buttons":[
+            {
+               "type":"reply",
+               "reply":{
+                  "id":"button-telefone",
+                  "title":"TELEFONE"
+               }
+            },
+            {
+               "type":"reply",
+               "reply":{
+                  "id":"button-falar",
+                  "title":"FALAR C/ ATENDENTE"
+               }
+            }
+         ]
+      }
+   }
+}

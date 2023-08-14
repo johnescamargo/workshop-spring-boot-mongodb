@@ -11,7 +11,7 @@ public class WebhookUtil {
 
 	private Logger logger = LogManager.getLogger(WebhookUtil.class);
 
-	public String findTypeOfWebhookMessage(String json) {
+	public String findTypeOfWebhook(String json) {
 
 		String type = "";
 
@@ -30,10 +30,60 @@ public class WebhookUtil {
 
 		} catch (Exception e) {
 			type = findOtherTypesOfWebhookMessage(json);
-			logger.info("Another type of  webhook has been found: " + type);
+			logger.info(type);
 		}
 
 		return type;
+	}
+	
+	public String getPhoneNumber(String json) {
+
+		String phone = "";
+
+		try {
+
+			JSONObject obj = new JSONObject(json);
+			JSONArray arr = new JSONArray();
+
+			arr = obj.getJSONArray("entry");
+			obj = arr.getJSONObject(0);
+			arr = obj.getJSONArray("changes");
+			obj = arr.getJSONObject(0).getJSONObject("value");
+			arr = obj.getJSONArray("contacts");
+			obj = arr.getJSONObject(0);
+			phone = obj.getString("wa_id");
+
+		} catch (Exception e) {
+			phone = findOtherTypesOfWebhookMessage(json);
+			logger.info("Another type of  webhook has been found: " + phone);
+		}
+
+		return phone;
+	}
+	
+	public String getName(String json) {
+
+		String name = "";
+
+		try {
+
+			JSONObject obj = new JSONObject(json);
+			JSONArray arr = new JSONArray();
+
+			arr = obj.getJSONArray("entry");
+			obj = arr.getJSONObject(0);
+			arr = obj.getJSONArray("changes");
+			obj = arr.getJSONObject(0).getJSONObject("value");
+			arr = obj.getJSONArray("contacts");
+			obj = arr.getJSONObject(0).getJSONObject("profile");;
+			name = obj.getString("name");
+
+		} catch (Exception e) {
+			name = findOtherTypesOfWebhookMessage(json);
+			logger.info("Another type of  webhook has been found: " + name);
+		}
+
+		return name;
 	}
 
 	public String findOtherTypesOfWebhookMessage(String str) {

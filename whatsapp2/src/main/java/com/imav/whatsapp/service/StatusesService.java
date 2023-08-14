@@ -66,8 +66,27 @@ public class StatusesService {
 		sent = GSON.fromJson(obj, WebhookStatusSent.class);
 		int statusCode = 1;
 
-		String idWamid = sent.getEntry().get(0).getChanges().get(0).getValue().getStatuses().get(0).getId();
-		String phone = sent.getEntry().get(0).getChanges().get(0).getValue().getStatuses().get(0).getRecipient_id();
+		String idWamid = 
+				sent
+				.getEntry()
+				.get(0)
+				.getChanges()
+				.get(0)
+				.getValue()
+				.getStatuses()
+				.get(0)
+				.getId();
+		
+		String phone = 
+				sent
+				.getEntry()
+				.get(0)
+				.getChanges()
+				.get(0)
+				.getValue()
+				.getStatuses()
+				.get(0)
+				.getRecipient_id();
 
 		try {
 			Thread.sleep(200);
@@ -82,8 +101,26 @@ public class StatusesService {
 		delivered = GSON.fromJson(obj, WebhookStatusDelivered.class);
 		int statusCode = 2;
 
-		String idWamid = delivered.getEntry().get(0).getChanges().get(0).getValue().getStatuses().get(0).getId();
-		String phone = delivered.getEntry().get(0).getChanges().get(0).getValue().getStatuses().get(0)
+		String idWamid = 
+				delivered
+				.getEntry()
+				.get(0)
+				.getChanges()
+				.get(0)
+				.getValue()
+				.getStatuses()
+				.get(0)
+				.getId();
+		
+		String phone = 
+				delivered
+				.getEntry()
+				.get(0)
+				.getChanges()
+				.get(0)
+				.getValue()
+				.getStatuses()
+				.get(0)
 				.getRecipient_id();
 
 		try {
@@ -98,16 +135,38 @@ public class StatusesService {
 		WebhookStatusRead read = new WebhookStatusRead();
 		read = GSON.fromJson(obj, WebhookStatusRead.class);
 		int statusCode = 3;
-
-		String idWamid = read.getEntry().get(0).getChanges().get(0).getValue().getStatuses().get(0).getId();
-		String phone = read.getEntry().get(0).getChanges().get(0).getValue().getStatuses().get(0).getRecipient_id();
-
+		
 		try {
-			Thread.sleep(200);
+
+		String idWamid = 
+				read
+				.getEntry()
+				.get(0)
+				.getChanges()
+				.get(0)
+				.getValue()
+				.getStatuses()
+				.get(0)
+				.getId();
+		
+		String phone = 
+				read
+				.getEntry()
+				.get(0)
+				.getChanges()
+				.get(0)
+				.getValue()
+				.getStatuses()
+				.get(0)
+				.getRecipient_id();
+
+		statusesResource.findIdWamid(phone, idWamid, statusCode);
+		
+		Thread.sleep(200);
+			
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-		statusesResource.findIdWamid(phone, idWamid, statusCode);
 	}
 
 }
