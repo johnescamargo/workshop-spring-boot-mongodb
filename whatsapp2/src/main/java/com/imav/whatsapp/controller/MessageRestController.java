@@ -65,14 +65,14 @@ public class MessageRestController {
 
 		try {
 			messageService.sendMessage(msg, ownerOfMessage);
-			//Thread.sleep(100);
+			// Thread.sleep(100);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return new ResponseEntity<>("Error", HttpStatus.BAD_REQUEST);
 		}
 		return new ResponseEntity<>("Ok", HttpStatus.OK);
 	}
-	
+
 	@PostMapping("/envia")
 	public ResponseEntity<Object> sendEnvia(@RequestBody MessageEnviaDto obj) throws Exception {
 
@@ -92,7 +92,7 @@ public class MessageRestController {
 	}
 
 	@PostMapping("/send")
-	public ResponseEntity<Object> sendInitMessage(@RequestBody MessageInitDto obj) throws Exception {
+	public ResponseEntity<Object> sendInitMessage(@RequestBody MessageInitDto obj) {
 
 		boolean response = true;
 
@@ -101,13 +101,12 @@ public class MessageRestController {
 		response = messageUtil.checkPhoneNumber(obj);
 
 		if (response) {
-			//String msg = messageUtil.messageOrganizer(obj);
+			// String msg = messageUtil.messageOrganizer(obj);
 			response = messageService.sendInitMessageImav(obj); // Call method
 
-			return new ResponseEntity<>(response, HttpStatus.OK);
-		} else {
-			return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
 		}
+
+		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
 
 	@PostMapping("/sendAll")
@@ -126,7 +125,7 @@ public class MessageRestController {
 				checkPhoneNumber = messageUtil.checkPhoneNumber(obj.get(i));
 
 				if (checkPhoneNumber) {
-					//String msg = messageUtil.messageOrganizer(obj.get(i));
+					// String msg = messageUtil.messageOrganizer(obj.get(i));
 					response = messageService.sendInitMessageImav(obj.get(i));
 
 					if (response) {

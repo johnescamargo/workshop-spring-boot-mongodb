@@ -6,7 +6,7 @@
    "interactive":{
       "type":"button",
       "body":{
-         "text":"Para iniciar uma conversa com a IMAV aqui no WhatsApp clique no botão FALAR C/ ATENDENTE. Ou clique no botão TELEFONE para visualizar nosso número de telefone. Muito Obrigado."
+         "text":"Para que possamos iniciar uma conversa contigo aqui no WhatsApp clique no botão FALAR C/ ATENDENTE, CANCELAR para cancelamento, ou clique no botão TELEFONE para visualizar nosso número de telefone ao qual você possa ligar para uma remarcação. Muito Obrigado."
       },
       "action":{
          "buttons":[
@@ -22,6 +22,13 @@
                "reply":{
                   "id":"button-falar",
                   "title":"FALAR C/ ATENDENTE"
+               }
+            },
+                        {
+               "type":"reply",
+               "reply":{
+                  "id":"button-cancel",
+                  "title":"CANCELAR"
                }
             }
          ]

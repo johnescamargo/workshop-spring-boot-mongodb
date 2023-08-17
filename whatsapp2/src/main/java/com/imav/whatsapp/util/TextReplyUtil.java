@@ -6,8 +6,9 @@ import org.springframework.stereotype.Service;
 public class TextReplyUtil {
 
 	public String setTextYes() {
-		String msg = "Obrigado pela confirmação.\r\n" + "\r\n" + "Esperemos lhe ver em breve." + "\r\n"
-				+ "Endereço: Avenida Ministro Oswaldo Aranha, 207 - Rudge Ramos - São Bernardo do Campo" + "\r\n"
+		String msg = "Obrigado pela confirmação. \r\n" + "\r\n" + "Esperemos lhe ver em breve." + "\r\n"
+				+ "Endereço: Avenida Ministro Oswaldo Aranha, 207 - Rudge Ramos - São Bernardo do Campo. " + "\r\n"
+				+ "Caso necessite ver o endereço no GPS, envie um 'oi' para interagir com o nosso menu. " + "\r\n"
 				+ "Tenha um ótimo dia. 😊";
 
 		return msg;
@@ -22,7 +23,7 @@ public class TextReplyUtil {
 	}
 
 	public String setTextTelephone() {
-		String msg = "Nosso número de telefone é o:" + "\r\n" + "1143671577" + "\r\n" + "Esperamos tua ligação. Muito obrigado 😊.";
+		String msg = "Nosso número de telefone é o: " + "\r\n" + "1143671577" + "\r\n" + "Esperamos tua ligação. Muito obrigado 😊.";
 		return msg;
 	}
 
@@ -32,7 +33,7 @@ public class TextReplyUtil {
 	}
 	
 	public String setTextCancel() {
-		String msg = "Obrigado pelo retorno, vamos cancelar tua consulta. Esperamos por você em uma outra oportunidade. Muito obrigado 😊.";
+		String msg = "Obrigado por nos avisar sobre o cancelamento. Caso queira remarcar tua consulta e/ou exame um outro dia, entre em contato conosco. Muito obrigado. 😊.";
 		return msg;
 	}
 

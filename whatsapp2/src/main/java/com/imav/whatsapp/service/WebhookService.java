@@ -44,13 +44,18 @@ public class WebhookService {
 		// Check if customer exists on DB
 		String phone = webhookUtil.getPhoneNumber(obj);
 		String name = webhookUtil.getName(obj);
-		existsCustomer(phone, name);
 
 		// Update Status regardless of filter
 		if (type.equals("status")) {
 			statusesService.checkTypeOfStatus(obj);
 		} else {
-			isDayOff(type, obj, phone, name);
+
+			boolean resp = existsCustomer(phone, name);
+
+			if (resp) {
+				customerUtil.changeToNormal(phone);
+				isDayOff(type, obj, phone, name);
+			}
 		}
 	}
 
@@ -109,6 +114,7 @@ public class WebhookService {
 			e.printStackTrace();
 		}
 
+		
 	}
 
 	public void customerModeDayOff(String type, String obj, String phone, String name) {
@@ -128,7 +134,7 @@ public class WebhookService {
 
 			case "confirmation":
 				customerNormalDayOffService.setWebhookConfirmationDayOff(type, obj, phone, name);
-				
+
 				break;
 
 			case "appointment":
@@ -147,13 +153,23 @@ public class WebhookService {
 
 	}
 
-	public void existsCustomer(String phone, String name) {
+	public boolean existsCustomer(String phone, String name) {
+		
+		boolean respOk = false;
 
 		try {
-
+			
+			
 			boolean resp = customerRepository.existsByPhoneNumber(phone);
 
-			if (!resp) {
+			// Check in phone number is a number
+			boolean isNum = isNumeric(phone);
+			
+			if (resp) {
+				return true;
+			}
+
+			if (!resp && isNum) {
 				Customer customer = new Customer();
 				String timestamp = Long.toString(System.currentTimeMillis() / 1000);
 
@@ -166,13 +182,16 @@ public class WebhookService {
 				customer.setTalk(false);
 
 				customerRepository.save(customer);
-
+				respOk = true;
 			}
+			
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		return respOk;
 
+		
 	}
 
 	public String getCustomerMode(String phone) {
@@ -189,6 +208,18 @@ public class WebhookService {
 			mode = "normal";
 		}
 		return mode;
+	}
+
+	public boolean isNumeric(String strNum) {
+		if (strNum == null) {
+			return false;
+		}
+		try {
+			Long longNumber = Long.parseLong(strNum);
+		} catch (NumberFormatException nfe) {
+			return false;
+		}
+		return true;
 	}
 
 }

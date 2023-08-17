@@ -6,7 +6,7 @@
    "interactive":{
       "type":"button",
       "body":{
-         "text":"Obrigado por nos avisar .No momento não estamos atendendo. Nosso horário de atendimento é de segunda à sexta-feira das 8h às 17h e aos sábados das 8h às 12h. Agradecemos o teu contato. Falaremos contigo assim que possível ou clique nos botões abaixo para falar conosco através de outros meios de comunicação. Obrigado"
+         "text":"Obrigado por nos avisar sobre a remarcação. No momento não estamos atendendo. Nosso horário de atendimento é de segunda à sexta-feira das 8h às 17h e aos sábados das 8h às 12h. Agradecemos o teu contato. Falaremos contigo assim que possível ou clique nos botões abaixo para falar conosco através de outros meios de comunicação. Obrigado"
       },
       "action":{
          "buttons":[

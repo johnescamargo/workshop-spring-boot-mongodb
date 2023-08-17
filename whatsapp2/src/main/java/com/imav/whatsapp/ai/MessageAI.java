@@ -26,7 +26,7 @@ public class MessageAI {
 			if (words[i].equals("sim") || words[i].equals("ok") || words[i].equals("confirmado")) {
 				confInt = 10;
 				i = 200;
-				resp = "yes";
+				resp = "sim";
 				break;
 			}
 
@@ -45,16 +45,16 @@ public class MessageAI {
 				break;
 			}
 			
-			if (words[i].equals("cancelar")) {
-				confInt = -5;
+			if (words[i].equals("cancelar") || words[i].equals("cancela")) {
+				confInt = 0;
+				i = 200;
 				resp = "cancelar";
-				i = 100;
 				break;
 			}
 		}
 
 		if (confInt > 1) {
-			resp = "yes";
+			resp = "sim";
 		}
 
 		return resp;
@@ -94,6 +94,13 @@ public class MessageAI {
 				confInt = 0;
 				i = 200;
 				resp = "telefone";
+				break;
+			}
+			
+			if (words[i].equals("cancelar") || words[i].equals("cancela")) {
+				confInt = 0;
+				i = 200;
+				resp = "cancelar";
 				break;
 			}
 

@@ -145,8 +145,7 @@ public class MessageButtonReplyService {
 		}
 	}
 
-
-	public void messageTalkToUsResponse(String phone, String name) {
+	public void messageTalkToUsResponse(String phone) {
 
 		String json = "";
 		int ownerOfMessage = 0;
@@ -170,7 +169,7 @@ public class MessageButtonReplyService {
 
 			if (resp.equals("success")) {
 				String idWamid = hashMap.get("idWamid");
-				ImavMessage mess = dbMessageResource.saveImavMessageIntoDatabase(message, name, idWamid, false);
+				ImavMessage mess = dbMessageResource.saveImavMessageIntoDatabase(message, idWamid);
 				updateCustomerWantToTalk(phone);
 				websocketService.convertMessageSendChat(mess, ownerOfMessage);
 			} else {
@@ -185,8 +184,8 @@ public class MessageButtonReplyService {
 		}
 
 	}
-	
-	public void messageTalkToUsResponseDayOff(String phone, String name) {
+
+	public void messageTalkToUsResponseDayOff(String phone) {
 
 		String json = "";
 		int ownerOfMessage = 0;
@@ -210,7 +209,7 @@ public class MessageButtonReplyService {
 
 			if (resp.equals("success")) {
 				String idWamid = hashMap.get("idWamid");
-				ImavMessage mess = dbMessageResource.saveImavMessageIntoDatabase(message, name, idWamid, false);
+				ImavMessage mess = dbMessageResource.saveImavMessageIntoDatabase(message, idWamid);
 				updateCustomerWantToTalk(phone);
 				websocketService.convertMessageSendChat(mess, ownerOfMessage);
 			} else {
@@ -250,7 +249,7 @@ public class MessageButtonReplyService {
 
 			if (resp.equals("success")) {
 				String idWamid = hashMap.get("idWamid");
-				ImavMessage mess = dbMessageResource.saveImavMessageIntoDatabase(message, name, idWamid, false);
+				ImavMessage mess = dbMessageResource.saveImavMessageIntoDatabase(message, idWamid);
 				websocketService.convertMessageSendChat(mess, ownerOfMessage);
 			} else {
 				String timestamp = hashMap.get("timestamp");
@@ -410,18 +409,16 @@ public class MessageButtonReplyService {
 			customer = customerRepository.findByPhoneNumber(phone);
 			customer.setTalk(true);
 			customer.setTimelimit(timestamp);
-			
+
 			String name = customer.getName();
-			
+
 			WantsToTalk talk = new WantsToTalk(name, phone);
-			
+
 			talkRepository.save(talk);
 			customerRepository.save(customer);
-			
+
 			websocket.updateWantsToTalk();
 			websocket.updateWebsocket();
-
-
 
 		} catch (Exception e) {
 			e.printStackTrace();

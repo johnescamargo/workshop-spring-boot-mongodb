@@ -103,6 +103,13 @@ public class WebhookUtil {
 			type = "status";
 			return type;
 		}
+		
+		
+		field = str.lastIndexOf("\"errors\"");
+		if (field > 0) {
+			type = "errors";
+			return type;
+		}
 
 		return type;
 	}

@@ -34,7 +34,7 @@ import com.imav.whatsapp.webhookModel.WebhookReceivedTextMessage;
 
 @Service
 public class MessageService {
-	
+
 	private Logger logger = LogManager.getLogger(MessageService.class);
 
 	private static Gson GSON = new Gson();
@@ -104,7 +104,7 @@ public class MessageService {
 		}
 	}
 
-	public void sendMessageModelImav(String phone, String name, String path) {
+	public void sendMessageModelImav(String phone, String path) {
 
 		String json = "";
 		int ownerOfMessage = 0;
@@ -126,7 +126,7 @@ public class MessageService {
 
 			if (resp.equals("success")) {
 				String idWamid = hashMap.get("idWamid");
-				ImavMessage mess = dbMessageResource.saveImavMessageIntoDatabase(message, name, idWamid, false);
+				ImavMessage mess = dbMessageResource.saveImavMessageIntoDatabase(message, idWamid);
 				websocketService.convertMessageSendChat(mess, ownerOfMessage);
 			} else {
 				String timestamp = hashMap.get("timestamp");
@@ -140,14 +140,11 @@ public class MessageService {
 	}
 
 	/*
-	 * Send message to customer
-	 * Save message into DB
-	 * Send websocket message
-	 * Save confirmation list
-	 * Save and update customer websocket
+	 * Send message to customer Save message into DB Send websocket message Save
+	 * confirmation list Save and update customer websocket
 	 */
 	public boolean sendInitMessageImav(MessageInitDto dto) {
-		
+
 		boolean msgSent = false;
 
 		try {
@@ -156,13 +153,13 @@ public class MessageService {
 
 			// Template IMAV - Initial message
 			InitMessageTemplate template = messageUtil.messageInitOrganizer(dto);
-			
+
 			String jsonMessage = GSON.toJson(template, InitMessageTemplate.class);
-			
+
 			String response = messageHttpService.sendMessage(jsonMessage);// Sending Message
 
 			hashMap = messageUtil.checkResponseMessageSent(response);
-			
+
 			String resp = hashMap.get("resp");
 
 			if (resp.equals("success")) {
@@ -177,7 +174,7 @@ public class MessageService {
 
 				dbImavButtonReplyResource.saveImavButtonMessageIntoDb(buttonMessage, idWamid);
 				websocketService.convertMessageButtonInitSend(buttonMessage);
-				
+
 				saveListOfConfirmationResponse(dto, idWamid);
 				websocketService.showCustomerToWebSocket();
 			} else {
@@ -215,7 +212,7 @@ public class MessageService {
 
 			if (resp.equals("success")) {
 				String idWamid = hashMap.get("idWamid");
-				dbMessageResource.saveImavMessageIntoDatabase(message, name, idWamid, true);
+				dbMessageResource.saveImavMessageIntoDatabase(message, idWamid);
 				websocketService.convertMessageSend(message, idWamid);
 
 				WantsToTalk talk = new WantsToTalk(name, phone);
@@ -233,7 +230,7 @@ public class MessageService {
 		}
 		return true;
 	}
-	
+
 	public void sendMessageResponse(String obj, String msgBody, String respYesOrNo) {
 
 		HashMap<String, String> hashMap = new HashMap<>();
@@ -246,15 +243,7 @@ public class MessageService {
 			messageReceived = GSON.fromJson(obj, WebhookReceivedTextMessage.class);
 
 			// extract phone number from the WebHook payload
-			String phone = 
-					messageReceived
-					.getEntry()
-					.get(0)
-					.getChanges()
-					.get(0)
-					.getValue()
-					.getMessages()
-					.get(0)
+			String phone = messageReceived.getEntry().get(0).getChanges().get(0).getValue().getMessages().get(0)
 					.getFrom();
 
 			messageModel.setTo(phone);// Set customer's number
@@ -269,11 +258,10 @@ public class MessageService {
 
 			if (resp.equals("success")) {
 				String idWamid = hashMap.get("idWamid");
-				String name = "IMAV";
-				dbMessageResource.saveImavMessageIntoDatabase(messageModel, name, idWamid, false);
+				dbMessageResource.saveImavMessageIntoDatabase(messageModel, idWamid);
 				websocketService.convertMessageSend(messageModel, idWamid);
 
-				if (respYesOrNo.equals("SIM") || respYesOrNo.equals("REMARCAR") || respYesOrNo.equals("CANCELADO")) {					
+				if (respYesOrNo.equals("SIM") || respYesOrNo.equals("REMARCAR") || respYesOrNo.equals("CANCELADO")) {
 					updateConfirmationResponse(idWamid, respYesOrNo);
 				}
 
@@ -325,8 +313,8 @@ public class MessageService {
 	}
 
 	/*
-	 * Save new Customer after sending template message, or
-	 * Update customer mode, timestamp, and step
+	 * Save new Customer after sending template message, or Update customer mode,
+	 * timestamp, and step
 	 */
 	public void saveNewCustomer(String phoneNumber, String name) {
 		boolean resp = false;
@@ -396,45 +384,45 @@ public class MessageService {
 		}
 
 	}
-	
+
 	public void updateConfirmationResponse(String idWamid, String respYesOrNo) {
 		ConfirmationResponse confirmation = new ConfirmationResponse();
 
 		boolean resp = confirmationRepository.existsByIdWamid(idWamid);
 
 		if (resp) {
-			
+
 			confirmation = confirmationRepository.findById_Wamid(idWamid);
 
-			//System.out.println(confirmation);
+			// System.out.println(confirmation);
 
 			confirmation.setResponse(respYesOrNo);
-			//System.out.println(confirmation);
+			// System.out.println(confirmation);
 
 			confirmationRepository.save(confirmation);
 		}
 
 	}
-	
-	public void updateCustomer(String phone, int step, String mode, String timestamp, boolean talk) {
-		
+
+	public void updateCustomer(String phone, int step, String mode, String timelimit, boolean talk) {
+
 		Customer customer = new Customer();
-		
+
 		try {
-			
+
 			customer = customerRepository.findByPhoneNumber(phone);
 			customer.setMode(mode);
 			customer.setStep(step);
-			customer.setTimelimit(timestamp);
+			customer.setTimelimit(timelimit);
 			customer.setTalk(talk);
 
 			customerRepository.save(customer);
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.info(e);
 		}
-		
+
 	}
 
 	public String readJsonFiles(String path) {

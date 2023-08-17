@@ -88,7 +88,7 @@ public class DBMessageResource {
 		return dtos;
 	}
 
-	public ImavMessage saveImavMessageIntoDatabase(MessageModel message, String name, String id, boolean resp) {
+	public ImavMessage saveImavMessageIntoDatabase(MessageModel message, String id) {
 
 		ImavMessage messagedb = new ImavMessage();
 		String timestamp = Long.toString(System.currentTimeMillis() / 1000);
@@ -103,11 +103,8 @@ public class DBMessageResource {
 
 		imavMessageRepo.save(messagedb);
 
-		if (resp) {
-			updateCustomersTalk(phoneNumber, timestamp);
-		} else {
-			updateCustomersTimestamp(phoneNumber, timestamp);
-		}
+		updateCustomersTimestamp(phoneNumber, timestamp);
+
 
 		return messagedb;
 	}
@@ -188,16 +185,30 @@ public class DBMessageResource {
 
 		saveMessage(message);
 		logger.info("Saving messagge: text....");
+		updateCustomersTimestamp(phone, "0");
+
+	}
+	
+	public void saveMessageModelIntoDatabase(MessageModel messageModel, Customer customer, String idWamid) {
+		CustomerMessage message = new CustomerMessage();
+		// String timestamp =
+		// messageReceived.getEntry().get(0).getChanges().get(0).getValue().getMessages().get(0).getTimestamp();
+		String timestamp = Long.toString(System.currentTimeMillis() / 1000);
+
+		String phone = messageModel.getTo();
+
+		message.setCustomer(customer);
+		message.setM_name(customer.getName());
+		message.setM_phone_from(phone);
+		message.setM_status(1);// **** TODO check how to set ENUMS
+		message.setM_text(messageModel.getText().getBody());
+		message.setM_timestamp(timestamp);
+		message.setM_type("text");
+		message.setIdWamid(idWamid);
+
+		saveMessage(message);
+		logger.info("Saving messagge: text....");
 		updateCustomersTimestamp(phone, timestamp);
-
-//		String responseBody = messageReceived.getEntry().get(0).getChanges().get(0).getValue().getMessages().get(0)
-//				.getText().getBody();
-
-//		if (responseBody.equals("0")) {
-//			return true;
-//		} else {
-//			return false;
-//		}
 
 	}
 

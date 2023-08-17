@@ -138,19 +138,20 @@ public class DBStatusesResource {
 
 			int status = confirmationResponse.getStatus();
 
-			if (status == 1) {
+			if (statusCode == 1 && status <= 1) {			
 				confirmationResponse.setStatus(statusCode);
+				confirmationResponse.setResponse("ENVIADO");
 				updateConfirmation(confirmationResponse);
 			}
 			
-			if (status == 2) {
+			if (statusCode == 2 && status <= 2) {
 				confirmationResponse.setStatus(statusCode);
 				confirmationResponse.setResponse("RECEBIDO");
 				updateConfirmation(confirmationResponse);
 			}
 
-			if (status == 3 || statusCode == 3) {
-				confirmationResponse.setStatus(3);
+			if (statusCode == 3 && status <= 3) {
+				confirmationResponse.setStatus(statusCode);
 				confirmationResponse.setResponse("VISUALIZADO");
 				
 				updateConfirmation(confirmationResponse);

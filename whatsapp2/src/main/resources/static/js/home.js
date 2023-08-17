@@ -292,7 +292,7 @@ function displayHtmlTemplate() {
 		'para confirmar seu exame e/ou consulta conosco.</p>' +
 		'<p>Serviço: <b id="servico-temp">' + excel_service + '</b></p>' +
 		'<p>Data: <b id="data-temp">' + excel_date_row + '</b></p>' +
-		'<p>Hora: <b>08:44</b></p>' +
+		'<p>Hora: <b>HORA VAI AQUI</b></p>' +
 		'<p>Medico: <b id="medico-temp">' + excel_doctor + '</b></p>' +
 		'<p></p>' +
 		'<p><b id="texto-temp">' + messageBase.join("\n") + '</b></p><br>' +

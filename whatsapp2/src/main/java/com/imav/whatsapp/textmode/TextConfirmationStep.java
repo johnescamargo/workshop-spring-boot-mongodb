@@ -12,6 +12,7 @@ import com.imav.whatsapp.service.ButtonReplyService;
 import com.imav.whatsapp.service.MessageButtonReplyService;
 import com.imav.whatsapp.service.MessageService;
 import com.imav.whatsapp.service.SendWebSocketService;
+import com.imav.whatsapp.util.CustomerUtil;
 import com.imav.whatsapp.util.TextReplyUtil;
 import com.imav.whatsapp.webhookModel.WebhookReceivedTextMessage;
 
@@ -37,17 +38,20 @@ public class TextConfirmationStep {
 
 	@Autowired
 	private ButtonReplyService buttonReply;
-	
+
 	@Autowired
 	private SendWebSocketService websocket;
-		
+
+	@Autowired
+	private CustomerUtil customerUtil;
 
 	@Autowired
 	private MessageAI messageAi;
+	
 
 	public void checkStepText(String obj, String phone) {
 
-		int step = getCustomerStep(phone);
+		int step = customerUtil.getCustomerStep(phone);
 
 		switch (step) {
 
@@ -65,11 +69,10 @@ public class TextConfirmationStep {
 		}
 
 	}
-	
+
 	public void checkStepTextDayOff(String obj, String phone) {
 
-		
-		int step = getCustomerStep(phone);
+		int step = customerUtil.getCustomerStep(phone);
 
 		switch (step) {
 
@@ -94,40 +97,31 @@ public class TextConfirmationStep {
 		Customer customer = getCustomer(phone);
 		WebhookReceivedTextMessage text = convertCustomerText(obj);
 
-		if (resp.equals("yes")) {
+		if (resp.equals("sim")) {
 
 			messageResource.saveMessageIntoDatabase(text, customer);
-			
+
 			websocket.convertMessageFromCustomer(text, 1);// int = 1 from customer, int = 0 from IMAV
-			
+
 			messageService.sendMessageResponse(obj, textReplyUtil.setTextYes(), "SIM");
-			
+
 			int step = 0;
 			boolean talk = false;
-			String timestamp = "0";
-			messageService.updateCustomer(phone, step, "normal", timestamp, talk);
+			String timelimit = "0";
+			messageService.updateCustomer(phone, step, "normal", timelimit, talk);
 
 		} else if (resp.equals("remarcar")) {
 
 			messageResource.saveMessageIntoDatabase(text, customer);
-			
+
 			websocket.convertMessageFromCustomer(text, 1);// int = 1 from customer, int = 0 from IMAV
-			
-			String id = 
-					text
-					.getEntry()
-					.get(0)
-					.getChanges()
-					.get(0)
-					.getValue()
-					.getMessages()
-					.get(0)
-					.getId();
-			
+
+			String id = text.getEntry().get(0).getChanges().get(0).getValue().getMessages().get(0).getId();
+
 			messageService.updateConfirmationResponse(id, "REMARCAR");
 			String path = ("/json/button_reply_remarcar.json");
 			buttonReplyService.sendButtonResponse(phone, path);
-			
+
 			int step = 2;
 			boolean talk = false;
 			String timestamp = "0";
@@ -136,41 +130,43 @@ public class TextConfirmationStep {
 		} else if (resp.equals("void")) {
 
 			messageResource.saveMessageIntoDatabase(text, customer);
-			
+
 			websocket.convertMessageFromCustomer(text, 1);// int = 1 from customer, int = 0 from IMAV
-			
+
 			String path = ("/json/message_dont_get_it.json");
-			messageService.sendMessageModelImav(phone, null, path);
-			
+			messageService.sendMessageModelImav(phone, path);
+
 		} else if (resp.equals("cancelar")) {
 
 			messageResource.saveMessageIntoDatabase(text, customer);
-			
+
 			websocket.convertMessageFromCustomer(text, 1);// int = 1 from customer, int = 0 from IMAV
-			
+
 			messageService.sendMessageResponse(obj, textReplyUtil.setTextCancel(), "CANCELADO");
-			
+
 			int step = 0;
 			boolean talk = false;
 			String timestamp = "0";
 			messageService.updateCustomer(phone, step, "normal", timestamp, talk);
 		}
 	}
-	
+
 	public void textConfirmation1DayOff(String obj, String phone) {
 
 		String resp = messageAi.analyzeTextYesOrNo(obj);
 		Customer customer = getCustomer(phone);
 		WebhookReceivedTextMessage text = convertCustomerText(obj);
+		
+		String idWamid = text.getEntry().get(0).getChanges().get(0).getValue().getMessages().get(0).getId();
 
-		if (resp.equals("yes")) {
+		if (resp.equals("sim")) {
 
 			messageResource.saveMessageIntoDatabase(text, customer);
-			
+
 			websocket.convertMessageFromCustomer(text, 1);
-			
+
 			messageService.sendMessageResponse(obj, textReplyUtil.setTextYes(), "SIM");
-			
+
 			int step = 0;
 			boolean talk = false;
 			messageService.updateCustomer(phone, step, "normal", "0", talk);
@@ -178,24 +174,17 @@ public class TextConfirmationStep {
 		} else if (resp.equals("remarcar")) {
 
 			messageResource.saveMessageIntoDatabase(text, customer);
-			
+
 			websocket.convertMessageFromCustomer(text, 1);
+
+			String id = text.getEntry().get(0).getChanges().get(0).getValue().getMessages().get(0).getId();
 			
-			String id = 
-					text
-					.getEntry()
-					.get(0)
-					.getChanges()
-					.get(0)
-					.getValue()
-					.getMessages()
-					.get(0)
-					.getId();
-			
+			messageService.updateConfirmationResponse(idWamid, "REMARCAR");
+
 			messageService.updateConfirmationResponse(id, resp);
 			String path = ("/json/button_reply_remarcar_off.json");
 			buttonReplyService.sendButtonResponse(phone, path);
-			
+
 			int step = 0;
 			boolean talk = true;
 			String timestamp = "0";
@@ -204,11 +193,24 @@ public class TextConfirmationStep {
 		} else if (resp.equals("void")) {
 
 			messageResource.saveMessageIntoDatabase(text, customer);
-			
+
 			websocket.convertMessageFromCustomer(text, 1);
-			
+
 			String path = ("/json/message_dont_get_it.json");
-			messageService.sendMessageModelImav(phone, null, path);
+			messageService.sendMessageModelImav(phone, path);
+
+		} else if (resp.equals("cancelar")) {
+
+			messageResource.saveMessageIntoDatabase(text, customer);
+
+			websocket.convertMessageFromCustomer(text, 1);// int = 1 from customer, int = 0 from IMAV
+
+			messageService.sendMessageResponse(obj, textReplyUtil.setTextCancel(), "CANCELADO");
+
+			int stepCancel = 0;
+			boolean talkCancel = false;
+			String timestamp = "0";
+			messageService.updateCustomer(phone, stepCancel, "normal", timestamp, talkCancel);
 		}
 	}
 
@@ -217,95 +219,110 @@ public class TextConfirmationStep {
 		String resp = messageAi.analyzeTextTalkOrPhone(obj);
 		Customer customer = getCustomer(phone);
 		WebhookReceivedTextMessage text = convertCustomerText(obj);
-		String name = customer.getName();
-		int step = 0;//zero means going back to first step
+
+		int step = 0;// zero means going back to first step
 
 		if (resp.equals("telefone")) {
-			
+
 			messageResource.saveMessageIntoDatabase(text, customer);
-			
+
 			websocket.convertMessageFromCustomer(text, 1);
-			
+
 			buttonReply.sendMessageResponse(obj, textReplyUtil.setTextTelephone(), "REMARCAR");
-			
+
 			boolean talk = false;
 			buttonReply.updateCustomer(phone, step, "normal", talk);
 
 		} else if (resp.equals("falar")) {
 			messageResource.saveMessageIntoDatabase(text, customer);
-			
+
 			websocket.convertMessageFromCustomer(text, 1);
-			
+
 			buttonReply.updateCustomerWantToTalk(phone);
-			
-			buttonReplyService.messageTalkToUsResponse(phone, name);
-			
+
+			buttonReplyService.messageTalkToUsResponse(phone);
+
 			boolean talk = true;
 			buttonReply.updateCustomer(phone, step, "normal", talk);
-
+			
 		} else if (resp.equals("void")) {
 			messageResource.saveMessageIntoDatabase(text, customer);
-			
+
 			websocket.convertMessageFromCustomer(text, 1);
-			
+
 			String path = ("/json/message_tel_or_speak.json");
-			messageService.sendMessageModelImav(phone, null, path);
+			messageService.sendMessageModelImav(phone, path);
+
+		} else if (resp.equals("cancelar")) {
+
+			messageResource.saveMessageIntoDatabase(text, customer);
+
+			websocket.convertMessageFromCustomer(text, 1);// int = 1 from customer, int = 0 from IMAV
+
+			messageService.sendMessageResponse(obj, textReplyUtil.setTextCancel(), "CANCELADO");
+
+			int stepCancel = 0;
+			boolean talkCancel = false;
+			String timestamp = "0";
+			messageService.updateCustomer(phone, stepCancel, "normal", timestamp, talkCancel);
 		}
 	}
-	
+
 	public void textConfirmation2DayOff(String obj, String phone) {
 
 		String resp = messageAi.analyzeTextTalkOrPhone(obj);
 		Customer customer = getCustomer(phone);
 		WebhookReceivedTextMessage text = convertCustomerText(obj);
-		String name = customer.getName();
-		int step = 0;//zero means going back to first step
+
+		int step = 0;// zero means going back to first step
 
 		if (resp.equals("telefone")) {
-			
+
 			messageResource.saveMessageIntoDatabase(text, customer);
-			
+
 			websocket.convertMessageFromCustomer(text, 1);
-			
+
 			buttonReply.sendMessageResponse(obj, textReplyUtil.setTextTelephone(), "REMARCAR");
-			
+
 			boolean talk = true;
 			buttonReply.updateCustomer(phone, step, "normal", talk);
 
 		} else if (resp.equals("falar")) {
+			
+			String id = text.getEntry().get(0).getChanges().get(0).getValue().getMessages().get(0).getId();
 			messageResource.saveMessageIntoDatabase(text, customer);
-			
+
 			websocket.convertMessageFromCustomer(text, 1);
-			
-			buttonReply.updateCustomerWantToTalk(phone);
-			buttonReplyService.messageTalkToUsResponse(phone, name);
-			
+
+			buttonReply.updateCustomerWantToTalkDayOff(phone);
+			buttonReplyService.messageTalkToUsResponseDayOff(phone);
+
 			boolean talk = true;
 			buttonReply.updateCustomer(phone, step, "normal", talk);
+			messageService.updateConfirmationResponse(id, "REMARCAR");
 
 		} else if (resp.equals("void")) {
 			messageResource.saveMessageIntoDatabase(text, customer);
-			
+
 			websocket.convertMessageFromCustomer(text, 1);
-			
+
 			String path = ("/json/message_tel_or_speak.json");
-			messageService.sendMessageModelImav(phone, null, path);
+			messageService.sendMessageModelImav(phone, path);
+
+		} else if (resp.equals("cancelar")) {
+
+			messageResource.saveMessageIntoDatabase(text, customer);
+
+			websocket.convertMessageFromCustomer(text, 1);// int = 1 from customer, int = 0 from IMAV
+
+			messageService.sendMessageResponse(obj, textReplyUtil.setTextCancel(), "CANCELADO");
+
+			int stepCancel = 0;
+			boolean talkCancel = false;
+			String timestamp = "0";
+			messageService.updateCustomer(phone, stepCancel, "normal", timestamp, talkCancel);
 		}
-	}
 
-	public int getCustomerStep(String phone) {
-
-		int step = 0;
-
-		try {
-
-			Customer customer = customerRepository.findByPhoneNumber(phone);
-			step = customer.getStep();
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return step;
 	}
 
 	public Customer getCustomer(String phone) {
