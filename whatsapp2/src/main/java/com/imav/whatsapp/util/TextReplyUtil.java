@@ -33,7 +33,7 @@ public class TextReplyUtil {
 	}
 	
 	public String setTextCancel() {
-		String msg = "Obrigado por nos avisar sobre o cancelamento. Caso queira remarcar tua consulta e/ou exame um outro dia, entre em contato conosco. Muito obrigado. 😊.";
+		String msg = "Obrigado por nos avisar sobre o cancelamento e estamos cancelando tua consulta. Caso queira remarcar tua consulta e/ou exame um outro dia, entre em contato conosco. Muito obrigado. 😊.";
 		return msg;
 	}
 

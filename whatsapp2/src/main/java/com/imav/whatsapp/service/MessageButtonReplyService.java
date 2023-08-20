@@ -413,8 +413,13 @@ public class MessageButtonReplyService {
 			String name = customer.getName();
 
 			WantsToTalk talk = new WantsToTalk(name, phone);
-
-			talkRepository.save(talk);
+			
+			boolean resp = talkRepository.existsByPhone(phone);
+			
+			if(resp) {
+				talkRepository.save(talk);
+			}
+			
 			customerRepository.save(customer);
 
 			websocket.updateWantsToTalk();

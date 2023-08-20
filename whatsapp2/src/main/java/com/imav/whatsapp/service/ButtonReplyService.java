@@ -76,7 +76,8 @@ public class ButtonReplyService {
 
 			switch (id) {
 			case "button-telefone":
-				sendMessageResponse(obj, textReplyUtil.setTextTelephone(), "Sem resposta");
+				sendMessageResponse(obj, textReplyUtil.setTextTelephone());
+				messageService.updateConfirmationResponse(id, "REMARCAR");
 
 				break;
 
@@ -95,9 +96,11 @@ public class ButtonReplyService {
 				break;
 
 			case "button-falar":
+				messageService.updateConfirmationResponse(id, "REMARCAR");
 				buttonReplyService.messageTalkToUsResponse(phone);
 
 			case "button-cancel":
+				messageService.updateConfirmationResponse(id, "CANCELAR");
 				saveInteractiveMessageFromCustomer(buttonClicked, phone);
 
 //				String path = ("/json/message_reply_cancelar.json");
@@ -106,7 +109,8 @@ public class ButtonReplyService {
 				int stepCancel = 0;
 				boolean talkCancel = false;
 				updateCustomer(phone, stepCancel, "normal", talkCancel);
-				messageService.sendMessageResponse(obj, textReplyUtil.setTextCancel(), "CANCELADO");
+				messageService.updateConfirmationResponse(id, "CANCELADO");
+				messageService.sendMessageResponse(obj, textReplyUtil.setTextCancel());
 
 				break;
 
@@ -134,7 +138,8 @@ public class ButtonReplyService {
 
 			switch (id) {
 			case "button-telefone":
-				sendMessageResponse(obj, textReplyUtil.setTextTelephone(), "Sem resposta");
+				messageService.updateConfirmationResponse(id, "REMARCAR");
+				sendMessageResponse(obj, textReplyUtil.setTextTelephone());
 
 				break;
 
@@ -153,9 +158,11 @@ public class ButtonReplyService {
 				break;
 
 			case "button-falar":
+				messageService.updateConfirmationResponse(id, "REMARCAR");
 				buttonReplyService.messageTalkToUsResponseDayOff(phone);
 
 			case "button-cancel":
+				messageService.updateConfirmationResponse(id, "CANCELADO");
 				saveInteractiveMessageFromCustomer(buttonClicked, phone);
 
 //				String path = ("/json/message_reply_cancelar.json");
@@ -164,7 +171,8 @@ public class ButtonReplyService {
 				int stepCancel = 0;
 				boolean talkCancel = false;
 				updateCustomer(phone, stepCancel, "normal", talkCancel);
-				messageService.sendMessageResponse(obj, textReplyUtil.setTextCancel(), "CANCELADO");
+				messageService.updateConfirmationResponse(id, "CANCELADO");
+				messageService.sendMessageResponse(obj, textReplyUtil.setTextCancel());
 
 				break;
 
@@ -192,7 +200,8 @@ public class ButtonReplyService {
 
 			switch (id) {
 			case "button-telefone":
-				sendMessageResponse(obj, textReplyUtil.setTextTelephone(), "REMARCAR");
+				messageService.updateConfirmationResponse(id, "REMARCAR");
+				sendMessageResponse(obj, textReplyUtil.setTextTelephone());
 				int step = 0;
 				boolean talk = false;
 				updateCustomer(phone, step, "normal", talk);
@@ -214,6 +223,7 @@ public class ButtonReplyService {
 				break;
 
 			case "button-falar":
+				messageService.updateConfirmationResponse(id, "REMARCAR");
 				saveInteractiveMessageFromCustomer(buttonClicked, phone);
 				updateCustomerWantToTalk(phone);
 				buttonReplyService.messageTalkToUsResponse(phone);
@@ -225,8 +235,9 @@ public class ButtonReplyService {
 
 				int stepCancel = 0;
 				boolean talkCancel = false;
-				updateCustomer(phone, stepCancel, "normal", talkCancel);
-				messageService.sendMessageResponse(obj, textReplyUtil.setTextCancel(), "CANCELADO");
+				updateCustomerCancel(phone, stepCancel, "normal", talkCancel);
+				messageService.updateConfirmationResponse(id, "CANCELADO");
+				messageService.sendMessageResponse(obj, textReplyUtil.setTextCancel());
 
 				break;
 
@@ -258,6 +269,7 @@ public class ButtonReplyService {
 			switch (payloadResp) {
 			case "SIM":
 				saveInitButtonClick(obj, phone, payloadResp);
+				messageService.updateConfirmationResponse(id, "SIM");
 				sendButtonResponse(obj, textReplyUtil.setTextYes(), "SIM");
 
 				break;
@@ -387,7 +399,7 @@ public class ButtonReplyService {
 		}
 	}
 
-	public void sendMessageResponse(String obj, String msgBody, String respYesOrNo) {
+	public void sendMessageResponse(String obj, String msgBody) {
 
 		HashMap<String, String> hashMap = new HashMap<>();
 
@@ -418,13 +430,6 @@ public class ButtonReplyService {
 				dbMessageResource.saveImavMessageIntoDatabase(messageModel, idWamid);
 
 				websocketService.convertMessageSend(messageModel, idWamid);
-
-				if (respYesOrNo.equals("SIM") || respYesOrNo.equals("REMARCAR")) {
-					String id = buttonClicked.getEntry().get(0).getChanges().get(0).getValue().getMessages().get(0)
-							.getContext().getId();
-
-					updateConfirmationResponse(id, respYesOrNo);
-				}
 
 			} else {
 				String timestamp = hashMap.get("timestamp");
@@ -635,7 +640,7 @@ public class ButtonReplyService {
 
 			dbMessageResource.saveInteractiveReplyIntoDatabase(obj, customer);
 
-			websocketService.convertInteractiveFromOutside(obj, 1);
+			//websocketService.convertInteractiveFromOutside(obj, 1);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -704,6 +709,24 @@ public class ButtonReplyService {
 		}
 
 	}
+	
+	public void updateCustomerCancel(String phone, int step, String mode, boolean talk) {
+
+		try {
+
+			Customer customer = customerRepository.findByPhoneNumber(phone);
+			customer.setMode(mode);
+			customer.setStep(step);
+			customer.setTimelimit("0");
+			customer.setTalk(talk);
+
+			customerRepository.save(customer);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
 
 	public void updateCustomerWantToTalk(String phone) {
 
@@ -727,6 +750,7 @@ public class ButtonReplyService {
 			e.printStackTrace();
 		}
 	}
+	
 
 	public void updateCustomerWantToTalkDayOff(String phone) {
 

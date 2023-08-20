@@ -185,7 +185,7 @@ public class DBMessageResource {
 
 		saveMessage(message);
 		logger.info("Saving messagge: text....");
-		updateCustomersTimestamp(phone, "0");
+		updateCustomersTimestamp(phone, timestamp);
 
 	}
 	

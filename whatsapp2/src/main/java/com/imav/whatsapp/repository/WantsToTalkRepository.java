@@ -13,4 +13,6 @@ public interface WantsToTalkRepository extends JpaRepository<WantsToTalk, String
 	
 	@Transactional
 	void deleteByPhone(String phone);
+
+	boolean existsByPhone(String phone);
 }

@@ -55,13 +55,13 @@ li a:hover:not(.active) {
 }
 
 #active {
-	text-decoration: none;
-    color: #fff;
+  text-decoration: none;
+  color: #fff;
 }
 
 .exit {
   float: right;
-  direction:rtl;
+  direction: rtl;
 }
 
 /* The Modal (background) */
@@ -176,17 +176,17 @@ li button:hover:not(.active) {
 }
 
 li button:focus {
-    /* outline: 1px dotted; */
-    border-style: none;
-    /* outline: 5px auto -webkit-focus-ring-color; */
+  /* outline: 1px dotted; */
+  border-style: none;
+  /* outline: 5px auto -webkit-focus-ring-color; */
 }
 
 #myDropdown {
-	  border-style: none;
+  border-style: none;
 }
 
 #myDropdown p {
-	    margin: 0;
+  margin: 0;
 }
 
 .dropdown-content {
@@ -194,7 +194,7 @@ li button:focus {
   position: absolute;
   background-color: #f9f9f9;
   min-width: 160px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   z-index: 1;
   border-style: none;
 }
@@ -221,25 +221,25 @@ li button:focus {
 }
 
 .home-div {
-    display: flex;
-    justify-content: center;
+  display: flex;
+  justify-content: center;
 }
 
-.showcase{
-    min-width: 400px;
-    max-width: 400px;
-    height: fit-content;
-    background-color: rgb(85 87 83 / 29%);
-    display: flex;
-    justify-content: space-around;
-    margin-top: 25px;
-    margin-right: 14px;
-    border-radius: 0.25rem;
+.showcase {
+  min-width: 250px;
+  max-width: 250px;
+  height: fit-content;
+  background-color: rgb(85 87 83 / 29%);
+  display: flex;
+  justify-content: space-around;
+  margin-top: 25px;
+  margin-right: 12px;
+  border-radius: 0.25rem;
 }
 
 .message-dialogue {
-  max-width: 80%;
-  margin-bottom: 25px;
+  width: 234px;
+  margin-bottom: 37px;
 }
 
 .my-message {
@@ -250,7 +250,6 @@ li button:focus {
   color: rgb(0, 0, 0);
   margin-bottom: 5px;
   margin-top: 14px;
-  margin-right: 20px;
   padding-left: 5px;
   padding-right: 5px;
   padding-top: 5px;
@@ -258,29 +257,116 @@ li button:focus {
 }
 
 .my-message-button {
-  border-radius: 10px;
+  display: flex;
+  justify-content: center;
   text-align: center;
+  align-items: center;
+  border-radius: 10px;
   height: 29px;
   background-color: rgb(188, 233, 229);
   font-size: 14px;
   color: rgb(0, 0, 0);
   margin-bottom: 2px;
   margin-top: 2px;
-  margin-right: 20px;
   padding-left: 5px;
   padding-right: 5px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 p {
-	margin: auto;
-    padding-top: 2px;
-    padding-left: 2px;
+  margin: auto;
+  padding-top: 2px;
+  padding-left: 2px;
+  font-size: 12px;
 }
 
 .time {
-    justify-content: space-between;
-    display: flex;
+  justify-content: space-between;
+  display: flex;
 }
 
+.table td,
+.table th {
+  padding: 2px;
+  vertical-align: baseline;
+  border-top: 1px solid #dee2e6;
+}
 
+tbody {
+  font-size: 14px;
+}
+
+.class-phone {
+  width: 120px;
+}
+
+.class-phone input {
+  width: 120px;
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+}
+
+.class-time {
+  width: 46px;
+}
+
+.class-time input {
+  width: 44px;
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+}
+
+.class-doctor {
+  width: 18%;
+}
+
+.class-doctor input {
+  width: 100%;
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+}
+
+.class-service {
+  width: 16%;
+}
+
+.class-service input {
+  width: 100%;
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+}
+
+.class-name {
+  min-width: 200px;
+}
+
+.class-name input {
+  width: 100%;
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+}
+
+.class-date {
+  width: 77px;
+}
+
+.class-button {
+  display: inline-flex;
+}
+
+.template-model {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+  border-radius: 3px;
+  height: 29px;
+  background-color: rgb(231, 231, 231);
+  font-size: 14px;
+  color: rgb(0, 0, 0);
+  margin-bottom: 2px;
+  margin-top: 10px;
+  padding-left: 5px;
+  padding-right: 5px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}

@@ -6,7 +6,7 @@
 	"interactive": {
 		"type": "button",
 		"body": {
-			"text": "Clínica de olhos IMAV. Olá, espero que esteja bem. Não estamos disponíveis no momento. Nosso Horário de atendimento é de segunda à sexta-feira das 8h às 17h e aos sábados das 8h às 12h. Temos um menu abaixo caso necessite de alguma informação. Obrigado"
+			"text": "Clínica de olhos IMAV. Olá, espero que esteja bem. Obrigado por nos procurar. Eu sou o Bot (robô) da IMAV, porém, posso lhe ajudar. Clique na opção abaixo que melhor atende a tua necessidade ou faça um pergunta que eu tentarei responder para você."
 		},
 		"action": {
 			"buttons": [
@@ -28,7 +28,7 @@
 					"type": "reply",
 					"reply": {
 						"id": "button-localizacao",
-						"title": "LOCALIZAÇÃO/ENDEREÇO"
+						"title": "ENDEREÇO/LOCALIZAÇÃO"
 					}
 				}
 			]

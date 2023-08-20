@@ -107,7 +107,9 @@ public class WebhookService {
 				}
 
 			} else {
+				
 				talkingService.setWebhookTalking(type, obj, phone, name);
+				
 			}
 
 		} catch (Exception e) {
@@ -215,6 +217,7 @@ public class WebhookService {
 			return false;
 		}
 		try {
+			@SuppressWarnings("unused")
 			Long longNumber = Long.parseLong(strNum);
 		} catch (NumberFormatException nfe) {
 			return false;

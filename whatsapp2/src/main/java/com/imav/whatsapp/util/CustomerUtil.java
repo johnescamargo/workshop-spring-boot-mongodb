@@ -31,8 +31,9 @@ public class CustomerUtil {
 
 				// if so return true and save message into DB, websocket etc
 				// 3600 seg = 1h
+				// 10800 = 3h
 				// 600 = 10min
-				if (result <= 3600) {
+				if (result <= 10800) {
 					return true;
 				}
 			}
@@ -57,7 +58,7 @@ public class CustomerUtil {
 			long result = timestamp - timestampCustomer;
 
 			// 3600 seg = 1h
-			// 600 = 10min
+			// 86400 = 24h
 			if (result > 86400) {
 				customer.setStep(0);
 				customer.setMode("normal");
@@ -89,6 +90,20 @@ public class CustomerUtil {
 			e.printStackTrace();
 		}
 		return step;
+	}
+	
+	public void updateOnlyCustomerWantToTalk(String phone) {
+
+		try {
+
+			Customer customer = customerRepository.findByPhoneNumber(phone);
+			customer.setTalk(true);
+
+			customerRepository.save(customer);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 }

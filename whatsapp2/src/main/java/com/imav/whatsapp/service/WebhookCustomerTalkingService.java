@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.imav.whatsapp.resource.DBCustomerResource;
+import com.imav.whatsapp.util.CustomerUtil;
 
 @Service
 public class WebhookCustomerTalkingService {
@@ -23,13 +24,16 @@ public class WebhookCustomerTalkingService {
 	@Autowired
 	private SendWebSocketService websocket;
 
+	@Autowired
+	private CustomerUtil customerUtil;
 
-	public void setWebhookTalking(String type, String obj, String from, String name) {
+	public void setWebhookTalking(String type, String obj, String phone, String name) {
 
 		switch (type) {
 
 		case "text":
 			resource.saveCustomerMessage(obj);
+			customerUtil.updateOnlyCustomerWantToTalk(phone);
 			websocket.showCustomerToWebSocket();
 			break;
 
@@ -54,24 +58,24 @@ public class WebhookCustomerTalkingService {
 			break;
 
 		case "audio":
-			message.messageNoAudio(from, name);
+			message.messageNoAudio(phone, name);
 			//button.sendResponseToAudio(from);
 			websocket.showCustomerToWebSocket();
 			break;
 
 		case "interactive":
-			button.sendResponseToButtonClicked(obj, from);
+			button.sendResponseToButtonClicked(obj, phone);
 			websocket.showCustomerToWebSocket();
 			break;
 
 		case "button":
-			button.sendResponseToInitButtonClicked(obj, from);
+			button.sendResponseToInitButtonClicked(obj, phone);
 			websocket.showCustomerToWebSocket();
 			break;
 
 		case "location":
-			button.saveInteractiveButtonLocation(obj, from);
-			location.sendLocation(from);
+			button.saveInteractiveButtonLocation(obj, phone);
+			location.sendLocation(phone);
 			websocket.showCustomerToWebSocket();
 			break;
 
@@ -82,5 +86,7 @@ public class WebhookCustomerTalkingService {
 
 		websocket.showCustomerToWebSocket();
 	}
+	
+	
 
 }

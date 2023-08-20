@@ -231,7 +231,7 @@ public class MessageService {
 		return true;
 	}
 
-	public void sendMessageResponse(String obj, String msgBody, String respYesOrNo) {
+	public void sendMessageResponse(String obj, String msgBody) {
 
 		HashMap<String, String> hashMap = new HashMap<>();
 
@@ -260,11 +260,6 @@ public class MessageService {
 				String idWamid = hashMap.get("idWamid");
 				dbMessageResource.saveImavMessageIntoDatabase(messageModel, idWamid);
 				websocketService.convertMessageSend(messageModel, idWamid);
-
-				if (respYesOrNo.equals("SIM") || respYesOrNo.equals("REMARCAR") || respYesOrNo.equals("CANCELADO")) {
-					updateConfirmationResponse(idWamid, respYesOrNo);
-				}
-
 			} else {
 				String timestamp = hashMap.get("timestamp");
 				System.out.println("Message Not sent - timestamp: " + timestamp);

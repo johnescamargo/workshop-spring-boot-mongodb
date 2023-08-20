@@ -30,14 +30,14 @@ function htmlDisplay(data) {
 		'<table class="table table-striped table-bordered">' +
 		'<thead class="thead-dark">' +
 		"<tr>" +
-		"<th>Data do Envio</th>" +
+		"<th>Data Envio</th>" +
 		"<th>Medico</th>" +
 		"<th>Serviço</th>" +
 		"<th>Nome</th>" +
 		"<th>Telefone</th>" +
 		"<th>Hora</th>" +
 		"<th>Resposta</th>" +
-		"<th>Data da Consulta/Exame</th>" +
+		"<th>Data Consulta/Exame</th>" +
 		"</tr>" +
 		"</thead>" +
 		"<tbody>";

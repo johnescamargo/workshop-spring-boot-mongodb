@@ -47,7 +47,6 @@ public class TextConfirmationStep {
 
 	@Autowired
 	private MessageAI messageAi;
-	
 
 	public void checkStepText(String obj, String phone) {
 
@@ -96,6 +95,7 @@ public class TextConfirmationStep {
 		String resp = messageAi.analyzeTextYesOrNo(obj);
 		Customer customer = getCustomer(phone);
 		WebhookReceivedTextMessage text = convertCustomerText(obj);
+		String id = text.getEntry().get(0).getChanges().get(0).getValue().getMessages().get(0).getId();
 
 		if (resp.equals("sim")) {
 
@@ -103,7 +103,8 @@ public class TextConfirmationStep {
 
 			websocket.convertMessageFromCustomer(text, 1);// int = 1 from customer, int = 0 from IMAV
 
-			messageService.sendMessageResponse(obj, textReplyUtil.setTextYes(), "SIM");
+			messageService.sendMessageResponse(obj, textReplyUtil.setTextYes());
+			messageService.updateConfirmationResponse(id, "SIM");
 
 			int step = 0;
 			boolean talk = false;
@@ -116,16 +117,14 @@ public class TextConfirmationStep {
 
 			websocket.convertMessageFromCustomer(text, 1);// int = 1 from customer, int = 0 from IMAV
 
-			String id = text.getEntry().get(0).getChanges().get(0).getValue().getMessages().get(0).getId();
-
 			messageService.updateConfirmationResponse(id, "REMARCAR");
 			String path = ("/json/button_reply_remarcar.json");
 			buttonReplyService.sendButtonResponse(phone, path);
 
 			int step = 2;
 			boolean talk = false;
-			String timestamp = "0";
-			messageService.updateCustomer(phone, step, "confirmation", timestamp, talk);
+			String timelimit = "0";
+			messageService.updateCustomer(phone, step, "confirmation", timelimit, talk);
 
 		} else if (resp.equals("void")) {
 
@@ -142,12 +141,13 @@ public class TextConfirmationStep {
 
 			websocket.convertMessageFromCustomer(text, 1);// int = 1 from customer, int = 0 from IMAV
 
-			messageService.sendMessageResponse(obj, textReplyUtil.setTextCancel(), "CANCELADO");
+			messageService.sendMessageResponse(obj, textReplyUtil.setTextCancel());
+			messageService.updateConfirmationResponse(id, "CANCELADO");
 
 			int step = 0;
 			boolean talk = false;
-			String timestamp = "0";
-			messageService.updateCustomer(phone, step, "normal", timestamp, talk);
+			String timelimit = "0";
+			messageService.updateCustomer(phone, step, "normal", timelimit, talk);
 		}
 	}
 
@@ -156,8 +156,7 @@ public class TextConfirmationStep {
 		String resp = messageAi.analyzeTextYesOrNo(obj);
 		Customer customer = getCustomer(phone);
 		WebhookReceivedTextMessage text = convertCustomerText(obj);
-		
-		String idWamid = text.getEntry().get(0).getChanges().get(0).getValue().getMessages().get(0).getId();
+		String id = text.getEntry().get(0).getChanges().get(0).getValue().getMessages().get(0).getId();
 
 		if (resp.equals("sim")) {
 
@@ -165,7 +164,9 @@ public class TextConfirmationStep {
 
 			websocket.convertMessageFromCustomer(text, 1);
 
-			messageService.sendMessageResponse(obj, textReplyUtil.setTextYes(), "SIM");
+			messageService.updateConfirmationResponse(id, "SIM");
+
+			messageService.sendMessageResponse(obj, textReplyUtil.setTextYes());
 
 			int step = 0;
 			boolean talk = false;
@@ -177,9 +178,7 @@ public class TextConfirmationStep {
 
 			websocket.convertMessageFromCustomer(text, 1);
 
-			String id = text.getEntry().get(0).getChanges().get(0).getValue().getMessages().get(0).getId();
-			
-			messageService.updateConfirmationResponse(idWamid, "REMARCAR");
+			messageService.updateConfirmationResponse(id, "REMARCAR");
 
 			messageService.updateConfirmationResponse(id, resp);
 			String path = ("/json/button_reply_remarcar_off.json");
@@ -205,7 +204,8 @@ public class TextConfirmationStep {
 
 			websocket.convertMessageFromCustomer(text, 1);// int = 1 from customer, int = 0 from IMAV
 
-			messageService.sendMessageResponse(obj, textReplyUtil.setTextCancel(), "CANCELADO");
+			messageService.sendMessageResponse(obj, textReplyUtil.setTextCancel());
+			messageService.updateConfirmationResponse(id, "CANCELADO");
 
 			int stepCancel = 0;
 			boolean talkCancel = false;
@@ -219,6 +219,7 @@ public class TextConfirmationStep {
 		String resp = messageAi.analyzeTextTalkOrPhone(obj);
 		Customer customer = getCustomer(phone);
 		WebhookReceivedTextMessage text = convertCustomerText(obj);
+		String id = text.getEntry().get(0).getChanges().get(0).getValue().getMessages().get(0).getId();
 
 		int step = 0;// zero means going back to first step
 
@@ -228,15 +229,19 @@ public class TextConfirmationStep {
 
 			websocket.convertMessageFromCustomer(text, 1);
 
-			buttonReply.sendMessageResponse(obj, textReplyUtil.setTextTelephone(), "REMARCAR");
-
+			buttonReply.sendMessageResponse(obj, textReplyUtil.setTextTelephone());
+			messageService.updateConfirmationResponse(id, "REMARCAR");
+			
 			boolean talk = false;
 			buttonReply.updateCustomer(phone, step, "normal", talk);
 
 		} else if (resp.equals("falar")) {
+			
 			messageResource.saveMessageIntoDatabase(text, customer);
 
 			websocket.convertMessageFromCustomer(text, 1);
+			
+			messageService.updateConfirmationResponse(id, "REMARCAR");
 
 			buttonReply.updateCustomerWantToTalk(phone);
 
@@ -244,13 +249,15 @@ public class TextConfirmationStep {
 
 			boolean talk = true;
 			buttonReply.updateCustomer(phone, step, "normal", talk);
-			
+
 		} else if (resp.equals("void")) {
+			
 			messageResource.saveMessageIntoDatabase(text, customer);
 
 			websocket.convertMessageFromCustomer(text, 1);
 
 			String path = ("/json/message_tel_or_speak.json");
+			
 			messageService.sendMessageModelImav(phone, path);
 
 		} else if (resp.equals("cancelar")) {
@@ -258,8 +265,10 @@ public class TextConfirmationStep {
 			messageResource.saveMessageIntoDatabase(text, customer);
 
 			websocket.convertMessageFromCustomer(text, 1);// int = 1 from customer, int = 0 from IMAV
+			
+			messageService.updateConfirmationResponse(id, "CANCELAR");
 
-			messageService.sendMessageResponse(obj, textReplyUtil.setTextCancel(), "CANCELADO");
+			messageService.sendMessageResponse(obj, textReplyUtil.setTextCancel());
 
 			int stepCancel = 0;
 			boolean talkCancel = false;
@@ -273,6 +282,7 @@ public class TextConfirmationStep {
 		String resp = messageAi.analyzeTextTalkOrPhone(obj);
 		Customer customer = getCustomer(phone);
 		WebhookReceivedTextMessage text = convertCustomerText(obj);
+		String id = text.getEntry().get(0).getChanges().get(0).getValue().getMessages().get(0).getId();
 
 		int step = 0;// zero means going back to first step
 
@@ -281,15 +291,16 @@ public class TextConfirmationStep {
 			messageResource.saveMessageIntoDatabase(text, customer);
 
 			websocket.convertMessageFromCustomer(text, 1);
+			
+			messageService.updateConfirmationResponse(id, "REMARCAR");
 
-			buttonReply.sendMessageResponse(obj, textReplyUtil.setTextTelephone(), "REMARCAR");
+			buttonReply.sendMessageResponse(obj, textReplyUtil.setTextTelephone());
 
 			boolean talk = true;
 			buttonReply.updateCustomer(phone, step, "normal", talk);
 
 		} else if (resp.equals("falar")) {
-			
-			String id = text.getEntry().get(0).getChanges().get(0).getValue().getMessages().get(0).getId();
+
 			messageResource.saveMessageIntoDatabase(text, customer);
 
 			websocket.convertMessageFromCustomer(text, 1);
@@ -315,7 +326,8 @@ public class TextConfirmationStep {
 
 			websocket.convertMessageFromCustomer(text, 1);// int = 1 from customer, int = 0 from IMAV
 
-			messageService.sendMessageResponse(obj, textReplyUtil.setTextCancel(), "CANCELADO");
+			messageService.sendMessageResponse(obj, textReplyUtil.setTextCancel());
+			messageService.updateConfirmationResponse(id, "CANCELADO");
 
 			int stepCancel = 0;
 			boolean talkCancel = false;

@@ -28,7 +28,7 @@
 					"type": "reply",
 					"reply": {
 						"id": "button-localizacao",
-						"title": "ENDEREÇO"
+						"title": "ENDEREÇO/LOCALIZAÇÃO"
 					}
 				}
 			]
