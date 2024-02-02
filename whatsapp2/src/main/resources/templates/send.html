@@ -16,6 +16,7 @@
 	<script src="/webjars/stomp-websocket/stomp.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 	<link rel="stylesheet" th:href="@{/css/send.css}" />
+	<link rel="icon" type="image/x-icon" th:href="@{/img/imav-icon.jpg}">
 	<title>Enviar</title>
 </head>
 
@@ -27,6 +28,8 @@
 			<li><a onclick="disconnect()" id="active" class="active" th:href="send">Enviar</a></li>
 			<li><a onclick="disconnect()" th:href="chat">Chat</a></li>
 			<li><a onclick="disconnect()" th:href="confirmation">Confirmação</a></li>
+			<li><a onclick="disconnect()" th:href="particular">NF Particular</a></li>
+			<li><a onclick="disconnect()" th:href="notafiscal">Nota Fiscal</a></li>
 			<div sec:authorize="hasAuthority('ADMIN')">
 				<li><a onclick="disconnect()" th:href="register">Novo Usuário</a></li>
 				<li><a onclick="disconnect()" th:href="settings">Configurações</a></li>

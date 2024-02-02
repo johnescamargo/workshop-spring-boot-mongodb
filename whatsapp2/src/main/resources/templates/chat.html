@@ -12,6 +12,7 @@
 	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
 	<link rel="stylesheet" th:href="@{/css/chat.css}" />
+	<link rel="icon" type="image/x-icon" th:href="@{/img/imav-icon.jpg}">
 	<title>Chat</title>
 </head>
 
@@ -23,6 +24,8 @@
 			<li><a onclick="disconnect()" th:href="send">Enviar</a></li>
 			<li><a onclick="disconnect()" class="active" th:href="chat">Chat</a></li>
 			<li><a onclick="disconnect()" th:href="confirmation">Confirmação</a></li>
+			<li><a onclick="disconnect()" th:href="particular">NF Particular</a></li>
+			<li><a onclick="disconnect()" th:href="notafiscal">Nota Fiscal</a></li>
 			<div sec:authorize="hasAuthority('ADMIN')">
 				<!-- Only ADMIN has access to it -->
 				<li><a onclick="disconnect()" th:href="register">Novo Usuário</a></li>

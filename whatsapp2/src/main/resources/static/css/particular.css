@@ -1,0 +1,296 @@
+*,
+::after,
+::before {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+html {
+  background-color: rgb(220, 220, 230);
+}
+
+/* Navbar */
+.nav-bar {
+  font-family: "Source Sans Pro", sans-serif;
+  height: 50px;
+  width: 100%;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: rgb(17 41 70);
+  height: 50px;
+}
+
+li {
+  float: left;
+  color: white;
+}
+
+li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  min-width: 100px;
+  width: fit-content;
+  cursor: pointer;
+}
+
+li a:hover:not(.active) {
+  transition: transform 0.2s;
+  transform: scale(1.3);
+  color: white;
+  text-decoration: none;
+}
+
+.active {
+  background-color: rgb(27 67 114);
+}
+
+#active {
+	text-decoration: none;
+    color: #fff;
+}
+
+.exit {
+  float: right;
+  direction:rtl;
+}
+
+/* Navbar end */
+
+.frame-div {
+  padding-left: 20px;
+  padding-top: 5px;
+  line-height: normal;
+  font-size: 16px;
+  font-family: "Times New Roman", Times, serif;
+  background-color: rgb(220, 220, 230);
+}
+
+.frame-div h3 {
+  font-weight: bold;
+  font-size: large;
+}
+
+.main-div {
+  display: flex;
+}
+
+.prontuario-div {
+  display: flex;
+}
+
+label {
+	margin-bottom: 0;
+}
+
+label[for="prontuario"] {
+  width: 170px;
+  padding-top: 4px;
+  padding-right: 3px;
+}
+
+label[for="forma-pagamento"] {
+  width: 290px;
+}
+
+label[for="credito-pagamento"] {
+  width: 290px;
+}
+
+label[for="consulta"] {
+  margin-right: 37px;
+}
+
+label[for="sim"] {
+  margin-right: 37px;
+}
+
+label[for="valor"] {
+  padding-top: 4px;
+  padding-right: 3px;
+}
+
+#prontuario {
+  border-radius: 6px;
+  height: 25px;
+  width: 100%;
+}
+
+input[type="text"] {
+  border-radius: 6px;
+  height: 25px;
+  width: 100%;
+  border-style: solid;
+  border-color: dimgrey;
+}
+
+input[type="checkbox"] {
+  cursor: pointer;
+}
+
+.checkbox-div {
+  margin-bottom: 13px;
+}
+
+.dados-nf {
+  height: 140px;
+  background-color: rgb(255, 255, 255);
+  width: 320px;
+  border-radius: 8px;
+  padding: 10px;
+  border-left: 4px solid rgb(77, 146, 103);
+}
+
+.dados-nf h4 {
+  margin-bottom: 8px;
+  font-weight: bold;
+  font-size: large;
+}
+
+.main-data {
+  height: 360px;
+  background-color: rgb(255, 255, 255);
+  width: 320px;
+  border-radius: 8px;
+  padding: 10px;
+  border-left: 4px solid rgb(126, 77, 146);
+  margin-right: 12px;
+  margin-bottom: 10px;
+}
+
+.col-1-data {
+  display: grid;
+}
+
+.main-data input {
+  margin-bottom: 10px;
+}
+
+.div-container {
+  display: flex;
+}
+
+.deeper-container {
+  width: 100%;
+  padding-right: 7px;
+}
+
+.numero-container {
+  width: 70px;
+}
+
+.cep-container {
+  width: 112px;
+}
+
+.cep-data {
+  height: 510px;
+  background-color: rgb(255, 255, 255);
+  width: 320px;
+  border-radius: 8px;
+  padding: 10px;
+  border-left: 4px solid rgb(213, 37, 37);
+}
+
+.cep-data input {
+  margin-bottom: 5px;
+}
+
+.col-3-data {
+  margin-left: 12px;
+}
+
+.exames {
+  height: 510px;
+  background-color: rgb(255, 255, 255);
+  width: 320px;
+  border-radius: 8px;
+  padding: 10px;
+  border-left: 4px solid rgb(73, 72, 141);
+}
+
+.exames h4 {
+  font-weight: bold;
+  font-size: large;
+}
+
+@-moz-document url-prefix() {
+  .main-data {
+    height: 360px;
+    background-color: rgb(255, 255, 255);
+    width: 320px;
+    border-radius: 8px;
+    padding: 10px;
+    border-left: 4px solid rgb(126, 77, 146);
+    margin-right: 12px;
+    margin-bottom: 10px;
+  }
+
+  .exames {
+    height: 510px;
+    background-color: rgb(255, 255, 255);
+    width: 320px;
+    border-radius: 8px;
+    padding: 10px;
+    border-left: 4px solid rgb(73, 72, 141);
+  }
+}
+
+select {
+  border-radius: 6px;
+  height: 25px;
+  width: 100%;
+  border-style: solid;
+}
+
+button {
+  width: 125px;
+  height: 35px;
+  margin-top: 4px;
+  border-radius: 8px;
+  background-color: rgb(57, 57, 192);
+  color: aliceblue;
+  cursor: pointer;
+  border-style: none;
+}
+
+button:hover {
+  background-color: rgb(94, 94, 185);
+}
+
+a span {
+  display: none;
+  position: absolute;
+  color: #fff;
+  background: #000;
+  padding: 5px;
+  z-index: 1;
+}
+
+a {
+  position: relative;
+  text-decoration-line: unset;
+  color: black;
+}
+
+a:hover span {
+  display: block;
+  text-align: center;
+  opacity: unset;
+}
+
+#textarea-tag {
+  border-style: solid;
+  border-color: dimgrey;
+  margin-top: 6px;
+  border-radius: 6px;
+  border-width: 2px;
+  width: 100%;
+}

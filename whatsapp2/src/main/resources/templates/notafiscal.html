@@ -1,33 +1,33 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html>
 
 <head>
 	<meta charset="UTF-8" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
-	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
 		integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 	<script src="/webjars/jquery/jquery.min.js"></script>
 	<script src="/webjars/sockjs-client/sockjs.min.js"></script>
 	<script src="/webjars/stomp-websocket/stomp.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-	<link rel="stylesheet" th:href="@{/css/confirmation.css}" />
+	<link rel="stylesheet" th:href="@{/css/notafiscal.css}" />
 	<link rel="icon" type="image/x-icon" th:href="@{/img/imav-icon.jpg}">
-	<title>Confirmações</title>
+	<title>Nota Fiscal</title>
 </head>
 
 <body onload="connect()">
 
+	<div id="username" sec:authentication="name"></div>
 	<nav class="nav-bar">
 		<ul>
 			<li><a onclick="disconnect()" th:href="home">Enviar Agenda</a></li>
 			<li><a onclick="disconnect()" th:href="send">Enviar</a></li>
 			<li><a onclick="disconnect()" th:href="chat">Chat</a></li>
-			<li><a onclick="disconnect()" id="active" class="active" th:href="confirmation">Confirmação</a></li>
+			<li><a onclick="disconnect()" th:href="confirmation">Confirmação</a></li>
 			<li><a onclick="disconnect()" th:href="particular">NF Particular</a></li>
-			<li><a onclick="disconnect()" th:href="notafiscal">Nota Fiscal</a></li>			
+			<li><a onclick="disconnect()" class="active" th:href="notafiscal">Nota Fiscal</a></li>
 			<div sec:authorize="hasAuthority('ADMIN')">
 				<!-- Only ADMIN has access to it -->
 				<li><a onclick="disconnect()" th:href="register">Novo Usuário</a></li>
@@ -39,7 +39,7 @@
 			</li>
 			<li class="exit">
 				<a onclick="disconnect()" th:href="config"><i class="fa fa-user fa-1.5x" aria-hidden="true"><span>
-						</span><span th:remove="tag" sec:authentication="name"> </span></i></a>
+						</span> <span th:remove="tag" sec:authentication="name"> </span></i></a>
 			</li>
 			<li id="exit" class="exit">
 				<!-- Websocket alert goes here -->
@@ -47,26 +47,37 @@
 		</ul>
 	</nav>
 
-	<div class="search-and-header">
-		<div class="search-bar">
-			<i class="fa fa-search fa-2x" aria-hidden="true"></i>
-			<input type="text" id="search-bar-text" />
-		</div>
+	
+    <div class="division">
 
-		<header class="div-header">
-			<input id="datepicker" type="date" onchange="loadContent(this.value)" class="datepicker"
-				data-date-format="dd/MM/yyyy">
-		</header>
-	</div>
-
-
-	<div class="main-div" id="main-div">
+        <div class="division2">
+            <div class="div-datepicker">
+                <input id="datepicker" type="date" format="dd/mm/yyyy" class="datepicker" data-date-format="dd/MM/yyyy">
+                <div class="div-pesquisa">
+                    <label for="pesquisa">Pesquisa</label>
+                    <input type="text" class="pesquisa" id="pesquisa">
+                </div>
+            </div>
 
 
-	</div>
+            <div class="div-customers">
+                <h4 id="h4-nf">Lista de Notas fiscais</h4>
+                <!-- Table -->
+                <div id="data-table">
 
-	<script th:src="@{/js/confirmation.js}"></script>
-	<script th:src="@{/js/websocket.js}"></script>
+                </div>
+            </div>
+
+
+        </div>
+
+        <div class="customer-div" id="customer-div">
+
+        </div>
+
+    </div>
+
+	<script th:src="@{/js/notafiscal.js}"></script>
 
 </body>
 

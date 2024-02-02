@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+		integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<script src="/webjars/jquery/jquery.min.js"></script>
+	<script src="/webjars/sockjs-client/sockjs.min.js"></script>
+	<script src="/webjars/stomp-websocket/stomp.min.js"></script>
+    <link rel="stylesheet" th:href="@{/css/particular.css}">
+    <link rel="icon" type="image/x-icon" th:href="@{/img/imav-icon.jpg}">
+    <title>Atendimento Particular</title>
+</head>
+
+<body onload="connect()">
+
+	<nav class="nav-bar">
+		<ul>
+			<li><a onclick="disconnect()" th:href="home">Enviar Agenda</a></li>
+			<li><a onclick="disconnect()" th:href="send">Enviar</a></li>
+			<li><a onclick="disconnect()" th:href="chat">Chat</a></li>
+			<li><a onclick="disconnect()" th:href="confirmation">Confirmação</a></li>
+			<li><a onclick="disconnect()" class="active" th:href="particular">NF Particular</a></li>
+			<li><a onclick="disconnect()" th:href="notafiscal">Nota Fiscal</a></li>
+			<div sec:authorize="hasAuthority('ADMIN')">
+				<li><a onclick="disconnect()" th:href="register">Novo Usuário</a></li>
+				<li><a onclick="disconnect()" th:href="settings">Configurações</a></li>
+			</div>
+			<li class="exit">
+				<a onclick="disconnect()" th:href="@{/logout}"><i class="fa fa-sign-out fa-1.5x" aria-hidden="true">
+						Sair</i></a>
+			</li>
+			<li class="exit">
+				<a onclick="disconnect()" th:href="config"><i class="fa fa-user fa-1.5x" aria-hidden="true"><span> 
+						</span> <span th:remove="tag" sec:authentication="name"></span></i></a>
+			</li>
+
+			<li id="exit" class="exit">
+				<!-- Websocket alert goes here -->
+			</li>
+
+		</ul>
+	</nav>
+
+    <div class="frame-div">
+
+        <h3>Atendimento Particular</h3>
+
+        <div class="main-div">
+
+            <!-- Dados Principais-->
+            <div class="col-1-data">
+
+                <div class="main-data">
+                    <div class="prontuario-div">
+                        <label for="prontuario">Prontuário Nº 1/</label>
+                        <input type="text" name="prontuario" id="prontuario" required>
+                    </div>
+                    <br>
+
+                    <!-- Exame / Consulta -->
+                    <div class="exam-consul">
+                        <input type="checkbox" name="consulta" id="consulta">
+                        <label for="consulta">Consulta</label>
+
+                        <input type="checkbox" name="exame" id="exame">
+                        <label for="exame">Exame</label>
+                    </div>
+                    <br>
+                    <!-- Exame / Consulta end-->
+
+                    <label for="nome">Nome</label>
+                    <input type="text" name="nome" id="nome" placeholder="Nome" required>
+                    <br>
+
+                    <label for="cpf">CPF</label>
+                    <input type="text" name="cpf" id="cpf" onkeyup="validateCpf(this)" maxlength="14"
+                        placeholder="___.___.___-__" required>
+                    <br>
+
+                    <label for="e-mail">E-mail</label>
+                    <input type="text" name="e-mail" id="e-mail" placeholder="exemplo@website.com.br">
+                    <br>
+
+                    <label for="telefone">Telefone</label>
+                    <input type="text" name="telefone" id="telefone" onkeyup="validateTelefone(this)" maxlength="15"
+                        placeholder="Telefone" required>
+
+                </div>
+
+                <!-- Dados NF -->
+                <a><span class="tooltip">Sem permissão!</span>
+                    <div class="dados-nf" style="pointer-events:none;">
+                        <h4>Dados NF</h4>
+
+                        <div class="checkbox-div">
+                            <input type="checkbox" name="sim" id="sim">
+                            <label for="sim">Sim</label>
+                            <br>
+                        </div>
+
+                        <label for="nota-fiscal">Nota Fiscal Nº</label>
+                        <input type="text" name="nota-fiscal" id="nota-fiscal">
+
+                    </div>
+                </a>
+                <!-- Dados NF end-->
+
+            </div>
+            <!-- Dados Principais End -->
+
+            <div class="col-2-data">
+
+                <div class="cep-data">
+
+                    <div class="div-container">
+                        <div class="cep-container">
+                            <label for="cep">CEP</label>
+                            <input type="text" name="cep" id="cep" onkeyup="validateCep(this)" maxlength="9"
+                                placeholder="_____-___" required>
+                        </div>
+                    </div>
+
+                    <div class="div-container">
+                        <div class="deeper-container">
+                            <label for="rua">Rua</label>
+                            <input type="text" name="rua" id="rua" placeholder="Nome da rua">
+                        </div>
+                        <div class="numero-container">
+                            <label for="numero">Nº</label>
+                            <input type="text" name="numero" id="numero" placeholder="Número" required>
+                        </div>
+                    </div>
+
+                    <label for="complemento">Complemento</label>
+                    <input type="text" name="complemento" id="complemento" placeholder="Complemento">
+                    <br>
+
+                    <label for="bairro">Bairro</label>
+                    <input type="text" name="bairro" id="bairro" placeholder="Bairro">
+                    <br>
+
+                    <label for="cidade">Cidade</label>
+                    <input type="text" name="cidade" id="cidade" placeholder="Cidade">
+                    <br>
+
+                    <label for="cidade">Estado</label>
+                    <input type="text" name="estado" id="estado" placeholder="Estado">
+                    <br>
+
+                    <label for="valor">Valor</label>
+                    <div class="div-container">
+                        <label for="valor">R$</label>
+                        <input type="text" name="valor" id="valor" onkeyup="validateValor(this)" maxlength="11"
+                            placeholder="00,00" required>
+                    </div>
+                    <br>
+
+                    <div class="prontuario-div">
+                        <label for="forma-pagamento">Forma de Pagamento</label>
+                        <select name="forma-pagamento" id="forma-pagamento" required>
+                            <option value selected disabled>Selecione *</option>
+                            <option value="Boleto">Boleto</option>
+                            <option value="Cartão Débito">Cartão Débito</option>
+                            <option value="Cartão Crédito">Cartão Crédito</option>
+                            <option value="Cheque">Cheque</option>
+                            <option value="Depósito">Depósito</option>
+                            <option value="Dinheiro">Dinheiro</option>
+                            <option value="Pix">Pix</option>
+                        </select>
+                    </div>
+
+                    <div id="pagamento-extra">
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="col-3-data">
+                <!-- Exames -->
+                <div class="exames">
+                    <h4>Exames</h4>
+                    <br>
+
+                    <label for="medico">Médico Solicitante</label>
+                    <select name="medico" id="medico" required>
+                        <option value selected disabled>Selecione *</option>
+                        <option value="Bruno Abatti">Bruno A. Greggio</option>
+                        <option value="Carlos Roberto">Carlos R. Oliveira</option>
+                        <option value="Edilene Mingues">Edilene M. Fernandes</option>
+                        <option value="Fernanda Marció">Fernanda Marció</option>
+                        <option value="Gustavo Mansur">Gustavo Mansur</option>
+                    </select>
+                    <br><br>
+
+                    <!-- Checkbox -->
+                    <input type="checkbox" name="Biometria" id="biometria">
+                    <label for="biometria">Biometria</label>
+                    <br>
+
+                    <input type="checkbox" name="Campimetria" id="campimetria">
+                    <label for="campimetria">Campimetria</label>
+                    <br>
+
+                    <input type="checkbox" name="Capsulotomia" id="capsulotomia">
+                    <label for="capsulotomia">Capsulotomia</label>
+                    <br>
+
+                    <input type="checkbox" name="Curva Tensional" id="curva-tensional">
+                    <label for="curva-tensional">Curva Tensional</label>
+                    <br>
+
+                    <input type="checkbox" name="Teste Ortóptico" id="teste-ortoptico">
+                    <label for="teste-ortoptico">Teste Ortóptico</label>
+                    <br>
+
+                    <input type="checkbox" name="Fotocoagulacao à Laser" id="fotocoagulacao-a-laser">
+                    <label for="fotocoagulacao-a-laser">Fotocoagulacao à Laser</label>
+                    <br>
+
+                    <input type="checkbox" name="Gonioscopia" id="gonioscopia">
+                    <label for="gonioscopia">Gonioscopia</label>
+                    <br>
+
+                    <input type="checkbox" name="Mapeamento de Retina" id="mapeamento-de-retina">
+                    <label for="mapeamento-de-retina">Mapeamento de Retina</label>
+                    <br>
+
+                    <input type="checkbox" name="Microscopia" id="microscopia">
+                    <label for="microscopia">Microscopia</label>
+                    <br>
+
+                    <input type="checkbox" name="P.A.M." id="pam">
+                    <label for="pam">P.A.M.</label>
+                    <br>
+
+                    <input type="checkbox" name="Paquimetria" id="paquimetria">
+                    <label for="paquimetria">Paquimetria</label>
+                    <br>
+
+                    <input type="checkbox" name="Retinografia" id="retinografia">
+                    <label for="retinografia">Retinografia</label>
+                    <br>
+
+                    <input type="checkbox" name="Tonometria" id="tonometria">
+                    <label for="tonometria">Tonometria</label>
+                    <br>
+
+                    <input type="checkbox" name="Ceratoscopia" id="ceratoscopia">
+                    <label for="ceratoscopia">Ceratoscopia</label>
+                    <br>
+
+                    <input type="checkbox" name="OCT" id="oct">
+                    <label for="oct">OCT</label>
+                    <br>
+
+                    <input type="checkbox" name="Outros" id="outros">
+                    <label for="outros">Outros</label>
+                    <input type="text" id="outros-input">
+                    <br>
+                    <!-- Checkbox end-->
+
+                    <button onclick="getData()">Salvar</button>
+
+                </div>
+                <!-- Exames end-->
+            </div>
+
+        </div>
+
+    </div>
+    
+    <script th:src="@{/js/particular.js}"></script>
+    <script th:src="@{/js/websocket.js}"></script>
+</body>
+
+</html>

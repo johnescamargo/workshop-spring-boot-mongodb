@@ -60,6 +60,18 @@ public class MvcConfig implements WebMvcConfigurer {
 
 		return "register";
 	}
+	
+	@GetMapping("/particular")
+	public String particular() {
+
+		return "particular";
+	}
+	
+	@GetMapping("/notafiscal")
+	public String notafiscal() {
+
+		return "notafiscal";
+	}
 
 	@GetMapping("/privacy-and-policy")
 	public String policy() {

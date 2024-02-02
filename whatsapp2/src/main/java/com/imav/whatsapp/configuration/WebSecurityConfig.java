@@ -72,7 +72,8 @@ public class WebSecurityConfig {
 						, "/send"
 						, "/chat"
 						, "/config"
-						, "/test"
+						, "/particular"
+						, "/notafiscal"
 						, "/confirmation"
 						).hasAnyAuthority("USER", "ADMIN")
 				.requestMatchers("/register", "/settings").hasAuthority("ADMIN").anyRequest().authenticated()

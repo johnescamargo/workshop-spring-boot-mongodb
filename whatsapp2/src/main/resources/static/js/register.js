@@ -28,10 +28,10 @@ function disconnect() {
 
 function websocketFunction() {
 	// HTTPS for TLS conncetions VPS
-	//var socket = new SockJS("https://www.web.login.imav.com.br:5000/websocket-server");
+	var socket = new SockJS("https://www.web.login.imav.com.br:5000/websocket-server");
 
 	// Localhost
-	var socket = new SockJS("http://localhost:5000/websocket-server");
+	//var socket = new SockJS("http://localhost:5000/websocket-server");
 
 	stompClient = Stomp.over(socket);
 	stompClient.connect({}, function() {
