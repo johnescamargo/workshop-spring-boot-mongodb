@@ -25,7 +25,7 @@
 			<li><a onclick="disconnect()" th:href="send">Enviar</a></li>
 			<li><a onclick="disconnect()" th:href="chat">Chat</a></li>
 			<li><a onclick="disconnect()" th:href="confirmation">Confirmação</a></li>
-			<li><a onclick="disconnect()" class="active" th:href="particular">NF Particular</a></li>
+			<li><a onclick="disconnect()" id="active" class="active" th:href="particular">NF Particular</a></li>
 			<li><a onclick="disconnect()" th:href="notafiscal">Nota Fiscal</a></li>
 			<div sec:authorize="hasAuthority('ADMIN')">
 				<li><a onclick="disconnect()" th:href="register">Novo Usuário</a></li>
