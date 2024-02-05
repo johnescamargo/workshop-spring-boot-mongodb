@@ -333,7 +333,7 @@ function showCustomerMessage(message) {
 	var dateFormat = unixTimestampToDate(message.timestamp);
 	//		console.log(message);
 
-	if (message.type === "text" || message.type === "button") {
+	if (message.type === "text") {
 		$("#chat-box").append(
 			'<div class="div-box-dialogue">' +
 			'<div class="message-dialogue-other">' +
@@ -348,7 +348,7 @@ function showCustomerMessage(message) {
 			"</div>"
 		);
 	
-	} else if (message.type === "interactive"){
+	} else if (message.type === "interactive" || message.type === "button"){
 		$("#chat-box").append(
 			'<div class="div-box-dialogue">' +
 			'<div class="message-dialogue-other">' +
