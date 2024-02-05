@@ -53,13 +53,13 @@ li a:hover:not(.active) {
 }
 
 #active {
-	text-decoration: none;
-    color: #fff;
+  text-decoration: none;
+  color: #fff;
 }
 
 .exit {
   float: right;
-  direction:rtl;
+  direction: rtl;
 }
 
 .search-and-header {
@@ -122,6 +122,7 @@ li a:hover:not(.active) {
   display: inline-block;
   font-weight: bold;
 }
+
 #alert-number {
   margin-top: 1px;
 }
@@ -147,17 +148,17 @@ li button:hover:not(.active) {
 }
 
 li button:focus {
-    /* outline: 1px dotted; */
-    border-style: none;
-    /* outline: 5px auto -webkit-focus-ring-color; */
+  /* outline: 1px dotted; */
+  border-style: none;
+  /* outline: 5px auto -webkit-focus-ring-color; */
 }
 
 #myDropdown {
-	  border-style: none;
+  border-style: none;
 }
 
 #myDropdown p {
-	    margin: 0;
+  margin: 0;
 }
 
 .dropdown-content {
@@ -165,7 +166,7 @@ li button:focus {
   position: absolute;
   background-color: #f9f9f9;
   min-width: 160px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   z-index: 1;
   border-style: none;
 }
@@ -192,7 +193,7 @@ li button:focus {
 }
 
 .table th {
-    padding: 7px;
-    vertical-align: top;
-    border-top: 1px solid #dee2e6;
+  padding: 7px;
+  vertical-align: top;
+  border-top: 1px solid #dee2e6;
 }

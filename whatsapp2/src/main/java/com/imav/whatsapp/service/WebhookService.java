@@ -61,7 +61,7 @@ public class WebhookService {
 
 	public void isDayOff(String type, String obj, String phone, String name) {
 
-		// if true, talk
+		// if true, It's not a day-off
 		boolean response = weekUtil.checkIfDayIsOff();
 
 		if (response) {
@@ -107,16 +107,15 @@ public class WebhookService {
 				}
 
 			} else {
-				
+
 				talkingService.setWebhookTalking(type, obj, phone, name);
-				
+
 			}
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
-		
 	}
 
 	public void customerModeDayOff(String type, String obj, String phone, String name) {
@@ -156,17 +155,16 @@ public class WebhookService {
 	}
 
 	public boolean existsCustomer(String phone, String name) {
-		
+
 		boolean respOk = false;
 
 		try {
-			
-			
+
 			boolean resp = customerRepository.existsByPhoneNumber(phone);
 
 			// Check in phone number is a number
 			boolean isNum = isNumeric(phone);
-			
+
 			if (resp) {
 				return true;
 			}
@@ -186,14 +184,12 @@ public class WebhookService {
 				customerRepository.save(customer);
 				respOk = true;
 			}
-			
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return respOk;
 
-		
 	}
 
 	public String getCustomerMode(String phone) {

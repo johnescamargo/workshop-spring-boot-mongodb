@@ -36,7 +36,7 @@ li a {
   text-align: center;
   padding: 14px 16px;
   text-decoration: none;
-  min-width: 100px;		
+  min-width: 100px;
   width: fit-content;
   cursor: pointer;
 }
@@ -53,13 +53,13 @@ li a:hover:not(.active) {
 }
 
 #active {
-	text-decoration: none;
-    color: #fff;
+  text-decoration: none;
+  color: #fff;
 }
 
 .exit {
   float: right;
-  direction:rtl;
+  direction: rtl;
 }
 
 /* Navbar end */
@@ -87,7 +87,7 @@ li a:hover:not(.active) {
 }
 
 label {
-	margin-bottom: 0;
+  margin-bottom: 0;
 }
 
 label[for="prontuario"] {

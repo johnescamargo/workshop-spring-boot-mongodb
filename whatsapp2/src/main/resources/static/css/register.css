@@ -14,7 +14,8 @@ body {
 /* Navbar */
 .nav-bar {
   font-family: "Source Sans Pro", sans-serif;
-  position: -webkit-sticky; /* Safari */
+  position: -webkit-sticky;
+  /* Safari */
   position: sticky;
   top: 0;
   z-index: 2;
@@ -57,7 +58,7 @@ li a:hover:not(.active) {
 
 .exit {
   float: right;
-  direction:rtl;
+  direction: rtl;
 }
 
 .main-div {
@@ -214,6 +215,7 @@ th {
   font-weight: bold;
   font-size: medium;
 }
+
 #alert-number {
   margin-top: 4px;
 }
@@ -239,17 +241,17 @@ li button:hover:not(.active) {
 }
 
 li button:focus {
-    /* outline: 1px dotted; */
-    border-style: none;
-    /* outline: 5px auto -webkit-focus-ring-color; */
+  /* outline: 1px dotted; */
+  border-style: none;
+  /* outline: 5px auto -webkit-focus-ring-color; */
 }
 
 #myDropdown {
-	  border-style: none;
+  border-style: none;
 }
 
 #myDropdown p {
-	    margin: 0;
+  margin: 0;
 }
 
 .dropdown-content {
@@ -257,7 +259,7 @@ li button:focus {
   position: absolute;
   background-color: #f9f9f9;
   min-width: 160px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   z-index: 1;
   border-style: none;
 }

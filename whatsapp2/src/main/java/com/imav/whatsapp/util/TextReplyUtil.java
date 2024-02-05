@@ -17,13 +17,13 @@ public class TextReplyUtil {
 	public String setButtonNo() {
 		String msg = "Por favor, \r\n"
 				+ "clique na mensagem abaixo para falar com uma de nossas atendentes e remarcar tua consulta \r\n"
-				+ "Ou, ligue para:" + "\r\n" + "1143671577" + "\r\n"
+				+ "Ou, ligue para:" + "\r\n" + "(11)4367-1577 ou (11)4570-0202" + "\r\n"
 				+ "Muito obrigado. 😊";
 		return msg;
 	}
 
 	public String setTextTelephone() {
-		String msg = "Nosso número de telefone é o: " + "\r\n" + "1143671577" + "\r\n" + "Esperamos tua ligação. Muito obrigado 😊.";
+		String msg = "Nossos números de telefone são: " + "\r\n" + "(11)4367-1577 ou (11)4570-0202" + "\r\n" + "Esperamos tua ligação. Muito obrigado 😊.";
 		return msg;
 	}
 

@@ -71,7 +71,7 @@ function websocketFunction() {
 
 		// Update statuses and reload DOM
 		stompClient.subscribe("/topic/messages-customers", function(response) {
-			console.log(response);
+			//console.log(response);
 			loadCustomerMessages(conversationNumber);
 		});
 
@@ -83,7 +83,7 @@ function websocketFunction() {
 
 		// Update reload DOM
 		stompClient.subscribe("/topic/talks", function(response) {
-			console.log(response);
+			//console.log(response);
 			loadWantsToTalk();
 		});
 
@@ -172,9 +172,9 @@ function putCustomersIntoArray(customers) {
 
 	if (customerObject !== null) {
 		for (var i = 0; i < customers.length; i++) {
-				customerArray.push(customers[i]);
-			}		
-		
+			customerArray.push(customers[i]);
+		}
+
 		loopShowCustomers();
 	} else {
 		if (customers !== "") {
@@ -214,9 +214,9 @@ function sendMessageChat() {
 function loopShowCustomers() {
 	$("#box-customers").html("");
 
-//	if (customerObject !== null) {
-//		showCustomer(customerObject);
-//	}
+	//	if (customerObject !== null) {
+	//		showCustomer(customerObject);
+	//	}
 
 	for (var i = 0; i < customerArray.length; i++) {
 		if (customerObject !== customerArray[i]) {
@@ -280,6 +280,18 @@ function appendImavMessage(message) {
 	messageBody.scrollTop = messageBody.scrollHeight - messageBody.clientHeight;
 }
 
+function displayMyMessage(data) {
+
+	var fields = data.split('\n').map(function(line) { return line.split('|')[0]; });
+	var text = '';
+
+	for (let i = 0; i < fields.length; i++) {
+		text += '<p>' + fields[i] + '</p>';
+	}
+
+	return text;
+}
+
 function showButtonMessage(message) {
 	var dateFormat = unixTimestampToDate(message.timestamp);
 	var buttons = setButtons(message.buttons);
@@ -289,9 +301,7 @@ function showButtonMessage(message) {
 		'<div class="div-box-dialogue">' +
 		'<div class="message-dialogue">' +
 		'<div class="my-message">' +
-		"<p>" +
-		message.text +
-		"</p>" +
+		displayMyMessage(message.text) +
 		'<div class="time" id="time">' +
 		'<div id="time-conversation">' +
 		dateFormat +
@@ -321,15 +331,14 @@ function setButtons(data) {
 
 function showCustomerMessage(message) {
 	var dateFormat = unixTimestampToDate(message.timestamp);
+	//		console.log(message);
 
-	if (message.type === "text" || message.type === "interactive" || message.type === "button" ) {
+	if (message.type === "text" || message.type === "button") {
 		$("#chat-box").append(
 			'<div class="div-box-dialogue">' +
 			'<div class="message-dialogue-other">' +
 			'<div class="other-message">' +
-			"<p>" +
-			message.text +
-			"</p>" +
+		    displayMyMessage(message.text) +
 			'<div class="time" id="time">' +
 			'<div id="time-conversation">' +
 			dateFormat +
@@ -338,21 +347,37 @@ function showCustomerMessage(message) {
 			"</div>" +
 			"</div>"
 		);
-	} else if (message.type === "image") {
-		
-		var caption = message.text;
 	
-		if(message.text === null){
+	} else if (message.type === "interactive"){
+		$("#chat-box").append(
+			'<div class="div-box-dialogue">' +
+			'<div class="message-dialogue-other">' +
+			'<div class="other-message-interactive">' +
+		    displayMyMessage(message.text) +
+			'<div class="time" id="time">' +
+			'<div id="time-conversation">' +
+			dateFormat +
+			"</div>" +
+			"</div>" +
+			"</div>" +
+			"</div>"
+		);	
+		
+	} else if (message.type === "image") {
+
+		var caption = message.text;
+
+		if (message.text === null) {
 			caption = " ";
 		}
-		
+
 		$("#chat-box").append(
 			'<div class="div-box-dialogue">' +
 			'<div class="message-dialogue-img">' +
 			'<div class="img-message">' +
 			'<img class="myImg" id="' + message.id +
 			'" onclick="getImage(this)" src="data:' + message.mimeType + ';base64, ' +
-				message.content +
+			message.content +
 			'" width="340" height="240">' +
 			'<p>' +
 			caption +
@@ -366,17 +391,17 @@ function showCustomerMessage(message) {
 			"</div>"
 		);
 	} else if (message.type === "sticker") {
-		
+
 		var caption = "";
 		caption += message.text;
-		
+
 		$("#chat-box").append(
 			'<div class="div-box-dialogue">' +
 			'<div class="message-dialogue-img">' +
 			'<div class="img-message">' +
 			'<img class="myImg" id="' + message.id +
 			'" onclick="getImage(this)" src="data:' + message.mimeType + ';base64, ' +
-				message.content +
+			message.content +
 			'" width="90" height="90">' +
 			'<p>' +
 			caption +
@@ -403,7 +428,6 @@ function showCustomer(customer) {
 			'<div class="contact" style="background-color: #f5b4b4;" onClick="replyClick(this.id)" id="' +
 			customer.phone_number +
 			'">' +
-			'<div class="picture"></div>' +
 			'<div class="div-contact">' +
 			'<span dir="auto" class="name-contact">' +
 			customer.name +
@@ -423,7 +447,6 @@ function showCustomer(customer) {
 			'<div class="contact" onClick="replyClick(this.id)" id="' +
 			customer.phone_number +
 			'">' +
-			'<div class="picture"></div>' +
 			'<div class="div-contact">' +
 			'<span dir="auto" class="name-contact">' +
 			customer.name +
@@ -447,7 +470,6 @@ function showCustomerHeader(customer) {
 
 	$(".div-header").append(
 		'<div class="contact-conversation">' +
-		'<div class="picture-conversation"></div>' +
 		'<div class="div-contact">' +
 		'<span dir="auto" class="name-contact">' +
 		customer.name +
@@ -579,7 +601,7 @@ function replyClick(clickedId) {
 				conversationNumber = clickedId;
 				turnOffTalk(conversationNumber);
 				loadCustomerMessages(clickedId);
-				
+
 			} else if (response.status === 404) {
 				console.log("404 - Paciente não encontrado...");
 			} else {
@@ -597,7 +619,7 @@ function turnOffTalk(number) {
 		})
 		.then(function(response) {
 			if (response.status === 200) {
-				console.log("ok off");
+				//console.log("ok off");
 			} else if (response.status === 404) {
 				console.log("404 - Paciente não encontrado...");
 			} else {

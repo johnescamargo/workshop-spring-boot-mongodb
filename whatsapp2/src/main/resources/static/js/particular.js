@@ -290,14 +290,14 @@ function sendData() {
 			pagamento2: dadosPagamento[1],
 			exames: examesSelecionados,
 		})
-		.then(function(response) {
+		.then(function (response) {
 			console.log(response);
 			if (response.status === 200) {
 				alert("Documento salvo com sucesso!");
 				window.location.reload();
 			}
 		})
-		.catch(function(error) {
+		.catch(function (error) {
 			console.log(error);
 			alert(error);
 		});
@@ -502,13 +502,13 @@ function getCEP(data) {
 
 	axios
 		.get(urlCepBeginning + cep + urlCepEnd)
-		.then(function(response) {
+		.then(function (response) {
 			bairro.value = response.data.bairro;
 			rua.value = response.data.logradouro;
 			cidade.value = response.data.localidade;
 			estado.value = response.data.uf;
 		})
-		.catch(function(error) {
+		.catch(function (error) {
 			console.log(error);
 		});
 }

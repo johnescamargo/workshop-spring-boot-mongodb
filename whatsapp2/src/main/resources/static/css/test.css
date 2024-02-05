@@ -11,7 +11,8 @@ body {
 /* Navbar */
 .nav-bar {
   font-family: "Source Sans Pro", sans-serif;
-  position: -webkit-sticky; /* Safari */
+  position: -webkit-sticky;
+  /* Safari */
   position: sticky;
   top: 0;
   z-index: 2;
@@ -55,13 +56,13 @@ li a:hover:not(.active) {
 }
 
 #active {
-	text-decoration: none;
-    color: #fff;
+  text-decoration: none;
+  color: #fff;
 }
 
 .exit {
   float: right;
-  direction:rtl;
+  direction: rtl;
 }
 
 
@@ -82,21 +83,21 @@ li a:hover:not(.active) {
 }
 
 .telephone-div {
-	display: flex;
-	align-items: baseline;
+  display: flex;
+  align-items: baseline;
 }
 
-#select-div{
-	padding-left: 10px;
-	padding-right: 10px;
+#select-div {
+  padding-left: 10px;
+  padding-right: 10px;
 }
 
-#countryCodeSelect{
-	padding-left: 10px;
-	padding-right: 15px;
-    height: 37px;
-    border-radius: 8px;
-    background-color: #fff;
+#countryCodeSelect {
+  padding-left: 10px;
+  padding-right: 15px;
+  height: 37px;
+  border-radius: 8px;
+  background-color: #fff;
 }
 
 /* The Modal (background) */
@@ -108,7 +109,8 @@ li a:hover:not(.active) {
   left: 0;
   top: 0;
   height: 100%;
-  overflow: auto; /* Enable scroll if needed */
+  overflow: auto;
+  /* Enable scroll if needed */
   background-color: rgb(0, 0, 0);
   background-color: rgba(0, 0, 0, 0.4);
 }
@@ -155,26 +157,32 @@ li a:hover:not(.active) {
     box-shadow: 9984px 0 0 0 #3a3dda, 9999px 0 0 0 #3a3dda,
       10014px 0 0 0 #3a3dda;
   }
+
   16.667% {
     box-shadow: 9984px -10px 0 0 #3a3dda, 9999px 0 0 0 #3a3dda,
       10014px 0 0 0 #3a3dda;
   }
+
   33.333% {
     box-shadow: 9984px 0 0 0 #3a3dda, 9999px 0 0 0 #3a3dda,
       10014px 0 0 0 #3a3dda;
   }
+
   50% {
     box-shadow: 9984px 0 0 0 #3a3dda, 9999px -10px 0 0 #3a3dda,
       10014px 0 0 0 #3a3dda;
   }
+
   66.667% {
     box-shadow: 9984px 0 0 0 #3a3dda, 9999px 0 0 0 #3a3dda,
       10014px 0 0 0 #3a3dda;
   }
+
   83.333% {
     box-shadow: 9984px 0 0 0 #3a3dda, 9999px 0 0 0 #3a3dda,
       10014px -10px 0 0 #3a3dda;
   }
+
   100% {
     box-shadow: 9984px 0 0 0 #3a3dda, 9999px 0 0 0 #3a3dda,
       10014px 0 0 0 #3a3dda;
@@ -227,23 +235,51 @@ li a:hover:not(.active) {
 }
 
 @-webkit-keyframes fadein {
-  from {bottom: 0; opacity: 0;} 
-  to {bottom: 30px; opacity: 1;}
+  from {
+    bottom: 0;
+    opacity: 0;
+  }
+
+  to {
+    bottom: 30px;
+    opacity: 1;
+  }
 }
 
 @keyframes fadein {
-  from {bottom: 0; opacity: 0;}
-  to {bottom: 30px; opacity: 1;}
+  from {
+    bottom: 0;
+    opacity: 0;
+  }
+
+  to {
+    bottom: 30px;
+    opacity: 1;
+  }
 }
 
 @-webkit-keyframes fadeout {
-  from {bottom: 30px; opacity: 1;} 
-  to {bottom: 0; opacity: 0;}
+  from {
+    bottom: 30px;
+    opacity: 1;
+  }
+
+  to {
+    bottom: 0;
+    opacity: 0;
+  }
 }
 
 @keyframes fadeout {
-  from {bottom: 30px; opacity: 1;}
-  to {bottom: 0; opacity: 0;}
+  from {
+    bottom: 30px;
+    opacity: 1;
+  }
+
+  to {
+    bottom: 0;
+    opacity: 0;
+  }
 }
 
 #alert-div {
@@ -254,6 +290,7 @@ li a:hover:not(.active) {
   display: inline-block;
   font-weight: bold;
 }
+
 #alert-number {
   margin-top: 1px;
 }
@@ -279,17 +316,17 @@ li button:hover:not(.active) {
 }
 
 li button:focus {
-    /* outline: 1px dotted; */
-    border-style: none;
-    /* outline: 5px auto -webkit-focus-ring-color; */
+  /* outline: 1px dotted; */
+  border-style: none;
+  /* outline: 5px auto -webkit-focus-ring-color; */
 }
 
 #myDropdown {
-	  border-style: none;
+  border-style: none;
 }
 
 #myDropdown p {
-	    margin: 0;
+  margin: 0;
 }
 
 .dropdown-content {
@@ -297,7 +334,7 @@ li button:focus {
   position: absolute;
   background-color: #f9f9f9;
   min-width: 160px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   z-index: 1;
   border-style: none;
 }

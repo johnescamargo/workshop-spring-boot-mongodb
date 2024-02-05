@@ -97,22 +97,26 @@ hr {
   0% {
     margin-top: 20px;
     margin-top: 20px;
-	margin-bottom: -55px;
+    margin-bottom: -55px;
   }
+
   25% {
     margin-top: 20px;
     margin-top: 20px;
-	margin-bottom: -55px;
+    margin-bottom: -55px;
   }
+
   50% {
     margin-top: 20px;
     margin-top: 20px;
-	margin-bottom: -55px;
+    margin-bottom: -55px;
   }
+
   75% {
     left: 0px;
     top: 200px;
   }
+
   100% {
     left: 0px;
     top: 0px;
@@ -142,22 +146,26 @@ hr {
   0% {
     margin-top: 20px;
     margin-top: 20px;
-	margin-bottom: -55px;
+    margin-bottom: -55px;
   }
+
   25% {
     margin-top: 20px;
     margin-top: 20px;
-	margin-bottom: -55px;
+    margin-bottom: -55px;
   }
+
   50% {
     margin-top: 20px;
     margin-top: 20px;
-	margin-bottom: -55px;
+    margin-bottom: -55px;
   }
+
   75% {
     left: 0px;
     top: 200px;
   }
+
   100% {
     left: 0px;
     top: 0px;
@@ -182,7 +190,7 @@ hr {
 }
 
 .footer-inner {
-  padding-left: 26px; 
+  padding-left: 26px;
   padding-top: 8px;
 }
 
@@ -214,7 +222,8 @@ hr {
 /* Navbar */
 .nav-bar {
   font-family: "Source Sans Pro", sans-serif;
-  position: -webkit-sticky; /* Safari */
+  position: -webkit-sticky;
+  /* Safari */
   position: sticky;
   top: 0;
   z-index: 2;

@@ -6,7 +6,7 @@
 	"interactive": {
 		"type": "button",
 		"body": {
-			"text": "Clínica de olhos IMAV. Olá, espero que esteja bem. Obrigado por nos procurar. Este é um canal exclusivo para confirmação de consultas e exames, porém, podemos lhe ajudar. Clique na opção abaixo que melhor atende a tua necessidade."
+			"text": "Clínica de olhos IMAV. Olá, eu sou o assisitente vistual da IMAV, espero que você esteja bem. Obrigado por nos procurar. Este é um canal exclusivo para confirmação de consultas e exames, porém, podemos lhe ajudar. Clique na opção abaixo que melhor atende a tua necessidade."
 		},
 		"action": {
 			"buttons": [

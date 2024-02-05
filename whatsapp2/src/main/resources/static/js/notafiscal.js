@@ -34,11 +34,11 @@ function websocketFunction() {
 	var socket = new SockJS("http://localhost:5000/websocket-server");
 
 	stompClient = Stomp.over(socket);
-	stompClient.connect({}, function() {
+	stompClient.connect({}, function () {
 		setConnected(true);
 
 		// Update reload DOM
-		stompClient.subscribe("/topic/talks", function(response) {
+		stompClient.subscribe("/topic/talks", function (response) {
 			//console.log(response);
 			loadWantsToTalk();
 		});
@@ -49,7 +49,7 @@ function loadWantsToTalk() {
 	axios({
 		method: "get",
 		url: "/talk/all",
-	}).then(function(response) {
+	}).then(function (response) {
 		if (response.status === 200) {
 			//console.log(response);
 			wantsTotalkToHtml(response.data);
@@ -92,7 +92,7 @@ function myDropdown() {
 }
 
 // add a click event listener to the div
-dropdown.addEventListener("click", function() {
+dropdown.addEventListener("click", function () {
 	myDropdown();
 });
 
@@ -122,11 +122,11 @@ function addZeroToDate(data) {
 	return data;
 }
 
-datepicker.addEventListener("input", function() {
+datepicker.addEventListener("input", function () {
 	getCustomersByDate(this.value);
 });
 
-pesquisa.addEventListener("input", function() {
+pesquisa.addEventListener("input", function () {
 
 	if (this.value !== "") {
 		liveSearch(this.value);
@@ -154,11 +154,11 @@ function setTable() {
 
 	axios
 		.get("/nf/all")
-		.then(function(response) {
+		.then(function (response) {
 			//console.log(response);
 			displayTableHtml(response);
 		})
-		.catch(function(error) {
+		.catch(function (error) {
 			console.log(error);
 		});
 }
@@ -199,11 +199,11 @@ function getCustomerId(id) {
 			}
 		}
 		)
-		.then(function(response) {
+		.then(function (response) {
 			//console.log(response);
 			setCustomerHtml(response.data);
 		})
-		.catch(function(error) {
+		.catch(function (error) {
 			console.log(error);
 		});
 }
@@ -217,11 +217,11 @@ function liveSearch(data) {
 			}
 		}
 		)
-		.then(function(response) {
+		.then(function (response) {
 			console.log(response);
 			displayTableHtml(response);
 		})
-		.catch(function(error) {
+		.catch(function (error) {
 			console.log(error);
 		});
 
@@ -239,11 +239,11 @@ function getCustomersByDate(data) {
 			}
 		}
 		)
-		.then(function(response) {
+		.then(function (response) {
 			//console.log(response);
 			displayTableHtml(response);
 		})
-		.catch(function(error) {
+		.catch(function (error) {
 			console.log(error);
 		});
 }
@@ -261,7 +261,7 @@ function setChecked(data) {
 
 function setCustomerHtml(customer) {
 	//console.log(customer);
-	
+
 	// Clean div
 	document.getElementById("customer-div").innerHTML = '';
 	outros = "";
@@ -512,7 +512,7 @@ function saveNF(id) {
 				nfDone: true,
 				nfDoneBy: username
 			})
-			.then(function(response) {
+			.then(function (response) {
 				console.log(response);
 				if (response.status === 200) {
 					alert("NF salva com sucesso!");
@@ -520,7 +520,7 @@ function saveNF(id) {
 					//setTable();
 				}
 			})
-			.catch(function(error) {
+			.catch(function (error) {
 				console.log(error);
 				alert(error);
 			});

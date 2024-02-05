@@ -6,7 +6,7 @@
 	"interactive": {
 		"type": "button",
 		"body": {
-			"text": "Clínica de olhos IMAV. Olá, espero que esteja bem. Obrigado por nos procurar. Eu sou o Bot (robô) da IMAV, porém, posso lhe ajudar. Clique na opção abaixo que melhor atende a tua necessidade ou faça um pergunta que eu tentarei responder para você."
+			"text": "Clínica de olhos IMAV. Olá, espero que esteja bem. Obrigado por nos procurar. Eu sou o assistente virtual (robô) da IMAV, porém, posso lhe ajudar. Clique na opção abaixo que melhor atende a tua necessidade ou faça um pergunta que eu tentarei responder para você."
 		},
 		"action": {
 			"buttons": [
