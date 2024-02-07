@@ -18,23 +18,44 @@
 
 	<nav class="nav-bar">
 		<ul>
-			<li><a onclick="disconnect()" th:href="home">Enviar Agenda</a></li>
-			<li><a onclick="disconnect()" th:href="send">Enviar</a></li>
-			<li><a onclick="disconnect()" th:href="chat">Chat</a></li>
-			<li><a onclick="disconnect()" th:href="confirmation">Confirmação</a></li>
-			<li><a onclick="disconnect()" th:href="particular">NF Particular</a></li>
-			<li><a onclick="disconnect()" th:href="notafiscal">Nota Fiscal</a></li>
-			<div sec:authorize="hasAuthority('ADMIN')">
-				<li><a onclick="disconnect()" th:href="register">Novo Usuário</a></li>
-				<li><a onclick="disconnect()" class="active" th:href="settings">Configurações</a></li>
+			<div sec:authorize="hasAuthority('NF')">
+				<li><a onclick="disconnect()" th:href="particular">NF Particular</a></li>
+				<li><a onclick="disconnect()" th:href="notafiscal">Nota Fiscal</a></li>				
 			</div>
+
+			<div sec:authorize="hasAuthority('USER')">
+				<li><a onclick="disconnect()" th:href="particular">NF Particular</a></li>
+				<li><a onclick="disconnect()" th:href="notafiscal">Nota Fiscal</a></li>	
+				<li><a onclick="disconnect()" th:href="home">Enviar Agenda</a></li>
+				<li><a onclick="disconnect()" th:href="send">Enviar</a></li>
+				<li><a onclick="disconnect()" th:href="chat">Chat</a></li>
+				<li><a onclick="disconnect()" th:href="confirmation">Confirmação</a></li>			
+			</div>			
+
+			<div sec:authorize="hasAuthority('ADMIN')">
+				<li><a onclick="disconnect()" th:href="particular">NF Particular</a></li>
+				<li><a onclick="disconnect()" th:href="notafiscal">Nota Fiscal</a></li>	
+				<li><a onclick="disconnect()" th:href="home">Enviar Agenda</a></li>
+				<li><a onclick="disconnect()" th:href="send">Enviar</a></li>
+				<li><a onclick="disconnect()" th:href="chat">Chat</a></li>
+				<li><a onclick="disconnect()" th:href="confirmation">Confirmação</a></li>			
+				<li><a onclick="disconnect()" th:href="register">Novo Usuário</a></li>
+				<li><a onclick="disconnect()" id="active" class="active" th:href="settings">Configurações</a></li>
+			</div>
+			
 			<li class="exit">
 				<a onclick="disconnect()" th:href="@{/logout}"><i class="fa fa-sign-out fa-1.5x" aria-hidden="true">
 						Sair</i></a>
 			</li>
 			<li class="exit">
-				<a onclick="disconnect()" th:href="config"><i class="fa fa-user fa-1.5x" aria-hidden="true"><span>
-						</span><span th:remove="tag" sec:authentication="name"> </span></i></a>
+				<a onclick="disconnect()" th:href="config">
+					<i class="fa fa-user fa-1.5x" aria-hidden="true">
+						<span> </span>
+						<span id="my-username">
+							<span th:remove="tag" sec:authentication="name"></span>
+						</span>
+					</i>
+				</a>
 			</li>
 			<li id="exit" class="exit">
 				<!-- Websocket alert goes here -->

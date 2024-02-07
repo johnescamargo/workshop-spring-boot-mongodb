@@ -367,6 +367,7 @@ function sendJsonData(data) {
 
   var id = data.slice(4);
 
+  var username = document.getElementById("username").innerText;
   var date = document.querySelector('#date-' + id).innerText;
   var time = document.querySelector("#time-" + id).value;
   var name = document.querySelector("#name-" + id).value;
@@ -376,6 +377,7 @@ function sendJsonData(data) {
 
   axios
     .post("/message/send", {
+	  user: username,		
       date: date,
       time: time,
       name: name,

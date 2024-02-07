@@ -73,11 +73,23 @@ public class ButtonReplyService {
 
 			String id = buttonClicked.getEntry().get(0).getChanges().get(0).getValue().getMessages().get(0)
 					.getInteractive().getButton_reply().getId();
+			
+			String idWamid = 
+					buttonClicked
+					.getEntry()
+					.get(0)
+					.getChanges()
+					.get(0)
+					.getValue()
+					.getMessages()
+					.get(0)
+					.getContext()
+					.getId();
 
 			switch (id) {
 			case "button-telefone":
 				sendMessageResponse(obj, textReplyUtil.setTextTelephone());
-				messageService.updateConfirmationResponse(id, "REMARCAR");
+				messageService.updateConfirmationResponse(idWamid, "REMARCAR");
 
 				break;
 
@@ -96,11 +108,10 @@ public class ButtonReplyService {
 				break;
 
 			case "button-falar":
-				messageService.updateConfirmationResponse(id, "REMARCAR");
-				buttonReplyService.messageTalkToUsResponse(phone);
+				messageService.updateConfirmationResponse(idWamid, phone);
 
 			case "button-cancel":
-				messageService.updateConfirmationResponse(id, "CANCELAR");
+				messageService.updateConfirmationResponse(idWamid, "CANCELAR");
 				saveInteractiveMessageFromCustomer(buttonClicked, phone);
 
 //				String path = ("/json/message_reply_cancelar.json");
@@ -109,7 +120,7 @@ public class ButtonReplyService {
 				int stepCancel = 0;
 				boolean talkCancel = false;
 				updateCustomer(phone, stepCancel, "normal", talkCancel);
-				messageService.updateConfirmationResponse(id, "CANCELADO");
+				messageService.updateConfirmationResponse(idWamid, "CANCELADO");
 				messageService.sendMessageResponse(obj, textReplyUtil.setTextCancel());
 
 				break;
@@ -135,10 +146,22 @@ public class ButtonReplyService {
 
 			String id = buttonClicked.getEntry().get(0).getChanges().get(0).getValue().getMessages().get(0)
 					.getInteractive().getButton_reply().getId();
+			
+			String idWamid = 
+					buttonClicked
+					.getEntry()
+					.get(0)
+					.getChanges()
+					.get(0)
+					.getValue()
+					.getMessages()
+					.get(0)
+					.getContext()
+					.getId();
 
 			switch (id) {
 			case "button-telefone":
-				messageService.updateConfirmationResponse(id, "REMARCAR");
+				messageService.updateConfirmationResponse(idWamid, "REMARCAR");
 				sendMessageResponse(obj, textReplyUtil.setTextTelephone());
 
 				break;
@@ -158,11 +181,11 @@ public class ButtonReplyService {
 				break;
 
 			case "button-falar":
-				messageService.updateConfirmationResponse(id, "REMARCAR");
+				messageService.updateConfirmationResponse(idWamid, "REMARCAR");
 				buttonReplyService.messageTalkToUsResponseDayOff(phone);
 
 			case "button-cancel":
-				messageService.updateConfirmationResponse(id, "CANCELADO");
+				messageService.updateConfirmationResponse(idWamid, "CANCELADO");
 				saveInteractiveMessageFromCustomer(buttonClicked, phone);
 
 //				String path = ("/json/message_reply_cancelar.json");
@@ -171,7 +194,7 @@ public class ButtonReplyService {
 				int stepCancel = 0;
 				boolean talkCancel = false;
 				updateCustomer(phone, stepCancel, "normal", talkCancel);
-				messageService.updateConfirmationResponse(id, "CANCELADO");
+				messageService.updateConfirmationResponse(idWamid, "CANCELADO");
 				messageService.sendMessageResponse(obj, textReplyUtil.setTextCancel());
 
 				break;
@@ -195,12 +218,34 @@ public class ButtonReplyService {
 
 			buttonClicked = GSON.fromJson(obj, WebhookReceivedCallbackQuickReplyButtonClick.class);
 
-			String id = buttonClicked.getEntry().get(0).getChanges().get(0).getValue().getMessages().get(0)
-					.getInteractive().getButton_reply().getId();
+			String id = 
+					buttonClicked
+					.getEntry()
+					.get(0)
+					.getChanges()
+					.get(0)
+					.getValue()
+					.getMessages()
+					.get(0)
+					.getInteractive()
+					.getButton_reply()
+					.getId();
 
+			String idWamid = 
+					buttonClicked
+					.getEntry()
+					.get(0)
+					.getChanges()
+					.get(0)
+					.getValue()
+					.getMessages()
+					.get(0)
+					.getContext()
+					.getId();
+			
 			switch (id) {
 			case "button-telefone":
-				messageService.updateConfirmationResponse(id, "REMARCAR");
+				messageService.updateConfirmationResponse(idWamid, "REMARCAR");
 				sendMessageResponse(obj, textReplyUtil.setTextTelephone());
 				int step = 0;
 				boolean talk = false;
@@ -223,7 +268,7 @@ public class ButtonReplyService {
 				break;
 
 			case "button-falar":
-				messageService.updateConfirmationResponse(id, "REMARCAR");
+				messageService.updateConfirmationResponse(idWamid, "REMARCAR");
 				saveInteractiveMessageFromCustomer(buttonClicked, phone);
 				updateCustomerWantToTalk(phone);
 				buttonReplyService.messageTalkToUsResponse(phone);
@@ -236,7 +281,7 @@ public class ButtonReplyService {
 				int stepCancel = 0;
 				boolean talkCancel = false;
 				updateCustomerCancel(phone, stepCancel, "normal", talkCancel);
-				messageService.updateConfirmationResponse(id, "CANCELADO");
+				messageService.updateConfirmationResponse(idWamid, "CANCELADO");
 				messageService.sendMessageResponse(obj, textReplyUtil.setTextCancel());
 
 				break;
@@ -255,33 +300,45 @@ public class ButtonReplyService {
 
 		WebhookReceivedCallbackQuickReplyInitButtonClick buttonClicked = new WebhookReceivedCallbackQuickReplyInitButtonClick();
 
-
 		try {
 
 			buttonClicked = GSON.fromJson(obj, WebhookReceivedCallbackQuickReplyInitButtonClick.class);
 
 			String payloadResp = buttonClicked.getEntry().get(0).getChanges().get(0).getValue().getMessages().get(0)
 					.getButton().getPayload();
-			
-			String id = buttonClicked.getEntry().get(0).getChanges().get(0).getValue().getMessages().get(0)
-					.getContext().getId();
+
+			String idWamid = 
+					buttonClicked
+					.getEntry()
+					.get(0)
+					.getChanges()
+					.get(0)
+					.getValue()
+					.getMessages()
+					.get(0)
+					.getContext()
+					.getId();
 
 			switch (payloadResp) {
 			case "SIM":
 				saveInitButtonClick(obj, phone, payloadResp);
-				messageService.updateConfirmationResponse(id, "SIM");
+				messageService.updateConfirmationResponse(idWamid, "SIM");
 				sendButtonResponse(obj, textReplyUtil.setTextYes(), "SIM");
+				
+				int step1 = 0;
+				boolean talk1 = false;
+				updateCustomer(phone, step1, "normal", talk1);
 
 				break;
 
 			case "REMARCAR":// Button REMARCAR
 				saveInitButtonClick(obj, phone, payloadResp);
-				
+
 				int step2 = 2;
 				boolean talk2 = false;
 				updateCustomer(phone, step2, "confirmation", talk2);
-				messageService.updateConfirmationResponse(id, "REMARCAR");
-				
+				messageService.updateConfirmationResponse(idWamid, "REMARCAR");
+
 				String path = ("/json/button_reply_remarcar.json");
 				buttonReplyService.sendButtonResponse(phone, path);
 
@@ -318,6 +375,10 @@ public class ButtonReplyService {
 				saveInitButtonClick(obj, phone, payloadResp);
 				String path = ("/json/button_reply_remarcar.json");
 				buttonReplyService.sendButtonResponse(phone, path);
+				
+				int step = 0;
+				boolean talk = true;
+				updateCustomer(phone, step, "normal", talk);
 
 				break;
 
@@ -468,7 +529,7 @@ public class ButtonReplyService {
 
 			if (resp.equals("success")) {
 				String idWamid = hashMap.get("idWamid");
-				
+
 				dbMessageResource.saveImavFrontEndMessageIntoDatabase(messageModel, idWamid);
 
 				websocketService.convertMessageSend(messageModel, idWamid);
@@ -501,7 +562,6 @@ public class ButtonReplyService {
 			e.printStackTrace();
 		}
 	}
-
 
 	public void sendMessageResponseInit(String phone, String id, String msgBody, String respYesOrNo) {
 
@@ -570,7 +630,7 @@ public class ButtonReplyService {
 			// extract phone number from the WebHook payload
 			String phone = buttonClicked.getEntry().get(0).getChanges().get(0).getValue().getMessages().get(0)
 					.getFrom();
-			
+
 			// Save customer response from button Init
 			saveButtonMessageFromCustomer(buttonClicked, phone);
 
@@ -600,7 +660,6 @@ public class ButtonReplyService {
 			e.printStackTrace();
 		}
 	}
-
 
 	public void convertWebhookButtonInitDayOff(String obj, String msgBody, String respYesOrNo) {
 
@@ -640,7 +699,7 @@ public class ButtonReplyService {
 
 			dbMessageResource.saveInteractiveReplyIntoDatabase(obj, customer);
 
-			//websocketService.convertInteractiveFromOutside(obj, 1);
+			// websocketService.convertInteractiveFromOutside(obj, 1);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -709,7 +768,7 @@ public class ButtonReplyService {
 		}
 
 	}
-	
+
 	public void updateCustomerCancel(String phone, int step, String mode, boolean talk) {
 
 		try {
@@ -750,7 +809,6 @@ public class ButtonReplyService {
 			e.printStackTrace();
 		}
 	}
-	
 
 	public void updateCustomerWantToTalkDayOff(String phone) {
 
@@ -758,7 +816,7 @@ public class ButtonReplyService {
 
 			Customer customer = customerRepository.findByPhoneNumber(phone);
 			customer.setTalk(true);
-			
+
 			String name = customer.getName();
 			WantsToTalk talk = new WantsToTalk(name, phone);
 
@@ -771,7 +829,7 @@ public class ButtonReplyService {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 	}
 
 }

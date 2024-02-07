@@ -5,6 +5,7 @@ import java.util.List;
 public class MessageInitDto {
 
 	private String id;
+	private String user;
 	private String date;
 	private String time;
 	private String name;
@@ -88,10 +89,18 @@ public class MessageInitDto {
 		this.messages = message;
 	}
 
+	public String getUser() {
+		return user;
+	}
+
+	public void setUser(String user) {
+		this.user = user;
+	}
+
 	@Override
 	public String toString() {
-		return "MessageDTO [id=" + id + ", date=" + date + ", time=" + time + ", name=" + name + ", phone=" + phone
-				+ ", doctor=" + doctor + ", service=" + service + ", messages=" + messages + "]";
+		return "MessageInitDto [id=" + id + ", user=" + user + ", date=" + date + ", time=" + time + ", name=" + name
+				+ ", phone=" + phone + ", doctor=" + doctor + ", service=" + service + ", messages=" + messages + "]";
 	}
 
 }

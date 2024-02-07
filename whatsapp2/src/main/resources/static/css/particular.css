@@ -9,6 +9,10 @@ html {
   background-color: rgb(220, 220, 230);
 }
 
+#username {
+  display: none;
+}
+
 /* Navbar */
 .nav-bar {
   font-family: "Source Sans Pro", sans-serif;

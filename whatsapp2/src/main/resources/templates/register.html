@@ -18,16 +18,31 @@
 
 	<nav class="nav-bar">
 		<ul>
-			<li><a onclick="disconnect()" th:href="home">Enviar Agenda</a></li>
-			<li><a onclick="disconnect()" th:href="send">Enviar</a></li>
-			<li><a onclick="disconnect()" th:href="chat">Chat</a></li>
-			<li><a onclick="disconnect()" th:href="confirmation">Confirmação</a></li>
-			<li><a onclick="disconnect()" th:href="particular">NF Particular</a></li>
-			<li><a onclick="disconnect()" th:href="notafiscal">Nota Fiscal</a></li>
+			<div sec:authorize="hasAuthority('NF')">
+				<li><a onclick="disconnect()" th:href="particular">NF Particular</a></li>
+				<li><a onclick="disconnect()" th:href="notafiscal">Nota Fiscal</a></li>				
+			</div>
+
+			<div sec:authorize="hasAuthority('USER')">
+				<li><a onclick="disconnect()" th:href="particular">NF Particular</a></li>
+				<li><a onclick="disconnect()" th:href="notafiscal">Nota Fiscal</a></li>	
+				<li><a onclick="disconnect()" th:href="home">Enviar Agenda</a></li>
+				<li><a onclick="disconnect()" th:href="send">Enviar</a></li>
+				<li><a onclick="disconnect()" th:href="chat">Chat</a></li>
+				<li><a onclick="disconnect()" th:href="confirmation">Confirmação</a></li>			
+			</div>			
+
 			<div sec:authorize="hasAuthority('ADMIN')">
-				<li><a onclick="disconnect()" class="active" th:href="register">Novo Usuário</a></li>
+				<li><a onclick="disconnect()" th:href="particular">NF Particular</a></li>
+				<li><a onclick="disconnect()" th:href="notafiscal">Nota Fiscal</a></li>			
+				<li><a onclick="disconnect()" th:href="home">Enviar Agenda</a></li>
+				<li><a onclick="disconnect()" th:href="send">Enviar</a></li>
+				<li><a onclick="disconnect()" th:href="chat">Chat</a></li>
+				<li><a onclick="disconnect()" th:href="confirmation">Confirmação</a></li>			
+				<li><a onclick="disconnect()" id="active" class="active" th:href="register">Novo Usuário</a></li>
 				<li><a onclick="disconnect()" th:href="settings">Configurações</a></li>
 			</div>
+			
 			<li class="exit">
 				<a onclick="disconnect()" th:href="@{/logout}"><i class="fa fa-sign-out fa-1.5x" aria-hidden="true">
 						Sair</i></a>
@@ -59,7 +74,14 @@
 
 				<label for="psw-repeat"><b>Confirmar senha</b></label>
 				<input type="password" placeholder="Confirmar senha" name="psw-repeat" id="psw-repeat" required />
-				<hr />
+
+				<label for="user-role"><b>Função do Usuário</b></label>
+				<select name="user-role" id="user-role" required>
+					<option class="option-tag" value selected disabled>Selecione *</option>
+					<option class="option-tag" value="USER">Usuário do Chat</option>
+					<option class="option-tag" value="NF">Apenas Notas Fiscais</option>
+					<option class="option-tag" value="ADMIN">Administrador</option>
+				</select>
 
 				<button type="submit" onclick="saveUser()" class="registerbtn">
 					Salvar

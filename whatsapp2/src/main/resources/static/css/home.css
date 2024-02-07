@@ -8,6 +8,10 @@ body {
   background-color: rgb(226 227 229 / 85%);
 }
 
+#username {
+  display: none;
+}
+
 /* Navbar */
 .nav-bar {
   font-family: "Source Sans Pro", sans-serif;

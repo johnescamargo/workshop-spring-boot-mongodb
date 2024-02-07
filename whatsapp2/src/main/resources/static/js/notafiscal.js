@@ -189,7 +189,6 @@ function displayTableHtml(data) {
 	document.getElementById("data-table").innerHTML = dataTable;
 }
 
-// TODO -- 
 function getCustomerId(id) {
 	//console.log(id);
 	axios
@@ -218,7 +217,7 @@ function liveSearch(data) {
 		}
 		)
 		.then(function (response) {
-			console.log(response);
+			//console.log(response);
 			displayTableHtml(response);
 		})
 		.catch(function (error) {
@@ -227,7 +226,6 @@ function liveSearch(data) {
 
 }
 
-// TODO ---
 function getCustomersByDate(data) {
 
 	var resp = changeDateformat(data);
@@ -294,7 +292,7 @@ function setCustomerHtml(customer) {
 		+ '          <!-- Exame / Consulta end-->'
 
 		+ '          <label for="nome">Nome</label>'
-		+ '          <input type="text" name="nome" id="nome" placeholder="Nome" value="' + customer.nome + '" disabled="disabled">'
+		+ '          <input type="text" name="nome" id="nome" placeholder="Nome" value="' + customer.nome.toUpperCase() + '" disabled="disabled">'
 		+ '          <br>'
 
 		+ '          <label for="cpf">CPF</label>'
@@ -303,7 +301,7 @@ function setCustomerHtml(customer) {
 		+ '          <br>'
 
 		+ '          <label for="e-mail">E-mail</label>'
-		+ '          <input type="text" name="e-mail" id="e-mail" placeholder="exemplo@website.com.br" value="' + customer.email + '" disabled="disabled">'
+		+ '          <input type="text" name="e-mail" id="e-mail" placeholder="exemplo@website.com.br" value="' + customer.email.toLowerCase() + '" disabled="disabled">'
 		+ '          <br>'
 
 		+ '          <label for="telefone">Telefone</label>'

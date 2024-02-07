@@ -106,6 +106,21 @@ input[type="password"]:focus {
   border-radius: 8px;
 }
 
+select {
+  width: 100%;
+  padding: 8px;
+  margin: 5px 0 22px 0;
+  display: inline-block;
+  border: none;
+  background: #dbdbe194;
+  border-radius: 8px;
+}
+
+.option-tag {
+  font-size: larger;
+  background-color: snow;
+}
+
 /* Overwrite default styles of hr */
 hr {
   border: 1px solid #f1f1f1;

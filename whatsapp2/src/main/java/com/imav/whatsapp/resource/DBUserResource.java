@@ -36,7 +36,7 @@ public class DBUserResource {
 
 			// Save Roles first and then all the Users
 			Role role = new Role();
-			role.setName("USER");
+			role.setName(dto.getRole());
 
 			Role createdRole = new Role();
 			createdRole = roleRepository.save(role);

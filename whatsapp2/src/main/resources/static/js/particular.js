@@ -39,9 +39,6 @@ const outrosInput = document.getElementById("outros-input");
 const pagamentoExtra = document.getElementById("pagamento-extra");
 const textareaTag = document.getElementById("textarea-tag");
 
-// it's only for testing
-const user = 'johnes';
-
 var prontuarioBoolean = false;
 var consultaExameBoolean = false;
 var nomeBoolean = false;
@@ -263,6 +260,9 @@ function getData() {
 
 // Send JSON
 function sendData() {
+	
+	var username = document.getElementById("username").innerText;
+	
 	axios
 		.post("/nf/save", {
 			prontuario: prontuario.value,
@@ -284,7 +284,7 @@ function sendData() {
 			medico: medico.value,
 			nfNumero: "",
 			nfDone: false,
-			userName: user,
+			userName: username,
 			nfDoneBy: "",
 			pagamento1: dadosPagamento[0],
 			pagamento2: dadosPagamento[1],

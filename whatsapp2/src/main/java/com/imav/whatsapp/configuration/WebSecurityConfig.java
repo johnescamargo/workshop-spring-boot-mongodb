@@ -68,19 +68,29 @@ public class WebSecurityConfig {
 				.and()
 				.authorizeHttpRequests()
 				.requestMatchers(
-						  "/home"
+						  "/particular"
+						, "/notafiscal"
+						, "/home"
+						, "/config"
+						).hasAnyAuthority("NF", "USER", "ADMIN")
+				.requestMatchers(
+						  "/particular"
+						, "/notafiscal"
+						, "/home"
 						, "/send"
 						, "/chat"
 						, "/config"
-						, "/particular"
-						, "/notafiscal"
 						, "/confirmation"
 						).hasAnyAuthority("USER", "ADMIN")
-				.requestMatchers("/register", "/settings").hasAuthority("ADMIN").anyRequest().authenticated()
+				.requestMatchers(
+						  "/register", 
+						  "/settings"
+						  ).hasAuthority("ADMIN")
+				.anyRequest().authenticated()
 				.and()
 				.formLogin(form -> form
 						.loginPage("/login")
-						.defaultSuccessUrl("/home")
+						.defaultSuccessUrl("/particular")
 						.loginProcessingUrl("/login")
 						.failureUrl("/login?error=true").permitAll())
 				.logout((logout) -> logout.permitAll());

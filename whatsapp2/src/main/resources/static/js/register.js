@@ -2,6 +2,7 @@ let passwordText = document.getElementById("psw");
 let passwordText2 = document.getElementById("psw-repeat");
 let usernameText = document.getElementById("nickname");
 let emailText = document.getElementById("email");
+let userRole = document.getElementById("user-role");
 
 var stompClient = null;
 const dropdown = document.querySelector("#exit");
@@ -28,10 +29,10 @@ function disconnect() {
 
 function websocketFunction() {
 	// HTTPS for TLS conncetions VPS
-	var socket = new SockJS("https://www.web.login.imav.com.br:5000/websocket-server");
+	//var socket = new SockJS("https://www.web.login.imav.com.br:5000/websocket-server");
 
 	// Localhost
-	//var socket = new SockJS("http://localhost:5000/websocket-server");
+	var socket = new SockJS("http://localhost:5000/websocket-server");
 
 	stompClient = Stomp.over(socket);
 	stompClient.connect({}, function() {
@@ -110,9 +111,10 @@ function saveUser() {
 	let psw2Length = passwordText2.value.length;
 	let emailLength = emailText.value.length;
 	let usernameLength = usernameText.value.length;
-	const role = "USER";
+	let userRoleResp = userRole.value;
 
 	if (
+		userRoleResp &&
 		passwordText.value === passwordText2.value &&
 		pswLength > 0 &&
 		psw2Length > 0 &&
@@ -125,7 +127,7 @@ function saveUser() {
 				email: emailText.value,
 				password: passwordText.value,
 				matchingPassword: passwordText2.value,
-				role: role,
+				role: userRoleResp,
 			})
 			.then(function(response) {
 				if (response.status === 201) {

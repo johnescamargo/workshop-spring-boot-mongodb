@@ -303,6 +303,7 @@ public class MessageService {
 		obj.setServiceDate(dto.getDate());
 		obj.setShippingDate(date);
 		obj.setStatus(1);
+		obj.setUser(dto.getUser());
 
 		confirmationRepository.save(obj);
 	}
@@ -380,7 +381,7 @@ public class MessageService {
 
 	}
 
-	public void updateConfirmationResponse(String idWamid, String respYesOrNo) {
+	public void updateConfirmationResponse(String idWamid, String reply) {
 		ConfirmationResponse confirmation = new ConfirmationResponse();
 
 		boolean resp = confirmationRepository.existsByIdWamid(idWamid);
@@ -389,10 +390,7 @@ public class MessageService {
 
 			confirmation = confirmationRepository.findById_Wamid(idWamid);
 
-			// System.out.println(confirmation);
-
-			confirmation.setResponse(respYesOrNo);
-			// System.out.println(confirmation);
+			confirmation.setResponse(reply);
 
 			confirmationRepository.save(confirmation);
 		}
