@@ -1,48 +1,14 @@
+import Websocket from "./websocket.js";
+const websocket = new Websocket();
+
 var datepicker = document.getElementById("datepicker");
 var pesquisa = document.getElementById("pesquisa");
-var dataTable = document.getElementById("data-table");
 var outros = "";
-var datepicked = "";
-var stompClient = null;
-const dropdown = document.querySelector("#exit");
 
-function connect() {
-	websocketFunction();
-	loadWantsToTalk();
+function onloadInit(){
+    loadWantsToTalk();
 	setTable();
-}
-
-// ********** Websocket connection
-function setConnected(connected) {
-	$("#connect").prop("disabled", connected);
-	$("#disconnect").prop("disabled", !connected);
-}
-
-function disconnect() {
-	if (stompClient !== null) {
-		stompClient.disconnect();
-	}
-	setConnected(false);
-	console.log("Disconnected");
-}
-
-function websocketFunction() {
-	// HTTPS for TLS conncetions VPS
-	//var socket = new SockJS("https://www.web.login.imav.com.br:5000/websocket-server");
-
-	// Localhost
-	var socket = new SockJS("http://localhost:5000/websocket-server");
-
-	stompClient = Stomp.over(socket);
-	stompClient.connect({}, function () {
-		setConnected(true);
-
-		// Update reload DOM
-		stompClient.subscribe("/topic/talks", function (response) {
-			//console.log(response);
-			loadWantsToTalk();
-		});
-	});
+	websocket.connect;
 }
 
 function loadWantsToTalk() {
@@ -83,23 +49,6 @@ function wantsTotalkToHtml(data) {
 	}
 	document.getElementById("exit").innerHTML = dataHtml;
 }
-
-
-/* When the user clicks on the button, 
-toggle between hiding and showing the dropdown content */
-function myDropdown() {
-	document.getElementById("myDropdown").classList.toggle("show");
-}
-
-// add a click event listener to the div
-dropdown.addEventListener("click", function () {
-	myDropdown();
-});
-
-
-
-
-
 
 function unixTimestampToDate(unixTimestamp) {
 	var timestamp = unixTimestamp * 1000;
@@ -511,7 +460,7 @@ function saveNF(id) {
 				nfDoneBy: username
 			})
 			.then(function (response) {
-				console.log(response);
+				//console.log(response);
 				if (response.status === 200) {
 					alert("NF salva com sucesso!");
 					window.location.reload();
@@ -546,7 +495,7 @@ function setNfData(data) {
 			+ '                      <input type="checkbox" name="sim" id="sim">'
 			+ '                      <label for="sim">Sim</label>'
 			+ '                  </div>'
-			+ '                  <button id="button-save" onclick="saveNF(this.id)" id="' + data.id + '">Salvar</button>'
+			+ '                  <button class="button-save" onclick="saveNF(this.id)" id="' + data.id + '">Salvar</button>'
 			+ '              </div>'
 
 			+ '              <label for="nota-fiscal">Nota Fiscal Nº</label>'
@@ -748,4 +697,14 @@ function changeDateformat(val) {
 
 	return formatteddate;
 }
+
+window.addEventListener('onload', onloadInit());
+window.addEventListener('onload', onloadInit);
+window.saveNF = saveNF;
+window.loadWantsToTalk = loadWantsToTalk;
+window.changeformat = changeformat;
+window.getCustomerId = getCustomerId;
+window.changeDateformat = changeDateformat;
+window.validateValor = validateValor;
+window.setNfData = setNfData;
 

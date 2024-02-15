@@ -451,7 +451,7 @@ select {
   border-style: solid;
 }
 
-#button-save {
+.button-save {
   width: 125px;
   height: 35px;
   margin-top: 4px;
@@ -462,7 +462,7 @@ select {
   border-style: none;
 }
 
-#button-save:hover {
+.button-save:hover {
   background-color: rgb(94, 94, 185);
 }
 

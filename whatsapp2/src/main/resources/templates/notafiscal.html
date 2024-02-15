@@ -13,12 +13,12 @@
 	<script src="/webjars/stomp-websocket/stomp.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 	<link rel="stylesheet" th:href="@{/css/notafiscal.css}" />
-    <script defer th:src="@{/js/notafiscal.js}"></script>	
+    <script defer th:type="module" th:src="@{/js/notafiscal.js}"></script>	
 	<link rel="icon" type="image/x-icon" th:href="@{/img/imav-icon.jpg}">
 	<title>Nota Fiscal</title>
 </head>
 
-<body onload="connect()">
+<body>
 
 	<div id="username" sec:authentication="name"></div>
 	<nav class="nav-bar">

@@ -296,7 +296,7 @@ function sendData() {
 			exames: examesSelecionados,
 		})
 		.then(function (response) {
-			console.log(response);
+			//console.log(response);
 			if (response.status === 200) {
 				alert("Documento salvo com sucesso!");
 				window.location.reload();
