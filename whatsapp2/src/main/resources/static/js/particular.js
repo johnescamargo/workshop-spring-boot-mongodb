@@ -1,3 +1,6 @@
+import Websocket from "./websocket.js";
+const websocket = new Websocket();
+
 const prontuario = document.getElementById("prontuario");
 
 const consulta = document.getElementById("consulta");
@@ -37,7 +40,6 @@ const oct = document.getElementById("oct");
 const outros = document.getElementById("outros");
 const outrosInput = document.getElementById("outros-input");
 const pagamentoExtra = document.getElementById("pagamento-extra");
-const textareaTag = document.getElementById("textarea-tag");
 
 var prontuarioBoolean = false;
 var consultaExameBoolean = false;
@@ -60,11 +62,14 @@ var cartaoCredit = false;
 
 let dadosPagamento = [];
 var examesSelecionados = [];
-const date = new Date();
 
 // Add cep number after urlCepBeginning
 const urlCepBeginning = "https://viacep.com.br/ws/";
 const urlCepEnd = "/json/";
+
+function onloadInit(){
+	websocket.connect;
+}
 
 function getData() {
 	// Declare variables inside function
@@ -651,15 +656,6 @@ function isNumeric(valueInput) {
 	return !isNaN(valueInput);
 }
 
-function getDate() {
-	var dia = date.getDate();
-	var mes = date.getMonth();
-	var ano = date.getFullYear();
-	var horas = date.getHours();
-	var minutos = date.getMinutes();
-	var segundos = date.getSeconds();
-}
-
 formaPagamento.addEventListener("change", (event) => {
 	let data = event.target.value;
 	pagamentoExtra.innerHTML = "";
@@ -724,19 +720,49 @@ function validaCpf(valueInput) {
 	var Soma;
 	var Resto;
 	Soma = 0;
-	if (strCPF == "00000000000") return false;
+	if (strCPF == "00000000000"){ 
+		return false;
+	}
 
-	for (i = 1; i <= 9; i++) Soma = Soma + parseInt(strCPF.substring(i - 1, i)) * (11 - i);
-	Resto = (Soma * 10) % 11;
+	for (let i = 1; i <= 9; i++) { 
+		Soma = Soma + parseInt(strCPF.substring(i - 1, i)) * (11 - i);
+	    Resto = (Soma * 10) % 11;
+	}
 
-	if ((Resto == 10) || (Resto == 11)) Resto = 0;
-	if (Resto != parseInt(strCPF.substring(9, 10))) return false;
-
+	if ((Resto == 10) || (Resto == 11)) {
+		Resto = 0;
+	}	
+	if (Resto != parseInt(strCPF.substring(9, 10))){ 
+		return false;
+	}
+	
 	Soma = 0;
-	for (i = 1; i <= 10; i++) Soma = Soma + parseInt(strCPF.substring(i - 1, i)) * (12 - i);
-	Resto = (Soma * 10) % 11;
+	for (let i = 1; i <= 10; i++) { 
+		Soma = Soma + parseInt(strCPF.substring(i - 1, i)) * (12 - i);
+		Resto = (Soma * 10) % 11;
+	}
 
-	if ((Resto == 10) || (Resto == 11)) Resto = 0;
-	if (Resto != parseInt(strCPF.substring(10, 11))) return false;
-	return true;
+	if ((Resto == 10) || (Resto == 11)){ 
+		Resto = 0;
+	}
+	if (Resto != parseInt(strCPF.substring(10, 11))){ 
+		return false;
+	} else {
+		return true;
+	}
 }
+
+
+window.addEventListener('onload', onloadInit());
+window.addEventListener('onload', onloadInit);
+window.sendData = sendData;
+window.getData = getData;
+window.validateCep = validateCep;
+window.validaCpf = validaCpf;
+window.isNumeric = isNumeric;
+window.validateTelefone = validateTelefone;
+window.validateCpf = validateCpf;
+window.validateValor = validateValor;
+
+
+

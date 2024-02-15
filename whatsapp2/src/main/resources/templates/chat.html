@@ -13,6 +13,7 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
 	<link rel="stylesheet" th:href="@{/css/chat.css}" />
 	<link rel="icon" type="image/x-icon" th:href="@{/img/imav-icon.jpg}">
+	<script defer th:src="@{/js/chat.js}"></script>
 	<title>Chat</title>
 </head>
 
@@ -29,7 +30,7 @@
 				<li><a onclick="disconnect()" th:href="particular">NF Particular</a></li>
 				<li><a onclick="disconnect()" th:href="notafiscal">Nota Fiscal</a></li>	
 			    <li><a onclick="disconnect()" th:href="home">Enviar Agenda</a></li>
-				<li><a onclick="disconnect()" th:href="send">Enviar</a></li>
+				
 				<li><a onclick="disconnect()" id="active" class="active" th:href="chat">Chat</a></li>
 				<li><a onclick="disconnect()" th:href="confirmation">Confirmação</a></li>			
 			</div>			
@@ -38,7 +39,7 @@
 				<li><a onclick="disconnect()" th:href="particular">NF Particular</a></li>
 				<li><a onclick="disconnect()" th:href="notafiscal">Nota Fiscal</a></li>	
 				<li><a onclick="disconnect()" th:href="home">Enviar Agenda</a></li>
-				<li><a onclick="disconnect()" th:href="send">Enviar</a></li>
+				
 				<li><a onclick="disconnect()" id="active" class="active" th:href="chat">Chat</a></li>
 				<li><a onclick="disconnect()" th:href="confirmation">Confirmação</a></li>			
 				<li><a onclick="disconnect()" th:href="register">Novo Usuário</a></li>
@@ -100,7 +101,6 @@
 	</div>
 	<!-- Modal Image div - end -->
 
-	<script th:src="@{/js/chat.js}"></script>
 </body>
 
 </html>

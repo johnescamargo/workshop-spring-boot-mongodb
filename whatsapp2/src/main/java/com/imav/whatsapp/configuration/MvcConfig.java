@@ -25,12 +25,6 @@ public class MvcConfig implements WebMvcConfigurer {
 		return "home";
 	}
 	
-	@GetMapping("/send")
-	public String send() {
-
-		return "send";
-	}
-
 	@GetMapping("/chat")
 	public String chat() {
 

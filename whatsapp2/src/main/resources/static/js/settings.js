@@ -1,7 +1,7 @@
-var stompClient = null;
-var arrayOfTime = [];
+import Websocket from "./websocket.js";
+const websocket = new Websocket();
 
-const dropdown = document.querySelector("#exit");
+var arrayOfTime = [];
 
 var domingoComeco = document.getElementById("domingo-comeco");
 var domingoFim = document.getElementById("domingo-fim");
@@ -32,44 +32,12 @@ var sabadoFim = document.getElementById("sabado-fim");
 var sabadoOff = document.getElementById("sabado-off");
 
 
-window.onload = function connect() {
-	websocketFunction();
+function onloadInit(){
+	websocket.connect;
 	loadWantsToTalk();
 	loadWeekTime();
 }
 
-// ********** Websocket connection
-function setConnected(connected) {
-	$("#connect").prop("disabled", connected);
-	$("#disconnect").prop("disabled", !connected);
-}
-
-function disconnect() {
-	if (stompClient !== null) {
-		stompClient.disconnect();
-	}
-	setConnected(false);
-	console.log("Disconnected");
-}
-
-function websocketFunction() {
-	// HTTPS for TLS conncetions VPS
-	//var socket = new SockJS("https://www.web.login.imav.com.br:5000/websocket-server");
-
-	// Localhost
-	var socket = new SockJS("http://localhost:5000/websocket-server");
-
-	stompClient = Stomp.over(socket);
-	stompClient.connect({}, function() {
-		setConnected(true);
-
-		// Update reload DOM
-		stompClient.subscribe("/topic/talks", function(response) {
-			//console.log(response);
-			loadWantsToTalk();
-		});
-	});
-}
 
 function loadWantsToTalk() {
 	axios({
@@ -109,19 +77,6 @@ function wantsTotalkToHtml(data) {
 	}
 	document.getElementById("exit").innerHTML = dataHtml;
 }
-
-
-/* When the user clicks on the button, 
-toggle between hiding and showing the dropdown content */
-function myDropdown() {
-	document.getElementById("myDropdown").classList.toggle("show");
-}
-
-// add a click event listener to the div
-dropdown.addEventListener("click", function() {
-	myDropdown();
-});
-
 
 function loadWeekTime() {
 	axios({
@@ -277,6 +232,13 @@ function snackbarShowError() {
 	setTimeout(function() { x.className = x.className.replace("show", ""); }, 3000);
 }
 
-
+window.addEventListener('onload', onloadInit());
+window.addEventListener('onload', onloadInit);
+window.loadWantsToTalk = loadWantsToTalk;
+window.loadWeekTime = loadWeekTime;
+window.saveTime = saveTime;
+window.saveTimeToArray = saveTimeToArray;
+window.updateTime = updateTime;
+window.insertWeekTimeHtml = insertWeekTimeHtml;
 
 

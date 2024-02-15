@@ -12,6 +12,11 @@ body {
   display: none;
 }
 
+.card {
+  border-left: 4px solid rgb(52, 101, 164);
+  border-radius: 10px;
+}
+
 /* Navbar */
 .nav-bar {
   font-family: "Source Sans Pro", sans-serif;
@@ -101,8 +106,55 @@ li a:hover:not(.active) {
 .container {
   margin-top: 25px;
   max-width: 1000px;
-  margin-left: 5px;
+  margin-left: 20px;
   margin-right: 5px;
+}
+
+.container-send {
+  max-width: 500px;
+  margin-left: 35px;
+  margin-top: 35px;
+  margin-right: 22px;
+  padding: 10px;
+  background-color: snow;
+  border-left: 4px solid rgb(32, 74, 135);
+  border-radius: 10px;
+  
+}
+
+.telephone-div {
+  display: flex;
+  align-items: baseline;
+}
+
+#select-div {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+#btn-send {
+  background-color: rgb(17 41 70);
+  color: white;
+  padding: 16px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  opacity: 0.9;
+  border-radius: 8px;
+}
+
+#btn-send:hover {
+  opacity: 1;
+}
+
+#countryCodeSelect {
+  padding-left: 10px;
+  padding-right: 15px;
+  height: 37px;
+  border-radius: 8px;
+  background-color: #fff;
+  width: 170px;
 }
 
 /* Dot typing */
@@ -155,6 +207,7 @@ li a:hover:not(.active) {
   }
 }
 
+/* Websocket  */
 #alert-div {
   height: 25px;
   width: 25px;
@@ -162,6 +215,7 @@ li a:hover:not(.active) {
   border-radius: 50%;
   display: inline-block;
   font-weight: bold;
+  font-size: medium;
 }
 
 #alert-number {
@@ -178,6 +232,7 @@ li button {
   width: fit-content;
   cursor: pointer;
   background-color: rgb(17 41 70);
+  /* font-family: 'Montserrat', sans-serif; */
   font-family: "Source Sans Pro", sans-serif;
   border-style: none;
 }
@@ -194,12 +249,17 @@ li button:focus {
   /* outline: 5px auto -webkit-focus-ring-color; */
 }
 
+button:focus {
+    outline: 5px none -webkit-focus-ring-color;
+}
+
 #myDropdown {
   border-style: none;
 }
 
 #myDropdown p {
   margin: 0;
+  font-size: 16px;
 }
 
 .dropdown-content {
@@ -232,10 +292,12 @@ li button:focus {
 .show {
   display: block;
 }
+/* Websocket end */
 
 .home-div {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
+  margin-left: 3%;
 }
 
 .showcase {
@@ -256,17 +318,17 @@ li button:focus {
 }
 
 .my-message {
-  border-radius: 10px;
-  display: flow-root;
-  background-color: rgb(188, 233, 229);
-  font-size: 14px;
-  color: rgb(0, 0, 0);
-  margin-bottom: 5px;
-  margin-top: 14px;
-  padding-left: 5px;
-  padding-right: 5px;
-  padding-top: 5px;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+ border-radius: 10px;
+ display: flow-root;
+ background-color: rgb(23 57 97);
+ font-size: 14px;
+ color: rgb(255 255 255);
+ margin-bottom: 5px;
+ margin-top: 14px;
+ padding-left: 5px;
+ padding-right: 5px;
+ padding-top: 5px;
+ box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 .my-message-button {
@@ -276,9 +338,9 @@ li button:focus {
   align-items: center;
   border-radius: 10px;
   height: 29px;
-  background-color: rgb(188, 233, 229);
+  background-color: rgb(23 57 97);
   font-size: 14px;
-  color: rgb(0, 0, 0);
+  color: rgb(255 255 255);
   margin-bottom: 2px;
   margin-top: 2px;
   padding-left: 5px;

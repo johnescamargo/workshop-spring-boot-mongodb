@@ -13,11 +13,12 @@
 	<script src="/webjars/sockjs-client/sockjs.min.js"></script>
 	<script src="/webjars/stomp-websocket/stomp.min.js"></script>
     <link rel="stylesheet" th:href="@{/css/particular.css}">
+    <script defer th:type="module" th:src="@{/js/particular.js}"></script>
     <link rel="icon" type="image/x-icon" th:href="@{/img/imav-icon.jpg}">
     <title>Atendimento Particular</title>
 </head>
 
-<body onload="connect()">
+<body>
 
 	<div id="username" sec:authentication="name"></div>
 	<nav class="nav-bar">
@@ -31,7 +32,6 @@
 				<li><a onclick="disconnect()" id="active" class="active" th:href="particular">NF Particular</a></li>
 				<li><a onclick="disconnect()" th:href="notafiscal">Nota Fiscal</a></li>	
 				<li><a onclick="disconnect()" th:href="home">Enviar Agenda</a></li>
-				<li><a onclick="disconnect()" th:href="send">Enviar</a></li>
 				<li><a onclick="disconnect()" th:href="chat">Chat</a></li>
 				<li><a onclick="disconnect()" th:href="confirmation">Confirmação</a></li>			
 			</div>			
@@ -40,7 +40,6 @@
 				<li><a onclick="disconnect()" id="active" class="active" th:href="particular">NF Particular</a></li>
 				<li><a onclick="disconnect()" th:href="notafiscal">Nota Fiscal</a></li>	
 				<li><a onclick="disconnect()" th:href="home">Enviar Agenda</a></li>
-				<li><a onclick="disconnect()" th:href="send">Enviar</a></li>
 				<li><a onclick="disconnect()" th:href="chat">Chat</a></li>
 				<li><a onclick="disconnect()" th:href="confirmation">Confirmação</a></li>			
 				<li><a onclick="disconnect()" th:href="register">Novo Usuário</a></li>
@@ -283,7 +282,7 @@
                     <br>
                     <!-- Checkbox end-->
 
-                    <button onclick="getData()">Salvar</button>
+                    <button id="button-save" onclick="getData()">Salvar</button>
 
                 </div>
                 <!-- Exames end-->
@@ -292,9 +291,7 @@
         </div>
 
     </div>
-    
-    <script th:src="@{/js/particular.js}"></script>
-    <script th:src="@{/js/websocket.js}"></script>
+
 </body>
 
 </html>

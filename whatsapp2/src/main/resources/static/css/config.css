@@ -61,6 +61,8 @@ li a:hover:not(.active) {
 #active {
   text-decoration: none;
   color: #fff;
+  z-index: 2;
+  position: relative;
 }
 
 .exit {

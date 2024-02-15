@@ -13,6 +13,7 @@
 	<script src="/webjars/stomp-websocket/stomp.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 	<link rel="stylesheet" th:href="@{/css/notafiscal.css}" />
+    <script defer th:src="@{/js/notafiscal.js}"></script>	
 	<link rel="icon" type="image/x-icon" th:href="@{/img/imav-icon.jpg}">
 	<title>Nota Fiscal</title>
 </head>
@@ -31,7 +32,6 @@
 				<li><a onclick="disconnect()" th:href="particular">NF Particular</a></li>
 				<li><a onclick="disconnect()" id="active" class="active" th:href="notafiscal">Nota Fiscal</a></li>	
 				<li><a onclick="disconnect()" th:href="home">Enviar Agenda</a></li>
-				<li><a onclick="disconnect()" th:href="send">Enviar</a></li>
 				<li><a onclick="disconnect()" th:href="chat">Chat</a></li>
 				<li><a onclick="disconnect()" th:href="confirmation">Confirmação</a></li>			
 			</div>			
@@ -39,8 +39,7 @@
 			<div sec:authorize="hasAuthority('ADMIN')">
 				<li><a onclick="disconnect()" th:href="particular">NF Particular</a></li>
 				<li><a onclick="disconnect()" id="active" class="active" th:href="notafiscal">Nota Fiscal</a></li>	
-				<li><a onclick="disconnect()" th:href="home">Enviar Agenda</a></li>
-				<li><a onclick="disconnect()" th:href="send">Enviar</a></li>
+				<li><a onclick="disconnect()" th:href="home">Enviar Agenda</a></li>				
 				<li><a onclick="disconnect()" th:href="chat">Chat</a></li>
 				<li><a onclick="disconnect()" th:href="confirmation">Confirmação</a></li>			
 				<li><a onclick="disconnect()" th:href="register">Novo Usuário</a></li>
@@ -90,8 +89,6 @@
         </div>
 
     </div>
-
-	<script th:src="@{/js/notafiscal.js}"></script>
 
 </body>
 

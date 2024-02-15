@@ -4,7 +4,6 @@
 
 <head>
 	<meta charset="utf-8" />
-	<title>Envio de Mensagens</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
 		integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous" />
@@ -15,44 +14,43 @@
 	<script src="/webjars/stomp-websocket/stomp.min.js"></script>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
 	<link rel="stylesheet" th:href="@{/css/home.css}" />
+	<script defer th:type="module" th:src="@{/js/home.js}"></script>
 	<link rel="icon" type="image/x-icon" th:href="@{/img/imav-icon.jpg}">
 	<title>Enviar Agenda</title>
 </head>
 
-<body onload="connect()">
+<body>
 
 	<div id="username" sec:authentication="name"></div>
-	
+
 	<nav class="nav-bar">
 		<ul>
 			<div sec:authorize="hasAuthority('NF')">
 				<li><a onclick="disconnect()" th:href="particular">NF Particular</a></li>
-				<li><a onclick="disconnect()" th:href="notafiscal">Nota Fiscal</a></li>				
+				<li><a onclick="disconnect()" th:href="notafiscal">Nota Fiscal</a></li>
 			</div>
 
 			<div sec:authorize="hasAuthority('USER')">
 				<li><a onclick="disconnect()" th:href="particular">NF Particular</a></li>
-				<li><a onclick="disconnect()" th:href="notafiscal">Nota Fiscal</a></li>	
-			    <li><a onclick="disconnect()" id="active" class="active" th:href="home">Enviar Agenda</a></li>
-				<li><a onclick="disconnect()" th:href="send">Enviar</a></li>
+				<li><a onclick="disconnect()" th:href="notafiscal">Nota Fiscal</a></li>
+				<li><a onclick="disconnect()" id="active" class="active" th:href="home">Enviar Agenda</a></li>
 				<li><a onclick="disconnect()" th:href="chat">Chat</a></li>
-				<li><a onclick="disconnect()" th:href="confirmation">Confirmação</a></li>			
-			</div>			
+				<li><a onclick="disconnect()" th:href="confirmation">Confirmação</a></li>
+			</div>
 
 			<div sec:authorize="hasAuthority('ADMIN')">
 				<li><a onclick="disconnect()" th:href="particular">NF Particular</a></li>
-				<li><a onclick="disconnect()" th:href="notafiscal">Nota Fiscal</a></li>	
-			    <li><a onclick="disconnect()" id="active" class="active" th:href="home">Enviar Agenda</a></li>
-				<li><a onclick="disconnect()" th:href="send">Enviar</a></li>
+				<li><a onclick="disconnect()" th:href="notafiscal">Nota Fiscal</a></li>
+				<li><a onclick="disconnect()" id="active" class="active" th:href="home">Enviar Agenda</a></li>
 				<li><a onclick="disconnect()" th:href="chat">Chat</a></li>
-				<li><a onclick="disconnect()" th:href="confirmation">Confirmação</a></li>			
+				<li><a onclick="disconnect()" th:href="confirmation">Confirmação</a></li>
 				<li><a onclick="disconnect()" th:href="register">Novo Usuário</a></li>
 				<li><a onclick="disconnect()" th:href="settings">Configurações</a></li>
 			</div>
-			
-            <li class="exit">
-			    <a onclick="disconnect()" th:href="@{/logout}"><i class="fa fa-sign-out fa-1.5x" aria-hidden="true">
-					Sair</i></a>
+
+			<li class="exit">
+				<a onclick="disconnect()" th:href="@{/logout}"><i class="fa fa-sign-out fa-1.5x" aria-hidden="true">
+						Sair</i></a>
 			</li>
 			<li class="exit">
 				<a onclick="disconnect()" th:href="config"><i class="fa fa-user fa-1.5x" aria-hidden="true"><span>
@@ -81,10 +79,32 @@
 			<div id="excel_data" class="mt-3"></div>
 		</div>
 
-		<div class="showcase" id="showcase">
+		<div class="showcase" id="showcase"></div>
 
+	</div>
+
+	<div id="send-div" class="home-div">
+		<div class="container-send">
+			<h5>Mensagem Individual</h5>
+			<hr />
+			<div class="telephone-div">
+				<label for="telephone">Telefone</label>
+				<div id="select-div">
+					<!-- select goes here -->
+				</div>
+				<input id="telephone" type="text" class="form-control" placeholder="Número de telefone" required>
+			</div>
+			<br>
+			<label for="name">Nome</label>
+			<input id="name" type="text" class="form-control" placeholder="Nome do paciente" required>
+			<br>
+			<label for="textarea">Mensagem</label>
+			<textarea class="form-control" id="textarea" rows="5" placeholder="Escreva a mensagem aqui..."
+				required></textarea>
+			<br>
+			<button onclick="validateMessage()" id="btn-send" class="btn btn-success btn-sm">Enviar</button>
+			<br>
 		</div>
-
 	</div>
 
 
@@ -94,7 +114,7 @@
 		<div class="modal-content">
 			<div class="form-save">
 				<div class="container2">
-					<label for="waiting"><b>Enviando mensagens, aguarde </b></label>
+					<div for="waiting"><b>Enviando mensagens, aguarde </b></div>
 					<div class="col-3">
 						<div class="snippet" data-title="dot-typing">
 							<div class="stage">
@@ -107,8 +127,6 @@
 		</div>
 	</div>
 
-	<script th:src="@{/js/home.js}"></script>
-	<script th:src="@{/js/websocket.js}"></script>
 </body>
 
 </html>

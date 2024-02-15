@@ -77,7 +77,6 @@ public class WebSecurityConfig {
 						  "/particular"
 						, "/notafiscal"
 						, "/home"
-						, "/send"
 						, "/chat"
 						, "/config"
 						, "/confirmation"

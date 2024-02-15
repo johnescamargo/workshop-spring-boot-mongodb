@@ -546,7 +546,7 @@ function setNfData(data) {
 			+ '                      <input type="checkbox" name="sim" id="sim">'
 			+ '                      <label for="sim">Sim</label>'
 			+ '                  </div>'
-			+ '                  <button onclick="saveNF(this.id)" id="' + data.id + '">Salvar</button>'
+			+ '                  <button id="button-save" onclick="saveNF(this.id)" id="' + data.id + '">Salvar</button>'
 			+ '              </div>'
 
 			+ '              <label for="nota-fiscal">Nota Fiscal Nº</label>'

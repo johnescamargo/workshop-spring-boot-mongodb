@@ -1,18 +1,18 @@
 var stompClient = null;
 const dropdown = document.querySelector("#exit");
 
-function connect() {
+export default function connect() {
 	websocketFunction();
 	loadWantsToTalk();
 }
 
 // ********** Websocket connection
-function setConnected(connected) {
+export function setConnected(connected) {
 	$("#connect").prop("disabled", connected);
 	$("#disconnect").prop("disabled", !connected);
 }
 
-function disconnect() {
+export function disconnect() {
 	if (stompClient !== null) {
 		stompClient.disconnect();
 	}
@@ -20,7 +20,7 @@ function disconnect() {
 	console.log("Disconnected");
 }
 
-function websocketFunction() {
+export function websocketFunction() {
 	// HTTPS for TLS conncetions VPS
 	//var socket = new SockJS("https://www.web.login.imav.com.br:5000/websocket-server");
 
@@ -39,7 +39,7 @@ function websocketFunction() {
 	});
 }
 
-function loadWantsToTalk() {
+export function loadWantsToTalk() {
 	axios({
 		method: "get",
 		url: "/talk/all",
@@ -55,7 +55,7 @@ function loadWantsToTalk() {
 	});
 }
 
-function wantsTotalkToHtml(data) {
+export function wantsTotalkToHtml(data) {
 
 	var dataLength = data.length;
 	var dataHtml = "";
@@ -81,7 +81,7 @@ function wantsTotalkToHtml(data) {
 
 /* When the user clicks on the button, 
 toggle between hiding and showing the dropdown content */
-function myDropdown() {
+export function myDropdown() {
 	document.getElementById("myDropdown").classList.toggle("show");
 }
 
@@ -89,3 +89,6 @@ function myDropdown() {
 dropdown.addEventListener("click", function() {
 	myDropdown();
 });
+
+
+

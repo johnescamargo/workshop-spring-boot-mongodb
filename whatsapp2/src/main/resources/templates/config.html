@@ -10,11 +10,12 @@
 	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
 	<link rel="stylesheet" th:href="@{/css/config.css}" />
+    <script defer th:type="module" th:src="@{/js/config.js}"></script>
     <link rel="icon" type="image/x-icon" th:href="@{/img/imav-icon.jpg}">
 	<title>Nova Senha</title>
 </head>
 
-<body onload="connect()">
+<body>
 
 	<nav class="nav-bar">
 		<ul>
@@ -27,7 +28,7 @@
 				<li><a onclick="disconnect()" th:href="particular">NF Particular</a></li>
 				<li><a onclick="disconnect()" th:href="notafiscal">Nota Fiscal</a></li>	
 			    <li><a onclick="disconnect()" th:href="home">Enviar Agenda</a></li>
-				<li><a onclick="disconnect()" th:href="send">Enviar</a></li>
+				
 				<li><a onclick="disconnect()" th:href="chat">Chat</a></li>
 				<li><a onclick="disconnect()" th:href="confirmation">Confirmação</a></li>			
 			</div>			
@@ -36,7 +37,7 @@
 				<li><a onclick="disconnect()" th:href="particular">NF Particular</a></li>
 				<li><a onclick="disconnect()" th:href="notafiscal">Nota Fiscal</a></li>	
 				<li><a onclick="disconnect()" th:href="home">Enviar Agenda</a></li>
-				<li><a onclick="disconnect()" th:href="send">Enviar</a></li>
+				
 				<li><a onclick="disconnect()" th:href="chat">Chat</a></li>
 				<li><a onclick="disconnect()" th:href="confirmation">Confirmação</a></li>			
 				<li><a onclick="disconnect()" th:href="register">Novo Usuário</a></li>
@@ -77,9 +78,6 @@
 			</button>
 		</div>
 	</form>
-
-	<script th:src="@{/js/config.js}"></script>
-	<script th:src="@{/js/websocket.js}"></script>
 
 </body>
 

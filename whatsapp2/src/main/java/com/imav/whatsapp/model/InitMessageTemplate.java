@@ -8,8 +8,10 @@ public class InitMessageTemplate {
 	public String recipient_type;
 	public String to;
 	public String type;
+	@SuppressWarnings("rawtypes")
 	public Template template;
 
+	@SuppressWarnings("rawtypes")
 	public InitMessageTemplate() {
 		this.template = new Template();
 		this.messaging_product = "whatsapp";
@@ -25,10 +27,12 @@ public class InitMessageTemplate {
 		this.to = to;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public Template getTemplate() {
 		return template;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public void setTemplate(Template template) {
 		this.template = template;
 	}
@@ -56,6 +60,7 @@ public class InitMessageTemplate {
 		public Language language;
 		public ArrayList<T> components = new ArrayList<>();
 
+		@SuppressWarnings("unchecked")
 		public Template() {
 			this.name = "init_talk";
 			this.language = new Language();

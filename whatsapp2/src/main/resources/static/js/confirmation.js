@@ -1,7 +1,13 @@
+import Websocket from "./websocket.js";
+const websocket = new Websocket();
+
 const search = document.getElementById("search-bar-text");
 var datepicker = document.getElementById("datepicker");
 var datepicked = "";
 
+function onloadInit(){
+	websocket.connect;
+}
 
 function loadContent(date) {
 
@@ -171,3 +177,9 @@ function changeformat(val) {
 	
 	return formatteddate;
 }
+
+window.addEventListener('onload', onloadInit());
+window.addEventListener('onload', onloadInit);
+window.loadContent = loadContent;
+window.findCustomer = findCustomer;
+window.unixTimestampToDate = unixTimestampToDate;

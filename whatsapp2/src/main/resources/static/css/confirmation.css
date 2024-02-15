@@ -114,6 +114,7 @@ li a:hover:not(.active) {
   color: rgb(241, 241, 241);
 }
 
+/* Websocket  */
 #alert-div {
   height: 25px;
   width: 25px;
@@ -121,6 +122,7 @@ li a:hover:not(.active) {
   border-radius: 50%;
   display: inline-block;
   font-weight: bold;
+  font-size: medium;
 }
 
 #alert-number {
@@ -137,6 +139,7 @@ li button {
   width: fit-content;
   cursor: pointer;
   background-color: rgb(17 41 70);
+  /* font-family: 'Montserrat', sans-serif; */
   font-family: "Source Sans Pro", sans-serif;
   border-style: none;
 }
@@ -151,6 +154,10 @@ li button:focus {
   /* outline: 1px dotted; */
   border-style: none;
   /* outline: 5px auto -webkit-focus-ring-color; */
+}
+
+button:focus {
+    outline: 5px none -webkit-focus-ring-color;
 }
 
 #myDropdown {
@@ -191,6 +198,7 @@ li button:focus {
 .show {
   display: block;
 }
+/* Websocket end */
 
 .table th {
   padding: 7px;

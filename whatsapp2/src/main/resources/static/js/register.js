@@ -1,50 +1,18 @@
+import Websocket from "./websocket.js";
+const websocket = new Websocket();
+
 let passwordText = document.getElementById("psw");
 let passwordText2 = document.getElementById("psw-repeat");
 let usernameText = document.getElementById("nickname");
 let emailText = document.getElementById("email");
 let userRole = document.getElementById("user-role");
 
-var stompClient = null;
-const dropdown = document.querySelector("#exit");
-
-function connect() {
+function onloadInit(){
 	loadUsers();
-	websocketFunction();
 	loadWantsToTalk();
+	websocket.connect;
 }
 
-// ********** Websocket connection
-function setConnected(connected) {
-	$("#connect").prop("disabled", connected);
-	$("#disconnect").prop("disabled", !connected);
-}
-
-function disconnect() {
-	if (stompClient !== null) {
-		stompClient.disconnect();
-	}
-	setConnected(false);
-	console.log("Disconnected");
-}
-
-function websocketFunction() {
-	// HTTPS for TLS conncetions VPS
-	//var socket = new SockJS("https://www.web.login.imav.com.br:5000/websocket-server");
-
-	// Localhost
-	var socket = new SockJS("http://localhost:5000/websocket-server");
-
-	stompClient = Stomp.over(socket);
-	stompClient.connect({}, function() {
-		setConnected(true);
-
-		// Update reload DOM
-		stompClient.subscribe("/topic/talks", function(response) {
-			console.log(response);
-			loadWantsToTalk();
-		});
-	});
-}
 
 function loadWantsToTalk() {
 	axios({
@@ -84,19 +52,6 @@ function wantsTotalkToHtml(data) {
 	}
 	document.getElementById("exit").innerHTML = dataHtml;
 }
-
-
-/* When the user clicks on the button, 
-toggle between hiding and showing the dropdown content */
-function myDropdown() {
-	document.getElementById("myDropdown").classList.toggle("show");
-}
-
-// add a click event listener to the div
-dropdown.addEventListener("click", function() {
-	myDropdown();
-});
-
 
 passwordText2.addEventListener("input", function() {
 	if (this.value === passwordText.value) {
@@ -308,3 +263,20 @@ function validateEmail(emailText) {
 	alert("You have entered an invalid email address!");
 	return false;
 }
+
+window.addEventListener('onload', onloadInit());
+window.addEventListener('onload', onloadInit);
+window.loadUsers = loadUsers;
+window.buttonDelete = buttonDelete;
+window.showUsers = showUsers;
+window.validateEmail = validateEmail;
+window.loadWantsToTalk = loadWantsToTalk;
+window.saveUser = saveUser;
+window.showPassword = showPassword;
+window.buttonUpdate = buttonUpdate;
+
+
+
+
+
+

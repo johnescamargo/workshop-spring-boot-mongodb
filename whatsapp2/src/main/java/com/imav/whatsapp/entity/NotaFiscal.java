@@ -26,7 +26,7 @@ public class NotaFiscal implements Serializable {
 	private boolean consulta;
 	private boolean exame;
 	private String nome;
-	private Long cpf;
+	private String cpf;
 	private String email;
 	private Long telefone;
 	private String cep;
@@ -54,7 +54,7 @@ public class NotaFiscal implements Serializable {
 	}
 
 	public NotaFiscal(Long timestampCreated, Long timestampNf, String prontuario, boolean consulta, boolean exame,
-			String nome, Long cpf, String email, Long telefone, String cep, String rua, String numero,
+			String nome, String cpf, String email, Long telefone, String cep, String rua, String numero,
 			String complemento, String bairro, String cidade, String estado, int valor, String formaPagamento,
 			String medico, String nfNumero, boolean nfDone, String pagamento1, String pagamento2, String userName,
 			String nfDoneBy, List<Exames> exames) {
@@ -126,11 +126,11 @@ public class NotaFiscal implements Serializable {
 		this.nome = nome;
 	}
 
-	public Long getCpf() {
+	public String getCpf() {
 		return cpf;
 	}
 
-	public void setCpf(Long cpf) {
+	public void setCpf(String cpf) {
 		this.cpf = cpf;
 	}
 

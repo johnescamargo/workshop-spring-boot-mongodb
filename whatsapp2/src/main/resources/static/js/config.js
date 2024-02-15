@@ -1,5 +1,12 @@
+import Websocket from "./websocket.js";
+const websocket = new Websocket();
+
 let passwordText = document.getElementById("psw");
 let passwordText2 = document.getElementById("psw-repeat");
+
+function onloadInit(){
+	websocket.connect;
+}
 
 passwordText2.addEventListener("input", function () {
   if (this.value === passwordText.value) {
@@ -29,3 +36,8 @@ function newPassword() {
       });
   }
 }
+
+window.addEventListener('onload', onloadInit());
+window.addEventListener('onload', onloadInit);
+window.newPassword = newPassword;
+
