@@ -15,7 +15,7 @@ html {
 
 /* Navbar */
 .nav-bar {
-	/* font-family: 'Montserrat', sans-serif; */
+  /* font-family: 'Montserrat', sans-serif; */
   font-family: "Source Sans Pro", sans-serif;
   height: 50px;
   width: 100%;
@@ -112,7 +112,7 @@ li button:focus {
 }
 
 button:focus {
-    outline: 5px none -webkit-focus-ring-color;
+  outline: 5px none -webkit-focus-ring-color;
 }
 
 #myDropdown {
@@ -195,7 +195,8 @@ h4 {
 }
 
 .div-customers {
-  height: fit-content;
+  overflow: auto;
+  max-height: calc(100vh - 200px);
   background-color: rgb(255, 255, 255);
   width: 330px;
   border-radius: 8px;
@@ -208,7 +209,7 @@ h4 {
 }
 
 .name {
-  /* width: 320px; */
+  width: 320px;
   padding-left: 5px;
   padding-right: 3px;
 }
@@ -220,8 +221,8 @@ h4 {
   border-style: solid;
   border-color: red;
   border-radius: 6px;
-  padding-bottom: 7px;
-  padding-top: 7px;
+  padding-bottom: 2px;
+  padding-top: 2px;
   cursor: pointer;
 }
 
@@ -232,8 +233,8 @@ h4 {
   border-style: solid;
   border-color: green;
   border-radius: 6px;
-  padding-bottom: 7px;
-  padding-top: 7px;
+  padding-bottom: 2px;
+  padding-top: 2px;
   cursor: pointer;
 }
 

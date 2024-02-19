@@ -634,7 +634,7 @@ function sendMessage() {
 			internacionalCode: countryCodeSelect,
 			phone: phone,
 			name: name,
-			messages: messages,
+			messages: messages
 		})
 		.then(function(response) {
 			if (response.status === 200) {
@@ -748,6 +748,20 @@ function snackbarShowError() {
 	setTimeout(function() { x.className = x.className.replace("show", ""); }, 3000);
 }
 
+function toggleHamburger(x) {
+  x.classList.toggle("change");
+  let lengthX = x.classList.length;
+
+  if (lengthX > 1) {
+    document.getElementById("div-ul").style.right = "0%";
+    document.getElementById("div-ul").style.transition = "0.8s";
+  } else {
+    document.getElementById("div-ul").style.right = "-100%";
+    document.getElementById("div-ul").style.transition = "all 0.8s ease 0.4s";
+  }
+}
+
+window.toggleHamburger = toggleHamburger;
 window.addEventListener('onload', onloadInit());
 window.addEventListener('onload', onloadInit);
 window.sendJsonData = sendJsonData;

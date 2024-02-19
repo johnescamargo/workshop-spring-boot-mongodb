@@ -13,13 +13,9 @@ body {
 
 /* Navbar */
 .nav-bar {
-  font-family: "Source Sans Pro", sans-serif;
-  position: -webkit-sticky;
-  /* Safari */
-  position: sticky;
-  top: 0;
-  z-index: 2;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    font-family: "Source Sans Pro", sans-serif;
+    height: 50px;
+    width: 100%;
 }
 
 ul {
@@ -69,8 +65,8 @@ li a:hover:not(.active) {
   width: 550px;
   display: grid;
   border-radius: 7px;
-  margin: 18px;
   box-shadow: 0 1px 0px 0 rgba(0, 0, 0, -0.8), 0 4px 20px 0 rgba(0, 0, 0, 0.19);
+  margin: 20px;
 }
 
 .week {
@@ -343,4 +339,11 @@ li button:focus {
     bottom: 0;
     opacity: 0;
   }
+}
+
+@media (max-width: 1177px) {
+	
+	#nav-bar-div{
+	  position: unset;
+	}
 }

@@ -11,9 +11,9 @@ html {
 
 /* Navbar */
 .nav-bar {
-  font-family: "Source Sans Pro", sans-serif;
-  height: 50px;
-  width: 100%;
+    font-family: "Source Sans Pro", sans-serif;
+    height: 50px;
+    width: 100%;
 }
 
 ul {

@@ -35,7 +35,7 @@ public class HttpMessageService {
 		//String resp = "";
 
 		try {
-
+//
 //			URL url = new URL(
 //					"https://graph.facebook.com/v15.0/" + whatsappTokens.getFromPhoneNumberId() + "/messages");
 //			HttpURLConnection httpConn = (HttpURLConnection) url.openConnection();
@@ -56,7 +56,7 @@ public class HttpMessageService {
 //			try (Scanner s = new Scanner(responseStream).useDelimiter("\\A")) {
 //				String response = s.hasNext() ? s.next() : "";
 //				System.out.println(response);
-//				logger.info("Receiving Resp after sending data https:");
+//				logger.info("Receiving response after sending data https:");
 //				logger.info(response);
 //				resp = response;
 //			}
@@ -69,6 +69,7 @@ public class HttpMessageService {
 
 	}
 
+	// Only for test purpose
 	public String sendSuccess() {
 
 		String json = "";

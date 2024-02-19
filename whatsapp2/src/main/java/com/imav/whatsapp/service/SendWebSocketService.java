@@ -253,6 +253,7 @@ public class SendWebSocketService {
 		dto.setButtons(buttons);
 		sendMessageToWebSocket(dto);
 	}
+	
 
 	public void convertMessageUrlSend(MessageWithURL url, String idWamid) {
 		GenericMessageDto dto = new GenericMessageDto();

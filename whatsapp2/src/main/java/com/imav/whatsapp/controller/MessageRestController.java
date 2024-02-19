@@ -82,8 +82,8 @@ public class MessageRestController {
 		boolean response = true;
 
 		if (response) {
-			String msg = messageUtil.messageOrganizerEnvia(obj);
-			response = messageService.sendMessageEnvia(obj, msg); // Call method
+			
+			response = messageService.sendMessageEnvia(obj); // Call method
 
 			return new ResponseEntity<>(response, HttpStatus.OK);
 		} else {

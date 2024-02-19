@@ -52,4 +52,10 @@ public class MessageEnviaDto {
 		this.messages = messages;
 	}
 
+	@Override
+	public String toString() {
+		return "MessageEnviaDto [internacionalCode=" + internacionalCode + ", phone=" + phone + ", name=" + name
+				+ ", messages=" + messages + "]";
+	}
+
 }

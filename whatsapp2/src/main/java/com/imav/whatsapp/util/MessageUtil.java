@@ -13,10 +13,14 @@ import com.imav.whatsapp.dto.MessageEnviaDto;
 import com.imav.whatsapp.dto.MessageInitDto;
 import com.imav.whatsapp.entity.ImavButton;
 import com.imav.whatsapp.entity.ImavButtonMessage;
+import com.imav.whatsapp.entity.ImavMessage;
 import com.imav.whatsapp.model.ErrorResponse;
 import com.imav.whatsapp.model.InitMessageTemplate;
 import com.imav.whatsapp.model.InitMessageTemplate.Body;
 import com.imav.whatsapp.model.InitMessageTemplate.ParameterBody;
+import com.imav.whatsapp.model.InitMessageTemplate2;
+import com.imav.whatsapp.model.InitMessageTemplate2.Body2;
+import com.imav.whatsapp.model.InitMessageTemplate2.ParameterBody2;
 import com.imav.whatsapp.model.SuccessfullResponse;
 
 @Service
@@ -60,7 +64,7 @@ public class MessageUtil {
 		String phone = String.valueOf(obj.getPhone().charAt(4));
 		String phoneDDI = String.valueOf(obj.getPhone().charAt(0));
 		phoneDDI += String.valueOf(obj.getPhone().charAt(1));
-		
+
 		if (phone.equals("9") && phoneDDI.equals("55") && phoneLength == 13) {
 			return true;
 		} else {
@@ -125,8 +129,20 @@ public class MessageUtil {
 
 		return message;
 	}
+	
+	public String messageEnviaOrganizerDB(MessageEnviaDto dto) {
 
-	public String messageOrganizerEnvia(MessageEnviaDto obj) {
+		String message = "";
+
+		message += "Olá " + dto.getName() + ", espero que esteja bem. 😊" + System.lineSeparator();
+		message += "Somos da IMAV, Intituto de Medicina Avançada da Visão. " + System.lineSeparator();
+		message += "" + System.lineSeparator();
+		message += setMessagesEnvia(dto) + System.lineSeparator();
+
+		return message;
+	}
+
+	public String messageOrganizerEnvia(MessageInitDto obj) {
 
 		String message = "";
 
@@ -202,6 +218,44 @@ public class MessageUtil {
 		return initMessageTemplate;
 	}
 
+	@SuppressWarnings("unchecked")
+	public InitMessageTemplate2 messageInitOrganizer2(MessageEnviaDto dto) {
+
+		InitMessageTemplate2 initMessageTemplate2 = new InitMessageTemplate2();
+
+		try {
+
+			InitMessageTemplate2.Body2 body2 = new Body2();
+			initMessageTemplate2.setTo(dto.getInternacionalCode() + dto.getPhone());
+
+			// Add 2 ParameterBody to array inside Body and then Body to InitMessageTemplate
+			ArrayList<InitMessageTemplate2.ParameterBody2> params = new ArrayList<>();
+			InitMessageTemplate2.ParameterBody2 paramBody1 = new ParameterBody2();
+			InitMessageTemplate2.ParameterBody2 paramBody2 = new ParameterBody2();
+
+			// Olá {{1}}, espero que esteja bem.
+			// Somos da IMAV, Instituto de Medicina Avançada da Visão.
+
+			// {{1}}
+			paramBody1.setText(dto.getName());
+			params.add(paramBody1);
+
+			// Texto: {{2}}
+			String message = setMessagesEnvia(dto);
+			paramBody2.setText(message);
+			params.add(paramBody2);
+
+			body2.setParameters(params);
+
+			initMessageTemplate2.template.setComponent(body2);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return initMessageTemplate2;
+	}
+
 	public ImavButtonMessage setImavButtonMessage(MessageInitDto dto, String idWamid) {
 
 		// Set button
@@ -240,20 +294,53 @@ public class MessageUtil {
 		}
 		return buttonMessage;
 	}
+	
+	public ImavMessage setImavEnviaMessage(MessageEnviaDto dto, String idWamid) {
+
+		// Set button
+		ImavMessage imavMessage = new ImavMessage();
+		String timestamp = Long.toString(System.currentTimeMillis() / 1000);
+
+		try {
+
+			imavMessage.setText(messageEnviaOrganizerDB(dto));
+			imavMessage.setStatus(1);
+			imavMessage.setTimestamp(timestamp);
+			imavMessage.setTo(dto.getPhone());
+			imavMessage.setType("text");
+			imavMessage.setIdWamid(idWamid);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return imavMessage;
+	}
 
 	/*
-	 * Set messages in one line because template does not accept 
-	 * "next line" or more than 4 spaces
+	 * Set messages in one line because template does not accept "next line" or more
+	 * than 4 spaces
 	 */
 	private String setMessages(MessageInitDto dto) {
-		
+
 		String message = "";
-		
+
 		for (int i = 0; i < dto.getMessages().size(); i++) {
 			message += dto.getMessages().get(i);
 		}
-		//System.out.println("Messages ********************** ");
-		//System.out.println(message);
+		// System.out.println("Messages ********************** ");
+		// System.out.println(message);
+		return message;
+	}
+
+	private String setMessagesEnvia(MessageEnviaDto dto) {
+
+		String message = "";
+
+		for (int i = 0; i < dto.getMessages().size(); i++) {
+			message += dto.getMessages().get(i);
+		}
+		// System.out.println("Messages ********************** ");
+		// System.out.println(message);
 		return message;
 	}
 

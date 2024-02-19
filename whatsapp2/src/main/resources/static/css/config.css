@@ -13,13 +13,9 @@ body {
 
 /* Navbar */
 .nav-bar {
-  font-family: "Source Sans Pro", sans-serif;
-    /* Safari */
-  position: -webkit-sticky;
-  position: sticky;
-  top: 0;
-  z-index: 2;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    font-family: "Source Sans Pro", sans-serif;
+    height: 50px;
+    width: 100%;
 }
 
 ul {
@@ -211,3 +207,11 @@ li button:focus {
 .show {
   display: block;
 }
+
+@media (max-width: 1177px) {
+	
+	#nav-bar-div{
+	  position: unset;
+	}
+}
+

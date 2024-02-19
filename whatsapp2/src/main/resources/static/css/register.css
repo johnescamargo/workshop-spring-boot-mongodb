@@ -13,13 +13,9 @@ body {
 
 /* Navbar */
 .nav-bar {
-  font-family: "Source Sans Pro", sans-serif;
-  position: -webkit-sticky;
-  /* Safari */
-  position: sticky;
-  top: 0;
-  z-index: 2;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    font-family: "Source Sans Pro", sans-serif;
+    height: 50px;
+    width: 100%;
 }
 
 ul {
@@ -62,7 +58,9 @@ li a:hover:not(.active) {
 }
 
 .main-div {
-  margin: 20px;
+  padding-top: 20px;
+  margin-left: 20px;
+  margin-right: 20px;
   display: flex;
 }
 
@@ -298,4 +296,13 @@ li button:focus {
 
 .show {
   display: block;
+}
+
+@media (max-width: 1177px) {
+	
+	.main-div{
+	  padding-top: 70px;
+      margin-left: 20px;
+      margin-right: 20px;
+	}
 }

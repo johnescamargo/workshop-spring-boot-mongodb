@@ -115,7 +115,7 @@ li button:focus {
 }
 
 button:focus {
-    outline: 5px none -webkit-focus-ring-color;
+  outline: 5px none -webkit-focus-ring-color;
 }
 
 #myDropdown {

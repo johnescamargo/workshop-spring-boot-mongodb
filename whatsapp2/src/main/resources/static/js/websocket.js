@@ -78,7 +78,6 @@ export function wantsTotalkToHtml(data) {
 	document.getElementById("exit").innerHTML = dataHtml;
 }
 
-
 /* When the user clicks on the button, 
 toggle between hiding and showing the dropdown content */
 export function myDropdown() {

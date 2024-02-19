@@ -698,6 +698,19 @@ function changeDateformat(val) {
 	return formatteddate;
 }
 
+function toggleHamburger(x) {
+  x.classList.toggle("change");
+  let lengthX = x.classList.length;
+
+  if (lengthX > 1) {
+    document.getElementById("div-ul").style.right = "0%";
+    document.getElementById("div-ul").style.transition = "0.8s";
+  } else {
+    document.getElementById("div-ul").style.right = "-100%";
+    document.getElementById("div-ul").style.transition = "all 0.8s ease 0.4s";
+  }
+}
+
 window.addEventListener('onload', onloadInit());
 window.addEventListener('onload', onloadInit);
 window.saveNF = saveNF;
@@ -707,4 +720,5 @@ window.getCustomerId = getCustomerId;
 window.changeDateformat = changeDateformat;
 window.validateValor = validateValor;
 window.setNfData = setNfData;
+window.toggleHamburger = toggleHamburger;
 

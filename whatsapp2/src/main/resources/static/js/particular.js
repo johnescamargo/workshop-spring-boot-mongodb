@@ -67,694 +67,703 @@ var examesSelecionados = [];
 const urlCepBeginning = "https://viacep.com.br/ws/";
 const urlCepEnd = "/json/";
 
-function onloadInit(){
-	websocket.connect;
+function onloadInit() {
+  websocket.connect;
 }
 
 function getData() {
-	// Declare variables inside function
-	let prontuario = document.getElementById("prontuario").value;
+  // Declare variables inside function
+  let prontuario = document.getElementById("prontuario").value;
 
-	let consulta = document.getElementById("consulta").checked;
-	let exame = document.getElementById("exame").checked;
+  let consulta = document.getElementById("consulta").checked;
+  let exame = document.getElementById("exame").checked;
 
-	let nome = document.getElementById("nome").value;
-	let cpf = document.getElementById("cpf").value;
-	let cep = document.getElementById("cep").value;
-	let numero = document.getElementById("numero").value;
-	let email = document.getElementById("e-mail").value;
-	let valor = document.getElementById("valor").value;
-	let formaPagamento = document.getElementById("forma-pagamento").value;
-	let telefone = document.getElementById("telefone").value;
-	let medico = document.getElementById("medico").value;
+  let nome = document.getElementById("nome").value;
+  let cpf = document.getElementById("cpf").value;
+  let cep = document.getElementById("cep").value;
+  let numero = document.getElementById("numero").value;
+  let email = document.getElementById("e-mail").value;
+  let valor = document.getElementById("valor").value;
+  let formaPagamento = document.getElementById("forma-pagamento").value;
+  let telefone = document.getElementById("telefone").value;
+  let medico = document.getElementById("medico").value;
 
-	let rua = document.getElementById("rua").value;
-	let bairro = document.getElementById("bairro").value;
-	let cidade = document.getElementById("cidade").value;
-	let estado = document.getElementById("estado").value;
+  let rua = document.getElementById("rua").value;
+  let bairro = document.getElementById("bairro").value;
+  let cidade = document.getElementById("cidade").value;
+  let estado = document.getElementById("estado").value;
 
-	let outros = document.getElementById("outros");
-	var outrosInput = document.getElementById("outros-input").value;
+  let outros = document.getElementById("outros");
+  var outrosInput = document.getElementById("outros-input").value;
 
-	prontuario
-		? ((document.getElementById("prontuario").style.border = "solid green"),
-			(prontuarioBoolean = true))
-		: ((document.getElementById("prontuario").style.border = "solid red"),
-			(prontuarioBoolean = false));
+  prontuario
+    ? ((document.getElementById("prontuario").style.border = "solid green"),
+      (prontuarioBoolean = true))
+    : ((document.getElementById("prontuario").style.border = "solid red"),
+      (prontuarioBoolean = false));
 
-	// verify if consulta or exame are selected
-	if (!consulta && !exame) {
-		document.getElementById("consulta").style.outlineColor = "red";
-		document.getElementById("consulta").style.outlineStyle = "auto";
-		document.getElementById("exame").style.outlineColor = "red";
-		document.getElementById("exame").style.outlineStyle = "auto";
-		consultaExameBoolean = false;
-	} else {
-		document.getElementById("consulta").style.outlineColor = "dimgrey";
-		document.getElementById("consulta").style.outlineStyle = "auto";
-		document.getElementById("exame").style.outlineColor = "dimgrey";
-		document.getElementById("exame").style.outlineStyle = "auto";
-		consultaExameBoolean = true;
-	}
+  // verify if consulta or exame are selected
+  if (!consulta && !exame) {
+    document.getElementById("consulta").style.outlineColor = "red";
+    document.getElementById("consulta").style.outlineStyle = "auto";
+    document.getElementById("exame").style.outlineColor = "red";
+    document.getElementById("exame").style.outlineStyle = "auto";
+    consultaExameBoolean = false;
+  } else {
+    document.getElementById("consulta").style.outlineColor = "dimgrey";
+    document.getElementById("consulta").style.outlineStyle = "auto";
+    document.getElementById("exame").style.outlineColor = "dimgrey";
+    document.getElementById("exame").style.outlineStyle = "auto";
+    consultaExameBoolean = true;
+  }
 
-	nome
-		? ((document.getElementById("nome").style.border = "solid green"),
-			(nomeBoolean = true))
-		: ((document.getElementById("nome").style.border = "solid red"),
-			(nomeBoolean = false));
+  nome
+    ? ((document.getElementById("nome").style.border = "solid green"),
+      (nomeBoolean = true))
+    : ((document.getElementById("nome").style.border = "solid red"),
+      (nomeBoolean = false));
 
-	// CPF
-	if (cpf.length === 14 && isNumeric(cpf) && validaCpf(cpf)) {
-		document.getElementById("cpf").style.border = "solid green";
-		cpfBoolean = true;
-	} else {
-		document.getElementById("cpf").style.border = "solid red";
-		cpfBoolean = false;
-	}
+  // CPF
+  if (cpf.length === 14 && isNumeric(cpf) && validaCpf(cpf)) {
+    document.getElementById("cpf").style.border = "solid green";
+    cpfBoolean = true;
+  } else {
+    document.getElementById("cpf").style.border = "solid red";
+    cpfBoolean = false;
+  }
 
-	if (email.length > 0) {
-		if (validateEmail(email)) {
-			document.getElementById("e-mail").style.border = "solid green";
-			emailBoolean = true;
-		} else {
-			document.getElementById("e-mail").style.border = "solid red";
-			emailBoolean = false;
-		}
-	} else {
-		emailBoolean = true;
-	}
+  if (email.length > 0) {
+    if (validateEmail(email)) {
+      document.getElementById("e-mail").style.border = "solid green";
+      emailBoolean = true;
+    } else {
+      document.getElementById("e-mail").style.border = "solid red";
+      emailBoolean = false;
+    }
+  } else {
+    emailBoolean = true;
+  }
 
-	cep
-		? ((document.getElementById("cep").style.border = "solid green"),
-			(cepBoolean = true))
-		: ((document.getElementById("cep").style.border = "solid red"),
-			(cepBoolean = false));
+  cep
+    ? ((document.getElementById("cep").style.border = "solid green"),
+      (cepBoolean = true))
+    : ((document.getElementById("cep").style.border = "solid red"),
+      (cepBoolean = false));
 
-	numero
-		? ((document.getElementById("numero").style.border = "solid green"),
-			(numeroBoolean = true))
-		: ((document.getElementById("numero").style.border = "solid red"),
-			(numeroBoolean = false));
+  numero
+    ? ((document.getElementById("numero").style.border = "solid green"),
+      (numeroBoolean = true))
+    : ((document.getElementById("numero").style.border = "solid red"),
+      (numeroBoolean = false));
 
-	// Valor
-	if (isNumeric(valor) && valor.length > 0) {
-		document.getElementById("valor").style.border = "solid green";
-		valorBoolean = true;
-	} else {
-		document.getElementById("valor").style.border = "solid red";
-		valorBoolean = false;
-	}
+  // Valor
+  if (isNumeric(valor) && valor.length > 0) {
+    document.getElementById("valor").style.border = "solid green";
+    valorBoolean = true;
+  } else {
+    document.getElementById("valor").style.border = "solid red";
+    valorBoolean = false;
+  }
 
-	formaPagamento
-		? ((document.getElementById("forma-pagamento").style.border =
-			"solid green"),
-			(formaPagamentoBoolean = true))
-		: ((document.getElementById("forma-pagamento").style.border = "solid red"),
-			(formaPagamentoBoolean = false));
+  formaPagamento
+    ? ((document.getElementById("forma-pagamento").style.border =
+        "solid green"),
+      (formaPagamentoBoolean = true))
+    : ((document.getElementById("forma-pagamento").style.border = "solid red"),
+      (formaPagamentoBoolean = false));
 
-	if (formaPagamento === "Cartão Crédito") {
-		cartaoCredit = true;
+  if (formaPagamento === "Cartão Crédito") {
+    cartaoCredit = true;
 
-		let cartaoCred = document.getElementById("credito-pagamento").value;
-		cartaoCred
-			? ((document.getElementById("credito-pagamento").style.border =
-				"solid green"),
-				(creditoPagamentoBoolean = true))
-			: ((document.getElementById("credito-pagamento").style.border =
-				"solid red"),
-				(creditoPagamentoBoolean = false));
-	} else {
-		creditoPagamentoBoolean = true;
-		cartaoCredit = false;
-	}
+    let cartaoCred = document.getElementById("credito-pagamento").value;
+    cartaoCred
+      ? ((document.getElementById("credito-pagamento").style.border =
+          "solid green"),
+        (creditoPagamentoBoolean = true))
+      : ((document.getElementById("credito-pagamento").style.border =
+          "solid red"),
+        (creditoPagamentoBoolean = false));
+  } else {
+    creditoPagamentoBoolean = true;
+    cartaoCredit = false;
+  }
 
-	telefone
-		? ((document.getElementById("telefone").style.border = "solid green"),
-			(telefoneBoolean = true))
-		: ((document.getElementById("telefone").style.border = "solid red"),
-			(telefoneBoolean = false));
+  telefone
+    ? ((document.getElementById("telefone").style.border = "solid green"),
+      (telefoneBoolean = true))
+    : ((document.getElementById("telefone").style.border = "solid red"),
+      (telefoneBoolean = false));
 
-	medico
-		? ((document.getElementById("medico").style.border = "solid green"),
-			(medicoBoolean = true))
-		: ((document.getElementById("medico").style.border = "solid red"),
-			(medicoBoolean = false));
+  medico
+    ? ((document.getElementById("medico").style.border = "solid green"),
+      (medicoBoolean = true))
+    : ((document.getElementById("medico").style.border = "solid red"),
+      (medicoBoolean = false));
 
-	rua
-		? ((document.getElementById("rua").style.border = "solid green"),
-			(ruaBoolean = true))
-		: ((document.getElementById("rua").style.border = "solid red"),
-			(ruaBoolean = false));
+  rua
+    ? ((document.getElementById("rua").style.border = "solid green"),
+      (ruaBoolean = true))
+    : ((document.getElementById("rua").style.border = "solid red"),
+      (ruaBoolean = false));
 
-	bairro
-		? ((document.getElementById("bairro").style.border = "solid green"),
-			(bairroBoolean = true))
-		: ((document.getElementById("bairro").style.border = "solid red"),
-			(bairroBoolean = false));
+  bairro
+    ? ((document.getElementById("bairro").style.border = "solid green"),
+      (bairroBoolean = true))
+    : ((document.getElementById("bairro").style.border = "solid red"),
+      (bairroBoolean = false));
 
-	cidade
-		? ((document.getElementById("cidade").style.border = "solid green"),
-			(cidadeBoolean = true))
-		: ((document.getElementById("cidade").style.border = "solid red"),
-			(cidadeBoolean = false));
+  cidade
+    ? ((document.getElementById("cidade").style.border = "solid green"),
+      (cidadeBoolean = true))
+    : ((document.getElementById("cidade").style.border = "solid red"),
+      (cidadeBoolean = false));
 
-	estado
-		? ((document.getElementById("estado").style.border = "solid green"),
-			(estadoBoolean = true))
-		: ((document.getElementById("estado").style.border = "solid red"),
-			(estadoBoolean = false));
+  estado
+    ? ((document.getElementById("estado").style.border = "solid green"),
+      (estadoBoolean = true))
+    : ((document.getElementById("estado").style.border = "solid red"),
+      (estadoBoolean = false));
 
-	if (outros.checked && outrosInput) {
-		document.getElementById("outros-input").style.border = "solid green";
-		outrosBoolean = true;
-	} else if (outros.checked && !outrosInput) {
-		document.getElementById("outros-input").style.border = "solid red";
-		outrosBoolean = false;
-	} else if (!outros.checked && outrosInput) {
-		document.getElementById("outros").checked = "on";
-		outrosBoolean = true;
-	} else {
-		document.getElementById("outros-input").style.border = "2px solid dimgrey";
-		document.getElementById("outros-input").value = "";
-		outrosBoolean = true;
-	}
+  if (outros.checked && outrosInput) {
+    document.getElementById("outros-input").style.border = "solid green";
+    outrosBoolean = true;
+  } else if (outros.checked && !outrosInput) {
+    document.getElementById("outros-input").style.border = "solid red";
+    outrosBoolean = false;
+  } else if (!outros.checked && outrosInput) {
+    document.getElementById("outros").checked = "on";
+    outrosBoolean = true;
+  } else {
+    document.getElementById("outros-input").style.border = "2px solid dimgrey";
+    document.getElementById("outros-input").value = "";
+    outrosBoolean = true;
+  }
 
-	if (
-		prontuarioBoolean &&
-		consultaExameBoolean &&
-		nomeBoolean &&
-		cpfBoolean &&
-		emailBoolean &&
-		telefoneBoolean &&
-		cepBoolean &&
-		numeroBoolean &&
-		bairroBoolean &&
-		cidadeBoolean &&
-		estadoBoolean &&
-		valorBoolean &&
-		formaPagamentoBoolean &&
-		creditoPagamentoBoolean &&
-		medicoBoolean &&
-		outrosBoolean
-	) {
-		getExamesSelecionados();
-		getDadosPagamento();
-		sendData();
-	}
+  if (
+    prontuarioBoolean &&
+    consultaExameBoolean &&
+    nomeBoolean &&
+    cpfBoolean &&
+    emailBoolean &&
+    telefoneBoolean &&
+    cepBoolean &&
+    numeroBoolean &&
+    bairroBoolean &&
+    cidadeBoolean &&
+    estadoBoolean &&
+    valorBoolean &&
+    formaPagamentoBoolean &&
+    creditoPagamentoBoolean &&
+    medicoBoolean &&
+    outrosBoolean
+  ) {
+    getExamesSelecionados();
+    getDadosPagamento();
+    sendData();
+  }
 }
 
 // Send JSON
 function sendData() {
-	
-	var username = document.getElementById("username").innerText;
-	
-	axios
-		.post("/nf/save", {
-			prontuario: prontuario.value,
-			consulta: consulta.checked,
-			exame: exame.checked,
-			nome: nome.value,
-			cpf: removeSpecialCharacters(cpf.value),
-			email: email.value,
-			telefone: removeSpecialCharacters(telefone.value),
-			cep: removeSpecialCharacters(cep.value),
-			rua: rua.value,
-			numero: removeSpecialCharacters(numero.value),
-			complemento: complemento.value,
-			bairro: bairro.value,
-			cidade: cidade.value,
-			estado: estado.value,
-			valor: removeSpecialCharacters(valor.value),
-			formaPagamento: formaPagamento.value,
-			medico: medico.value,
-			nfNumero: "",
-			nfDone: false,
-			userName: username,
-			nfDoneBy: "",
-			pagamento1: dadosPagamento[0],
-			pagamento2: dadosPagamento[1],
-			exames: examesSelecionados,
-		})
-		.then(function (response) {
-			//console.log(response);
-			if (response.status === 200) {
-				alert("Documento salvo com sucesso!");
-				window.location.reload();
-			}
-		})
-		.catch(function (error) {
-			console.log(error);
-			alert(error);
-		});
+  var username = document.getElementById("username").innerText;
+
+  axios
+    .post("/nf/save", {
+      prontuario: prontuario.value,
+      consulta: consulta.checked,
+      exame: exame.checked,
+      nome: nome.value,
+      cpf: removeSpecialCharacters(cpf.value),
+      email: email.value,
+      telefone: removeSpecialCharacters(telefone.value),
+      cep: removeSpecialCharacters(cep.value),
+      rua: rua.value,
+      numero: removeSpecialCharacters(numero.value),
+      complemento: complemento.value,
+      bairro: bairro.value,
+      cidade: cidade.value,
+      estado: estado.value,
+      valor: removeSpecialCharacters(valor.value),
+      formaPagamento: formaPagamento.value,
+      medico: medico.value,
+      nfNumero: "",
+      nfDone: false,
+      userName: username,
+      nfDoneBy: "",
+      pagamento1: dadosPagamento[0],
+      pagamento2: dadosPagamento[1],
+      exames: examesSelecionados,
+    })
+    .then(function (response) {
+      //console.log(response);
+      if (response.status === 200) {
+        alert("Documento salvo com sucesso!");
+        window.location.reload();
+      }
+    })
+    .catch(function (error) {
+      console.log(error);
+      alert(error);
+    });
 }
 
 function validateEmail(mail) {
-	if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail)) {
-		return true;
-	}
-	return false;
+  if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail)) {
+    return true;
+  }
+  return false;
 }
 
 function validateCpf(input) {
-	var valueInput = input.value;
-	var inputLength = input.value.length;
+  var valueInput = input.value;
+  var inputLength = input.value.length;
 
-	switch (inputLength) {
-		case 3:
-			valueInput = valueInput + ".";
-			break;
+  switch (inputLength) {
+    case 3:
+      valueInput = valueInput + ".";
+      break;
 
-		case 7:
-			valueInput = valueInput + ".";
-			break;
+    case 7:
+      valueInput = valueInput + ".";
+      break;
 
-		case 11:
-			valueInput = valueInput + "-";
-			break;
+    case 11:
+      valueInput = valueInput + "-";
+      break;
 
-		default:
-	}
+    default:
+  }
 
-	document.getElementById("cpf").value = valueInput;
+  document.getElementById("cpf").value = valueInput;
 }
 
 function validateTelefone(input) {
-	var valueInput = input.value;
-	var inputLength = input.value.length;
+  var valueInput = input.value;
+  var inputLength = input.value.length;
 
-	switch (inputLength) {
-		case 1:
-			valueInput = "(" + valueInput;
-			break;
+  switch (inputLength) {
+    case 1:
+      valueInput = "(" + valueInput;
+      break;
 
-		case 3:
-			valueInput = valueInput + ")";
-			break;
+    case 3:
+      valueInput = valueInput + ")";
+      break;
 
-		default:
-	}
+    default:
+  }
 
-	document.getElementById("telefone").value = valueInput;
+  document.getElementById("telefone").value = valueInput;
 }
 
 function validateValor(input) {
-	var valueInput = input.value;
-	valueInput = valueInput.replaceAll(",", "");
-	valueInput = valueInput.replaceAll(".", "");
-	let arrInput = valueInput.split("");
-	//console.log(arrInput);
+  var valueInput = input.value;
+  valueInput = valueInput.replaceAll(",", "");
+  valueInput = valueInput.replaceAll(".", "");
+  let arrInput = valueInput.split("");
+  //console.log(arrInput);
 
-	switch (arrInput.length) {
-		case 3:
-			valueInput = arrInput[0] + "," + arrInput[1] + arrInput[2];
-			break;
+  switch (arrInput.length) {
+    case 3:
+      valueInput = arrInput[0] + "," + arrInput[1] + arrInput[2];
+      break;
 
-		case 4:
-			valueInput = arrInput[0] + arrInput[1] + "," + arrInput[2] + arrInput[3];
-			break;
+    case 4:
+      valueInput = arrInput[0] + arrInput[1] + "," + arrInput[2] + arrInput[3];
+      break;
 
-		case 5:
-			valueInput =
-				arrInput[0] +
-				arrInput[1] +
-				arrInput[2] +
-				"," +
-				arrInput[3] +
-				arrInput[4];
-			break;
+    case 5:
+      valueInput =
+        arrInput[0] +
+        arrInput[1] +
+        arrInput[2] +
+        "," +
+        arrInput[3] +
+        arrInput[4];
+      break;
 
-		case 6:
-			valueInput =
-				arrInput[0] +
-				"." +
-				arrInput[1] +
-				arrInput[2] +
-				arrInput[3] +
-				"," +
-				arrInput[4] +
-				arrInput[5];
-			break;
+    case 6:
+      valueInput =
+        arrInput[0] +
+        "." +
+        arrInput[1] +
+        arrInput[2] +
+        arrInput[3] +
+        "," +
+        arrInput[4] +
+        arrInput[5];
+      break;
 
-		case 7:
-			valueInput =
-				arrInput[0] +
-				arrInput[1] +
-				"." +
-				arrInput[2] +
-				arrInput[3] +
-				arrInput[4] +
-				"," +
-				arrInput[5] +
-				arrInput[6];
-			break;
+    case 7:
+      valueInput =
+        arrInput[0] +
+        arrInput[1] +
+        "." +
+        arrInput[2] +
+        arrInput[3] +
+        arrInput[4] +
+        "," +
+        arrInput[5] +
+        arrInput[6];
+      break;
 
-		case 8:
-			valueInput =
-				arrInput[0] +
-				arrInput[1] +
-				arrInput[2] +
-				"." +
-				arrInput[3] +
-				arrInput[4] +
-				arrInput[5] +
-				"," +
-				arrInput[6] +
-				arrInput[7];
-			break;
+    case 8:
+      valueInput =
+        arrInput[0] +
+        arrInput[1] +
+        arrInput[2] +
+        "." +
+        arrInput[3] +
+        arrInput[4] +
+        arrInput[5] +
+        "," +
+        arrInput[6] +
+        arrInput[7];
+      break;
 
-		case 9:
-			valueInput =
-				arrInput[0] +
-				"." +
-				arrInput[1] +
-				arrInput[2] +
-				arrInput[3] +
-				"," +
-				arrInput[4] +
-				arrInput[5] +
-				arrInput[6] +
-				"," +
-				arrInput[7] +
-				arrInput[8];
-			break;
+    case 9:
+      valueInput =
+        arrInput[0] +
+        "." +
+        arrInput[1] +
+        arrInput[2] +
+        arrInput[3] +
+        "," +
+        arrInput[4] +
+        arrInput[5] +
+        arrInput[6] +
+        "," +
+        arrInput[7] +
+        arrInput[8];
+      break;
 
-		case 10:
-			valueInput =
-				arrInput[0] +
-				arrInput[1] +
-				"." +
-				arrInput[2] +
-				arrInput[3] +
-				arrInput[4] +
-				"," +
-				arrInput[5] +
-				arrInput[6] +
-				arrInput[7] +
-				"," +
-				arrInput[8] +
-				arrInput[9];
-			break;
+    case 10:
+      valueInput =
+        arrInput[0] +
+        arrInput[1] +
+        "." +
+        arrInput[2] +
+        arrInput[3] +
+        arrInput[4] +
+        "," +
+        arrInput[5] +
+        arrInput[6] +
+        arrInput[7] +
+        "," +
+        arrInput[8] +
+        arrInput[9];
+      break;
 
-		default:
-	}
+    default:
+  }
 
-	document.getElementById("valor").value = valueInput;
-	return valueInput;
+  document.getElementById("valor").value = valueInput;
+  return valueInput;
 }
 
 function validateCep(input) {
-	var valueInput = input.value;
-	var inputLength = input.value.length;
+  var valueInput = input.value;
+  var inputLength = input.value.length;
 
-	switch (inputLength) {
-		case 5:
-			valueInput = valueInput.replace(/-/g, "");
-			valueInput = valueInput + "-";
-			break;
+  switch (inputLength) {
+    case 5:
+      valueInput = valueInput.replace(/-/g, "");
+      valueInput = valueInput + "-";
+      break;
 
-		case 6:
-			valueInput = valueInput.replace(/-/g, "");
-			valueInput = valueInput;
-			break;
+    case 6:
+      valueInput = valueInput.replace(/-/g, "");
+      valueInput = valueInput;
+      break;
 
-		case 9:
-			getCEP(valueInput);
-			break;
+    case 9:
+      getCEP(valueInput);
+      break;
 
-		default:
-	}
+    default:
+  }
 
-	document.getElementById("cep").value = valueInput;
+  document.getElementById("cep").value = valueInput;
 }
 
 function getDadosPagamento() {
+  dadosPagamento = [];
 
-	dadosPagamento = [];
+  let textareaTag = document.getElementById("textarea-tag").value;
+  dadosPagamento.push(textareaTag);
 
-	let textareaTag = document.getElementById("textarea-tag").value;
-	dadosPagamento.push(textareaTag);
-
-	//get value from select tag cartão de crédito - número de parcelas
-	if (cartaoCredit) {
-		let cartaoCredValue = document.getElementById("credito-pagamento").value;
-		dadosPagamento.push(cartaoCredValue);
-	}
+  //get value from select tag cartão de crédito - número de parcelas
+  if (cartaoCredit) {
+    let cartaoCredValue = document.getElementById("credito-pagamento").value;
+    dadosPagamento.push(cartaoCredValue);
+  }
 }
 
 // Get CEP via api
 function getCEP(data) {
-	var cep = data.replace(/-/g, "");
+  var cep = data.replace(/-/g, "");
 
-	axios
-		.get(urlCepBeginning + cep + urlCepEnd)
-		.then(function (response) {
-			bairro.value = response.data.bairro;
-			rua.value = response.data.logradouro;
-			cidade.value = response.data.localidade;
-			estado.value = response.data.uf;
-		})
-		.catch(function (error) {
-			console.log(error);
-		});
+  axios
+    .get(urlCepBeginning + cep + urlCepEnd)
+    .then(function (response) {
+      bairro.value = response.data.bairro;
+      rua.value = response.data.logradouro;
+      cidade.value = response.data.localidade;
+      estado.value = response.data.uf;
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
 }
 
 function getExamesSelecionados() {
-	examesSelecionados = [];
+  examesSelecionados = [];
 
-	if (biometria.checked) {
-		examesSelecionados.push({
-			nameId: biometria.id,
-			name: biometria.name,
-		});
-	}
+  if (biometria.checked) {
+    examesSelecionados.push({
+      nameId: biometria.id,
+      name: biometria.name,
+    });
+  }
 
-	if (campimetria.checked) {
-		examesSelecionados.push({
-			nameId: campimetria.id,
-			name: campimetria.name,
-		});
-	}
+  if (campimetria.checked) {
+    examesSelecionados.push({
+      nameId: campimetria.id,
+      name: campimetria.name,
+    });
+  }
 
-	if (capsulotomia.checked) {
-		examesSelecionados.push({
-			nameId: capsulotomia.id,
-			name: capsulotomia.name,
-		});
-	}
+  if (capsulotomia.checked) {
+    examesSelecionados.push({
+      nameId: capsulotomia.id,
+      name: capsulotomia.name,
+    });
+  }
 
-	if (curvaTensional.checked) {
-		examesSelecionados.push({
-			nameId: curvaTensional.id,
-			name: curvaTensional.name,
-		});
-	}
+  if (curvaTensional.checked) {
+    examesSelecionados.push({
+      nameId: curvaTensional.id,
+      name: curvaTensional.name,
+    });
+  }
 
-	if (testeOrtoptico.checked) {
-		examesSelecionados.push({
-			nameId: testeOrtoptico.id,
-			name: testeOrtoptico.name,
-		});
-	}
+  if (testeOrtoptico.checked) {
+    examesSelecionados.push({
+      nameId: testeOrtoptico.id,
+      name: testeOrtoptico.name,
+    });
+  }
 
-	if (fotocoagulacaoALaser.checked) {
-		examesSelecionados.push({
-			nameId: fotocoagulacaoALaser.id,
-			name: fotocoagulacaoALaser.name,
-		});
-	}
+  if (fotocoagulacaoALaser.checked) {
+    examesSelecionados.push({
+      nameId: fotocoagulacaoALaser.id,
+      name: fotocoagulacaoALaser.name,
+    });
+  }
 
-	if (gonioscopia.checked) {
-		examesSelecionados.push({
-			nameId: gonioscopia.id,
-			name: gonioscopia.name,
-		});
-	}
+  if (gonioscopia.checked) {
+    examesSelecionados.push({
+      nameId: gonioscopia.id,
+      name: gonioscopia.name,
+    });
+  }
 
-	if (mapeamentoDeRetina.checked) {
-		examesSelecionados.push({
-			nameId: mapeamentoDeRetina.id,
-			name: mapeamentoDeRetina.name,
-		});
-	}
+  if (mapeamentoDeRetina.checked) {
+    examesSelecionados.push({
+      nameId: mapeamentoDeRetina.id,
+      name: mapeamentoDeRetina.name,
+    });
+  }
 
-	if (microscopia.checked) {
-		examesSelecionados.push({
-			nameId: microscopia.id,
-			name: microscopia.name,
-		});
-	}
+  if (microscopia.checked) {
+    examesSelecionados.push({
+      nameId: microscopia.id,
+      name: microscopia.name,
+    });
+  }
 
-	if (pam.checked) {
-		examesSelecionados.push({
-			nameId: pam.id,
-			name: pam.name,
-		});
-	}
+  if (pam.checked) {
+    examesSelecionados.push({
+      nameId: pam.id,
+      name: pam.name,
+    });
+  }
 
-	if (paquimetria.checked) {
-		examesSelecionados.push({
-			nameId: paquimetria.id,
-			name: paquimetria.name,
-		});
-	}
+  if (paquimetria.checked) {
+    examesSelecionados.push({
+      nameId: paquimetria.id,
+      name: paquimetria.name,
+    });
+  }
 
-	if (retinografia.checked) {
-		examesSelecionados.push({
-			nameId: retinografia.id,
-			name: retinografia.name,
-		});
-	}
+  if (retinografia.checked) {
+    examesSelecionados.push({
+      nameId: retinografia.id,
+      name: retinografia.name,
+    });
+  }
 
-	if (tonometria.checked) {
-		examesSelecionados.push({
-			nameId: tonometria.id,
-			name: tonometria.name,
-		});
-	}
+  if (tonometria.checked) {
+    examesSelecionados.push({
+      nameId: tonometria.id,
+      name: tonometria.name,
+    });
+  }
 
-	if (ceratoscopia.checked) {
-		examesSelecionados.push({
-			nameId: ceratoscopia.id,
-			name: ceratoscopia.name,
-		});
-	}
+  if (ceratoscopia.checked) {
+    examesSelecionados.push({
+      nameId: ceratoscopia.id,
+      name: ceratoscopia.name,
+    });
+  }
 
-	if (oct.checked) {
-		examesSelecionados.push({
-			nameId: oct.id,
-			name: oct.name,
-		});
-	}
+  if (oct.checked) {
+    examesSelecionados.push({
+      nameId: oct.id,
+      name: oct.name,
+    });
+  }
 
-	if (outros.checked) {
-		examesSelecionados.push({
-			nameId: outros.id,
-			name: outrosInput.value,
-		});
-	}
+  if (outros.checked) {
+    examesSelecionados.push({
+      nameId: outros.id,
+      name: outrosInput.value,
+    });
+  }
 }
 
 // remove special characters end return only number
 function removeSpecialCharacters(valueInput) {
-	valueInput = valueInput.replaceAll(",", "");
-	valueInput = valueInput.replaceAll(".", "");
-	valueInput = valueInput.replaceAll(" ", "");
-	valueInput = valueInput.replaceAll("-", "");
-	valueInput = valueInput.replaceAll("(", "");
-	valueInput = valueInput.replaceAll(")", "");
+  valueInput = valueInput.replaceAll(",", "");
+  valueInput = valueInput.replaceAll(".", "");
+  valueInput = valueInput.replaceAll(" ", "");
+  valueInput = valueInput.replaceAll("-", "");
+  valueInput = valueInput.replaceAll("(", "");
+  valueInput = valueInput.replaceAll(")", "");
 
-	return valueInput;
+  return valueInput;
 }
 
 // Check if variable is numeric
 function isNumeric(valueInput) {
-	valueInput = valueInput.replaceAll(",", "");
-	valueInput = valueInput.replaceAll(".", "");
-	valueInput = valueInput.replaceAll(" ", "");
-	valueInput = valueInput.replaceAll("-", "");
+  valueInput = valueInput.replaceAll(",", "");
+  valueInput = valueInput.replaceAll(".", "");
+  valueInput = valueInput.replaceAll(" ", "");
+  valueInput = valueInput.replaceAll("-", "");
 
-	return !isNaN(valueInput);
+  return !isNaN(valueInput);
 }
 
 formaPagamento.addEventListener("change", (event) => {
-	let data = event.target.value;
-	pagamentoExtra.innerHTML = "";
+  let data = event.target.value;
+  pagamentoExtra.innerHTML = "";
 
-	if (data === "Boleto") {
-		pagamentoExtra.innerHTML =
-			'<div class="textarea-div"><textarea name="textarea-tag" id="textarea-tag" cols="37" rows="4"></textarea></div>';
-	}
+  if (data === "Boleto") {
+    pagamentoExtra.innerHTML =
+      '<div class="textarea-div"><textarea name="textarea-tag" id="textarea-tag" cols="37" rows="4"></textarea></div>';
+  }
 
-	if (data === "Cartão Débito") {
-		pagamentoExtra.innerHTML =
-			'<div class="textarea-div"><textarea name="textarea-tag" id="textarea-tag" cols="37" rows="4"></textarea></div>';
-	}
+  if (data === "Cartão Débito") {
+    pagamentoExtra.innerHTML =
+      '<div class="textarea-div"><textarea name="textarea-tag" id="textarea-tag" cols="37" rows="4"></textarea></div>';
+  }
 
-	if (data === "Cartão Crédito") {
-		pagamentoExtra.innerHTML =
-			"<br>" +
-			'<div class="prontuario-div">' +
-			'<label for="credito-pagamento">Número de Parcelas</label>' +
-			'<select name="credito-pagamento" id="credito-pagamento" required>' +
-			"<option value selected disabled>Selecione *</option>" +
-			'<option value="1x">1x</option>' +
-			'<option value="2x">2x</option>' +
-			'<option value="3x">3x</option>' +
-			'<option value="4x">4x</option>' +
-			'<option value="5x">5x</option>' +
-			"</select>" +
-			"</div>" +
-			'<textarea name="textarea-tag" id="textarea-tag" cols="37" rows="4"></textarea>';
-		document.getElementById("textarea-tag").style.height = "42px";
-	}
+  if (data === "Cartão Crédito") {
+    pagamentoExtra.innerHTML =
+      "<br>" +
+      '<div class="prontuario-div">' +
+      '<label for="credito-pagamento">Número de Parcelas</label>' +
+      '<select name="credito-pagamento" id="credito-pagamento" required>' +
+      "<option value selected disabled>Selecione *</option>" +
+      '<option value="1x">1x</option>' +
+      '<option value="2x">2x</option>' +
+      '<option value="3x">3x</option>' +
+      '<option value="4x">4x</option>' +
+      '<option value="5x">5x</option>' +
+      "</select>" +
+      "</div>" +
+      '<textarea name="textarea-tag" id="textarea-tag" cols="37" rows="4"></textarea>';
+    document.getElementById("textarea-tag").style.height = "42px";
+  }
 
-	if (data === "Cheque") {
-		pagamentoExtra.innerHTML =
-			'<div class="textarea-div"><textarea name="textarea-tag" id="textarea-tag" cols="37" rows="4"></textarea></div>';
-	}
+  if (data === "Cheque") {
+    pagamentoExtra.innerHTML =
+      '<div class="textarea-div"><textarea name="textarea-tag" id="textarea-tag" cols="37" rows="4"></textarea></div>';
+  }
 
-	if (data === "Depósito") {
-		pagamentoExtra.innerHTML =
-			'<div class="textarea-div"><textarea name="textarea-tag" id="textarea-tag" cols="37" rows="4"></textarea></div>';
-	}
+  if (data === "Depósito") {
+    pagamentoExtra.innerHTML =
+      '<div class="textarea-div"><textarea name="textarea-tag" id="textarea-tag" cols="37" rows="4"></textarea></div>';
+  }
 
-	if (data === "Dinheiro") {
-		pagamentoExtra.innerHTML =
-			'<div class="textarea-div"><textarea name="textarea-tag" id="textarea-tag" cols="37" rows="4"></textarea></div>';
-	}
+  if (data === "Dinheiro") {
+    pagamentoExtra.innerHTML =
+      '<div class="textarea-div"><textarea name="textarea-tag" id="textarea-tag" cols="37" rows="4"></textarea></div>';
+  }
 
-	if (data === "Pix") {
-		pagamentoExtra.innerHTML =
-			'<div class="textarea-div"><textarea name="textarea-tag" id="textarea-tag" cols="37" rows="4"></textarea></div>';
-	}
+  if (data === "Pix") {
+    pagamentoExtra.innerHTML =
+      '<div class="textarea-div"><textarea name="textarea-tag" id="textarea-tag" cols="37" rows="4"></textarea></div>';
+  }
 });
 
 function validaCpf(valueInput) {
+  var strCPF = "";
+  strCPF = valueInput.replaceAll(",", "");
+  strCPF = strCPF.replaceAll(".", "");
+  strCPF = strCPF.replaceAll(" ", "");
+  strCPF = strCPF.replaceAll("-", "");
 
-	var strCPF = "";
-	strCPF = valueInput.replaceAll(",", "");
-	strCPF = strCPF.replaceAll(".", "");
-	strCPF = strCPF.replaceAll(" ", "");
-	strCPF = strCPF.replaceAll("-", "");
+  var Soma;
+  var Resto;
+  Soma = 0;
+  if (strCPF == "00000000000") {
+    return false;
+  }
 
-	var Soma;
-	var Resto;
-	Soma = 0;
-	if (strCPF == "00000000000"){ 
-		return false;
-	}
+  for (let i = 1; i <= 9; i++) {
+    Soma = Soma + parseInt(strCPF.substring(i - 1, i)) * (11 - i);
+    Resto = (Soma * 10) % 11;
+  }
 
-	for (let i = 1; i <= 9; i++) { 
-		Soma = Soma + parseInt(strCPF.substring(i - 1, i)) * (11 - i);
-	    Resto = (Soma * 10) % 11;
-	}
+  if (Resto == 10 || Resto == 11) {
+    Resto = 0;
+  }
+  if (Resto != parseInt(strCPF.substring(9, 10))) {
+    return false;
+  }
 
-	if ((Resto == 10) || (Resto == 11)) {
-		Resto = 0;
-	}	
-	if (Resto != parseInt(strCPF.substring(9, 10))){ 
-		return false;
-	}
-	
-	Soma = 0;
-	for (let i = 1; i <= 10; i++) { 
-		Soma = Soma + parseInt(strCPF.substring(i - 1, i)) * (12 - i);
-		Resto = (Soma * 10) % 11;
-	}
+  Soma = 0;
+  for (let i = 1; i <= 10; i++) {
+    Soma = Soma + parseInt(strCPF.substring(i - 1, i)) * (12 - i);
+    Resto = (Soma * 10) % 11;
+  }
 
-	if ((Resto == 10) || (Resto == 11)){ 
-		Resto = 0;
-	}
-	if (Resto != parseInt(strCPF.substring(10, 11))){ 
-		return false;
-	} else {
-		return true;
-	}
+  if (Resto == 10 || Resto == 11) {
+    Resto = 0;
+  }
+  if (Resto != parseInt(strCPF.substring(10, 11))) {
+    return false;
+  } else {
+    return true;
+  }
 }
 
+function toggleHamburger(x) {
+  x.classList.toggle("change");
+  let lengthX = x.classList.length;
 
-window.addEventListener('onload', onloadInit());
-window.addEventListener('onload', onloadInit);
+  if (lengthX > 1) {
+    document.getElementById("div-ul").style.right = "0%";
+    document.getElementById("div-ul").style.transition = "0.8s";
+  } else {
+    document.getElementById("div-ul").style.right = "-100%";
+    document.getElementById("div-ul").style.transition = "all 0.8s ease 0.4s";
+  }
+}
+
+window.addEventListener("onload", onloadInit());
+window.addEventListener("onload", onloadInit);
 window.sendData = sendData;
 window.getData = getData;
 window.validateCep = validateCep;
@@ -763,6 +772,4 @@ window.isNumeric = isNumeric;
 window.validateTelefone = validateTelefone;
 window.validateCpf = validateCpf;
 window.validateValor = validateValor;
-
-
-
+window.toggleHamburger = toggleHamburger;

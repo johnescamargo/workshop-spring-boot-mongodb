@@ -20,8 +20,8 @@ import com.imav.whatsapp.entity.ConfirmationResponse;
 import com.imav.whatsapp.entity.Customer;
 import com.imav.whatsapp.entity.ImavButtonMessage;
 import com.imav.whatsapp.entity.ImavMessage;
-import com.imav.whatsapp.entity.WantsToTalk;
 import com.imav.whatsapp.model.InitMessageTemplate;
+import com.imav.whatsapp.model.InitMessageTemplate2;
 import com.imav.whatsapp.model.MessageModel;
 import com.imav.whatsapp.repository.ConfirmationResponseRepository;
 import com.imav.whatsapp.repository.CustomerRepository;
@@ -107,7 +107,7 @@ public class MessageService {
 	public void sendMessageModelImav(String phone, String path) {
 
 		String json = "";
-		int ownerOfMessage = 0;
+		int ownerOfMessage = 0;//IMAV
 		HashMap<String, String> hashMap = new HashMap<>();
 
 		try {
@@ -140,8 +140,8 @@ public class MessageService {
 	}
 
 	/*
-	 * Send message to customer Save message into DB Send websocket message Save
-	 * confirmation list Save and update customer websocket
+	 * Send message to customer Save message into DB Send Websocket message Save
+	 * confirmation list Save and update customer Websocket
 	 */
 	public boolean sendInitMessageImav(MessageInitDto dto) {
 
@@ -189,46 +189,50 @@ public class MessageService {
 		return msgSent;
 	}
 
-	// TODO check everything
-	public boolean sendMessageEnvia(MessageEnviaDto dto, String msg) {
+	// TODO 
+	public boolean sendMessageEnvia(MessageEnviaDto dto) {
+
+		boolean msgSent = true;
 
 		try {
 
 			HashMap<String, String> hashMap = new HashMap<>();
-			MessageModel message = new MessageModel();
-			String name = dto.getName();
-			String phone = dto.getInternacionalCode() + dto.getPhone();
-			String response = "";
 
-			message.setTo(phone);
-			message.text.setBody(msg);
+			// Template IMAV - Initial message
+			InitMessageTemplate2 template = messageUtil.messageInitOrganizer2(dto);
 
-			String jsonMessage = GSON.toJson(message, MessageModel.class);
+			String jsonMessage = GSON.toJson(template, InitMessageTemplate2.class);
 
-			response = messageHttpService.sendMessage(jsonMessage);// Sending Message
+			String response = messageHttpService.sendMessage(jsonMessage);// Sending Message
 
 			hashMap = messageUtil.checkResponseMessageSent(response);
+
 			String resp = hashMap.get("resp");
 
 			if (resp.equals("success")) {
+				msgSent = true;
 				String idWamid = hashMap.get("idWamid");
-				dbMessageResource.saveImavMessageIntoDatabase(message, idWamid);
-				websocketService.convertMessageSend(message, idWamid);
 
-				WantsToTalk talk = new WantsToTalk(name, phone);
-				talkRepository.save(talk);
-				websocketService.updateWantsToTalk();
+				// save or update new customer
+				saveNewCustomer(dto.getPhone(), dto.getName());
+
+				// Simulate and Save initial-message-template
+				ImavMessage message = messageUtil.setImavEnviaMessage(dto, idWamid);
+
+				int ownerOfMessage = 0;// IMAV
+				websocketService.convertMessageSendChat(message, ownerOfMessage);
+				//saveListOfConfirmationResponse(dto, idWamid);
 				websocketService.showCustomerToWebSocket();
 			} else {
 				String timestamp = hashMap.get("timestamp");
-				System.out.println("Message Not sent - timestamp: " + timestamp);
-				return false;
+				logger.info("Message Not sent - timestamp: " + timestamp);
+				msgSent = false;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.info(e);
 		}
-		return true;
+		return msgSent;
 	}
 
 	public void sendMessageResponse(String obj, String msgBody) {

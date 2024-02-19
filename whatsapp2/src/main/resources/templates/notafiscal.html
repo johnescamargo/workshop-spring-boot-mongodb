@@ -13,7 +13,8 @@
 	<script src="/webjars/stomp-websocket/stomp.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 	<link rel="stylesheet" th:href="@{/css/notafiscal.css}" />
-    <script defer th:type="module" th:src="@{/js/notafiscal.js}"></script>	
+	<link rel="stylesheet" th:href="@{/css/hamburger.css}">
+	<script defer th:type="module" th:src="@{/js/notafiscal.js}"></script>
 	<link rel="icon" type="image/x-icon" th:href="@{/img/imav-icon.jpg}">
 	<title>Nota Fiscal</title>
 </head>
@@ -21,74 +22,84 @@
 <body>
 
 	<div id="username" sec:authentication="name"></div>
+	
+	<label class="hamburger" onclick="toggleHamburger(this)">
+		<div class="bar1"></div>
+		<div class="bar2"></div>
+		<div class="bar3"></div>
+	</label>
+	
 	<nav class="nav-bar">
-		<ul>
+		<ul id="div-ul">
 			<div sec:authorize="hasAuthority('NF')">
 				<li><a onclick="disconnect()" th:href="particular">NF Particular</a></li>
-				<li><a onclick="disconnect()" id="active" class="active" th:href="notafiscal">Nota Fiscal</a></li>				
+				<li><a onclick="disconnect()" id="active" class="active" th:href="notafiscal">Nota Fiscal</a></li>
 			</div>
 
 			<div sec:authorize="hasAuthority('USER')">
 				<li><a onclick="disconnect()" th:href="particular">NF Particular</a></li>
-				<li><a onclick="disconnect()" id="active" class="active" th:href="notafiscal">Nota Fiscal</a></li>	
+				<li><a onclick="disconnect()" id="active" class="active" th:href="notafiscal">Nota Fiscal</a></li>
 				<li><a onclick="disconnect()" th:href="home">Enviar Agenda</a></li>
 				<li><a onclick="disconnect()" th:href="chat">Chat</a></li>
-				<li><a onclick="disconnect()" th:href="confirmation">Confirmação</a></li>			
-			</div>			
+				<li><a onclick="disconnect()" th:href="confirmation">Confirmação</a></li>
+			</div>
 
 			<div sec:authorize="hasAuthority('ADMIN')">
 				<li><a onclick="disconnect()" th:href="particular">NF Particular</a></li>
-				<li><a onclick="disconnect()" id="active" class="active" th:href="notafiscal">Nota Fiscal</a></li>	
-				<li><a onclick="disconnect()" th:href="home">Enviar Agenda</a></li>				
+				<li><a onclick="disconnect()" id="active" class="active" th:href="notafiscal">Nota Fiscal</a></li>
+				<li><a onclick="disconnect()" th:href="home">Enviar Agenda</a></li>
 				<li><a onclick="disconnect()" th:href="chat">Chat</a></li>
-				<li><a onclick="disconnect()" th:href="confirmation">Confirmação</a></li>			
+				<li><a onclick="disconnect()" th:href="confirmation">Confirmação</a></li>
 				<li><a onclick="disconnect()" th:href="register">Novo Usuário</a></li>
 				<li><a onclick="disconnect()" th:href="settings">Configurações</a></li>
 			</div>
-			
-			<li class="exit">
-				<a onclick="disconnect()" th:href="@{/logout}"><i class="fa fa-sign-out fa-1.5x" aria-hidden="true">
-						Sair</i></a>
-			</li>
-			<li class="exit">
-				<a onclick="disconnect()" th:href="config"><i class="fa fa-user fa-1.5x" aria-hidden="true"><span>
-						</span> <span th:remove="tag" sec:authentication="name"> </span></i></a>
-			</li>
+
+			<div id="exit-config">
+				<li class="exit">
+					<a onclick="disconnect()" th:href="@{/logout}"><i class="fa fa-sign-out fa-1.5x" aria-hidden="true">
+							Sair</i></a>
+				</li>
+				<li class="exit">
+					<a onclick="disconnect()" th:href="config"><i class="fa fa-user fa-1.5x" aria-hidden="true"><span>
+							</span> <span th:remove="tag" sec:authentication="name"> </span></i></a>
+				</li>
+			</div>
+
 			<li id="exit" class="exit">
 				<!-- Websocket alert goes here -->
 			</li>
 		</ul>
 	</nav>
 
-	
-    <div class="division">
 
-        <div class="division2">
-            <div class="div-datepicker">
-                <input id="datepicker" type="date" format="dd/mm/yyyy" class="datepicker" data-date-format="dd/MM/yyyy">
-                <div class="div-pesquisa">
-                    <label for="pesquisa">Pesquisa</label>
-                    <input type="text" class="pesquisa" id="pesquisa">
-                </div>
-            </div>
+	<div class="division">
 
-
-            <div class="div-customers">
-                <h4 id="h4-nf">Lista de Notas fiscais</h4>
-                <!-- Table -->
-                <div id="data-table">
-
-                </div>
-            </div>
+		<div class="division2">
+			<div class="div-datepicker">
+				<input id="datepicker" type="date" format="dd/mm/yyyy" class="datepicker" data-date-format="dd/MM/yyyy">
+				<div class="div-pesquisa">
+					<label for="pesquisa">Pesquisa</label>
+					<input type="text" class="pesquisa" id="pesquisa">
+				</div>
+			</div>
 
 
-        </div>
+			<div class="div-customers">
+				<h4 id="h4-nf">Lista de Notas fiscais</h4>
+				<!-- Table -->
+				<div id="data-table">
 
-        <div class="customer-div" id="customer-div">
+				</div>
+			</div>
 
-        </div>
 
-    </div>
+		</div>
+
+		<div class="customer-div" id="customer-div">
+
+		</div>
+
+	</div>
 
 </body>
 
