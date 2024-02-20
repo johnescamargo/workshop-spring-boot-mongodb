@@ -38,7 +38,7 @@ public class MessageAI {
 				confInt++;
 			}
 
-			if (words[i].equals("não") || words[i].equals("remarca") || words[i].equals("remarcar")) {
+			if (words[i].equals("não") || words[i].equals("nao") || words[i].equals("remarca") || words[i].equals("remarcar")) {
 				confInt = -5;
 				resp = "remarcar";
 				i = 100;

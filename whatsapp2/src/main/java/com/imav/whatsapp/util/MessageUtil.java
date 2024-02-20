@@ -142,12 +142,12 @@ public class MessageUtil {
 		return message;
 	}
 
-	public String messageOrganizerEnvia(MessageInitDto obj) {
+	public MessageEnviaDto messageOrganizerEnvia(MessageEnviaDto obj) {
 
 		String message = "";
 
 		for (int i = 0; i < obj.getMessages().size(); i++) {
-			message += obj.getMessages().get(i) + System.lineSeparator();
+			message += obj.getMessages().get(i) + " ";
 		}
 
 		List<String> msg = new ArrayList<>();
@@ -156,7 +156,7 @@ public class MessageUtil {
 		obj.getMessages().clear();
 		obj.setMessages(msg);
 
-		return message;
+		return obj;
 	}
 
 	@SuppressWarnings("unchecked")
@@ -306,7 +306,7 @@ public class MessageUtil {
 			imavMessage.setText(messageEnviaOrganizerDB(dto));
 			imavMessage.setStatus(1);
 			imavMessage.setTimestamp(timestamp);
-			imavMessage.setTo(dto.getPhone());
+			imavMessage.setTo(dto.getInternacionalCode() + dto.getPhone());
 			imavMessage.setType("text");
 			imavMessage.setIdWamid(idWamid);
 

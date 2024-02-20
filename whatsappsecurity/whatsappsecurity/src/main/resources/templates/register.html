@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+	xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<script src="/webjars/jquery/jquery.min.js"></script>
+	<script src="/webjars/sockjs-client/sockjs.min.js"></script>
+	<script src="/webjars/stomp-websocket/stomp.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+	<link rel="stylesheet" th:href="@{/css/register.css}" />
+</head>
+
+<body onload="loadUsers()">
+	<header class="div-header">
+		<ul class="my-ul">
+			<li class="my-li"><a class="my-a" th:href="home">ENVIAR</a></li>
+			<li class="my-li"><a class="my-a" th:href="chat">CHAT</a></li>
+			<li class="my-li"><a class="my-a" th:href="register">USUÁRIOS</a></li>
+			<li class="my-li"><a class="my-a" th:href="@{/logout}">SAIR</a></li>
+		</ul>
+	</header>
+	<form class="form-div">
+		<div class="container">
+			<h1>Registro</h1>
+			<hr />
+
+			<label for="nickname"><b>Apelido</b></label>
+			<input type="text" placeholder="Apelido" name="nickname" id="nickname" required />
+
+			<label for="email"><b>E-mail</b></label>
+			<input type="text" placeholder="E-mail" name="email" id="email" required />
+
+			<label for="psw"><b>Senha</b></label>
+			<input type="password" placeholder="Senha" name="psw" id="psw" required />
+
+			<label for="psw-repeat"><b>Repetir a Senha</b></label>
+			<input type="password" placeholder="Repita a Senha" name="psw-repeat" id="psw-repeat" required />
+			<hr />
+
+			<button type="submit" onclick="saveUser()" class="registerbtn">Salvar</button>
+		</div>
+		<div class="users-container">
+			<div>
+	</form>
+	<script th:src="@{/js/register.js}"></script>
+</body>
+
+</html>

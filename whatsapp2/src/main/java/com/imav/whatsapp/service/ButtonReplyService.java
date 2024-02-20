@@ -73,18 +73,9 @@ public class ButtonReplyService {
 
 			String id = buttonClicked.getEntry().get(0).getChanges().get(0).getValue().getMessages().get(0)
 					.getInteractive().getButton_reply().getId();
-			
-			String idWamid = 
-					buttonClicked
-					.getEntry()
-					.get(0)
-					.getChanges()
-					.get(0)
-					.getValue()
-					.getMessages()
-					.get(0)
-					.getContext()
-					.getId();
+
+			String idWamid = buttonClicked.getEntry().get(0).getChanges().get(0).getValue().getMessages().get(0)
+					.getContext().getId();
 
 			switch (id) {
 			case "button-telefone":
@@ -106,17 +97,21 @@ public class ButtonReplyService {
 				locationService.sendLocation(phone);
 
 				break;
-
+				
 			case "button-falar":
 				messageService.updateConfirmationResponse(idWamid, phone);
+				String path = ("/json/message_talk_to_us_response.json");
+				messageService.sendMessageModelImav(phone, path);
+				saveInteractiveMessageFromCustomer(buttonClicked, phone);
+				messageService.updateCustomerWantToTalkTrue(phone);
 
+				break;
+				
 			case "button-cancel":
 				messageService.updateConfirmationResponse(idWamid, "CANCELAR");
 				saveInteractiveMessageFromCustomer(buttonClicked, phone);
-
 //				String path = ("/json/message_reply_cancelar.json");
 //				messageService.sendMessageModelImav(phone, path);
-
 				int stepCancel = 0;
 				boolean talkCancel = false;
 				updateCustomer(phone, stepCancel, "normal", talkCancel);
@@ -146,18 +141,9 @@ public class ButtonReplyService {
 
 			String id = buttonClicked.getEntry().get(0).getChanges().get(0).getValue().getMessages().get(0)
 					.getInteractive().getButton_reply().getId();
-			
-			String idWamid = 
-					buttonClicked
-					.getEntry()
-					.get(0)
-					.getChanges()
-					.get(0)
-					.getValue()
-					.getMessages()
-					.get(0)
-					.getContext()
-					.getId();
+
+			String idWamid = buttonClicked.getEntry().get(0).getChanges().get(0).getValue().getMessages().get(0)
+					.getContext().getId();
 
 			switch (id) {
 			case "button-telefone":
@@ -218,31 +204,12 @@ public class ButtonReplyService {
 
 			buttonClicked = GSON.fromJson(obj, WebhookReceivedCallbackQuickReplyButtonClick.class);
 
-			String id = 
-					buttonClicked
-					.getEntry()
-					.get(0)
-					.getChanges()
-					.get(0)
-					.getValue()
-					.getMessages()
-					.get(0)
-					.getInteractive()
-					.getButton_reply()
-					.getId();
+			String id = buttonClicked.getEntry().get(0).getChanges().get(0).getValue().getMessages().get(0)
+					.getInteractive().getButton_reply().getId();
 
-			String idWamid = 
-					buttonClicked
-					.getEntry()
-					.get(0)
-					.getChanges()
-					.get(0)
-					.getValue()
-					.getMessages()
-					.get(0)
-					.getContext()
-					.getId();
-			
+			String idWamid = buttonClicked.getEntry().get(0).getChanges().get(0).getValue().getMessages().get(0)
+					.getContext().getId();
+
 			switch (id) {
 			case "button-telefone":
 				messageService.updateConfirmationResponse(idWamid, "REMARCAR");
@@ -307,24 +274,15 @@ public class ButtonReplyService {
 			String payloadResp = buttonClicked.getEntry().get(0).getChanges().get(0).getValue().getMessages().get(0)
 					.getButton().getPayload();
 
-			String idWamid = 
-					buttonClicked
-					.getEntry()
-					.get(0)
-					.getChanges()
-					.get(0)
-					.getValue()
-					.getMessages()
-					.get(0)
-					.getContext()
-					.getId();
+			String idWamid = buttonClicked.getEntry().get(0).getChanges().get(0).getValue().getMessages().get(0)
+					.getContext().getId();
 
 			switch (payloadResp) {
 			case "SIM":
 				saveInitButtonClick(obj, phone, payloadResp);
 				messageService.updateConfirmationResponse(idWamid, "SIM");
 				sendButtonResponse(obj, textReplyUtil.setTextYes(), "SIM");
-				
+
 				int step1 = 0;
 				boolean talk1 = false;
 				updateCustomer(phone, step1, "normal", talk1);
@@ -375,7 +333,7 @@ public class ButtonReplyService {
 				saveInitButtonClick(obj, phone, payloadResp);
 				String path = ("/json/button_reply_remarcar.json");
 				buttonReplyService.sendButtonResponse(phone, path);
-				
+
 				int step = 0;
 				boolean talk = true;
 				updateCustomer(phone, step, "normal", talk);

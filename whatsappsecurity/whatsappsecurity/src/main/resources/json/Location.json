@@ -1,0 +1,11 @@
+{
+  "messaging_product": "whatsapp",
+  "to": "",
+  "type": "location",
+    "location": {
+        "longitude": -46.569769,
+        "latitude": -23.657796,
+        "name": "Clínica IMAV",
+        "address": "Av. Min. Osvaldo Aranha, 207 - Vila Franca, São Bernardo do Campo - SP, 09626-000"
+    }
+}

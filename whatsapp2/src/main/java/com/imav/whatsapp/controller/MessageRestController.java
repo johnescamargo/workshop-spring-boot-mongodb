@@ -78,17 +78,17 @@ public class MessageRestController {
 
 		logger.info("Sending POST /envia");
 		logger.info(obj);
-
 		boolean response = true;
 
-		if (response) {
+		try {
 			
-			response = messageService.sendMessageEnvia(obj); // Call method
-
-			return new ResponseEntity<>(response, HttpStatus.OK);
-		} else {
+			MessageEnviaDto dto = messageUtil.messageOrganizerEnvia(obj);
+			response = messageService.sendMessageEnvia(dto); 
+			
+		} catch (Exception e) {
 			return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
 		}
+		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
 
 	@PostMapping("/send")
@@ -101,7 +101,7 @@ public class MessageRestController {
 		response = messageUtil.checkPhoneNumber(obj);
 
 		if (response) {
-			// String msg = messageUtil.messageOrganizer(obj);
+			//String msg = messageUtil.messageOrganizer(obj);
 			response = messageService.sendInitMessageImav(obj); // Call method
 
 		}

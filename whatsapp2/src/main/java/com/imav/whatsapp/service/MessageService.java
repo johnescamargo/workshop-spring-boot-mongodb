@@ -144,6 +144,8 @@ public class MessageService {
 	 * confirmation list Save and update customer Websocket
 	 */
 	public boolean sendInitMessageImav(MessageInitDto dto) {
+		
+		System.out.println(dto);
 
 		boolean msgSent = false;
 
@@ -189,7 +191,6 @@ public class MessageService {
 		return msgSent;
 	}
 
-	// TODO 
 	public boolean sendMessageEnvia(MessageEnviaDto dto) {
 
 		boolean msgSent = true;
@@ -214,10 +215,11 @@ public class MessageService {
 				String idWamid = hashMap.get("idWamid");
 
 				// save or update new customer
-				saveNewCustomer(dto.getPhone(), dto.getName());
+				saveNewCustomer(dto.getInternacionalCode() + dto.getPhone(), dto.getName());
 
 				// Simulate and Save initial-message-template
 				ImavMessage message = messageUtil.setImavEnviaMessage(dto, idWamid);
+				dbMessageResource.saveImavMessageIntoDB(message);
 
 				int ownerOfMessage = 0;// IMAV
 				websocketService.convertMessageSendChat(message, ownerOfMessage);
@@ -384,6 +386,24 @@ public class MessageService {
 		}
 
 	}
+	
+	public void updateCustomerWantToTalkTrue(String phone) {
+
+		Customer customer = new Customer();
+
+		try {
+
+			customer = customerRepository.findByPhoneNumber(phone);
+			customer.setTalk(true);
+			customerRepository.save(customer);// Update customer
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.info(e);
+		}
+
+	}
+	
 
 	public void updateConfirmationResponse(String idWamid, String reply) {
 		ConfirmationResponse confirmation = new ConfirmationResponse();
@@ -436,5 +456,7 @@ public class MessageService {
 
 		return json;
 	}
+
+
 
 }

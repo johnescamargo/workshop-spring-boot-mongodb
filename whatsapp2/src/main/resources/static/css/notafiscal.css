@@ -276,6 +276,7 @@ h4 {
 
 .main-div {
   display: flex;
+  flex-wrap: wrap;
 }
 
 .prontuario-div {
@@ -343,10 +344,11 @@ input[type="checkbox"] {
 .dados-nf {
   height: 140px;
   background-color: rgb(255, 255, 255);
-  width: 320px;
+  width: 295px;
   border-radius: 8px;
   padding: 10px;
   border-left: 4px solid rgb(77, 146, 103);
+  margin-right: 10px;
   margin-bottom: 10px;
 }
 
@@ -359,11 +361,11 @@ input[type="checkbox"] {
 .main-data {
   height: 360px;
   background-color: rgb(255, 255, 255);
-  width: 320px;
+  width: 295px;
   border-radius: 8px;
   padding: 10px;
   border-left: 4px solid rgb(126, 77, 146);
-  margin-right: 12px;
+  margin-right: 10px;
   margin-bottom: 10px;
 }
 
@@ -395,10 +397,12 @@ input[type="checkbox"] {
 .cep-data {
   height: 510px;
   background-color: rgb(255, 255, 255);
-  width: 320px;
+  width: 295px;
   border-radius: 8px;
   padding: 10px;
   border-left: 4px solid rgb(213, 37, 37);
+  margin-right: 10px;
+  margin-bottom: 10px;
 }
 
 .cep-data input {
@@ -406,16 +410,18 @@ input[type="checkbox"] {
 }
 
 .col-3-data {
-  margin-left: 12px;
+  margin-left: 0px;
 }
 
 .exames {
   height: 510px;
   background-color: rgb(255, 255, 255);
-  width: 320px;
+  width: 295px;
   border-radius: 8px;
   padding: 10px;
   border-left: 4px solid rgb(73, 72, 141);
+  margin-right: 10px;
+  margin-bottom: 10px;
 }
 
 .exames h4 {
@@ -431,7 +437,7 @@ input[type="checkbox"] {
     border-radius: 8px;
     padding: 10px;
     border-left: 4px solid rgb(126, 77, 146);
-    margin-right: 12px;
+    margin-right: 10px;
     margin-bottom: 10px;
   }
 

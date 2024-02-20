@@ -1,0 +1,109 @@
+*,
+::after,
+::before {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+   background-color: rgb(201 202 203 / 85%);
+   margin: 0px;
+}
+
+.div-header {
+  height: 53px;
+  display: flex;
+  padding-left: 14px;
+  background-color: rgb(220, 220, 230);
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  display: inline-block;
+  font-size: 18px;
+  padding: 12px;
+}
+
+li a {
+  display: block;
+  text-align: center;
+  padding: 5px 5px;
+  text-decoration: none;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.form-div {
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-top: 20px;
+  display: flex;
+}
+
+.users-container {
+	margin-left: 20px;
+  	width: 70%;
+  	padding: 16px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+/* Add padding to containers */
+.container {
+  padding: 16px;
+    width: 30%;
+  background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+/* Full-width input fields */
+input[type="text"],
+input[type="password"] {
+  width: 100%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  display: inline-block;
+  border: none;
+  background: #f1f1f1;
+    border-radius: 8px;
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus {
+  background-color: #ddd;
+  outline: none;
+    border-radius: 8px;
+}
+
+/* Overwrite default styles of hr */
+hr {
+  border: 1px solid #f1f1f1;
+  margin-bottom: 25px;
+}
+
+/* Set a style for the submit button */
+.registerbtn {
+  background-color: #04aa6d;
+  color: white;
+  padding: 16px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  opacity: 0.9;
+    border-radius: 8px;
+}
+
+.registerbtn:hover {
+  opacity: 1;
+}
+
+
+
+

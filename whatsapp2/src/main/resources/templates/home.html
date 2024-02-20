@@ -81,7 +81,7 @@
 					<input type="file" id="excel_file" />
 					<!-- Export  -->
 					<button type="button" id="export_button" class="btn btn-success btn-sm">
-						Exportar para XLS
+						Exportar para XLS (Excel)
 					</button>
 
 				</div>
@@ -106,9 +106,10 @@
 			</div>
 			<br>
 			<label for="name">Nome</label>
-			<input id="name" type="text" class="form-control" placeholder="Nome do paciente" required>
+			<input onkeyup="updateTemplateName(this)" id="name" type="text" class="form-control" placeholder="Nome do paciente" required>
 			<br>
 			<label for="textarea">Mensagem</label>
+			<p id="text-p">Olá <b id="name-b">{nome}</b>, espero que esteja bem. 😊 Somos da IMAV, Intituto de Medicina Avançada da Visão.</p>
 			<textarea class="form-control" id="textarea" rows="5" placeholder="Escreva a mensagem aqui..."
 				required></textarea>
 			<br>
@@ -136,6 +137,9 @@
 			</div>
 		</div>
 	</div>
+	
+	<div id="snackbarOk">Mensagem enviada com sucesso..</div>
+	<div id="snackbarError">Erro, mensagem não enviada..</div>
 
 </body>
 

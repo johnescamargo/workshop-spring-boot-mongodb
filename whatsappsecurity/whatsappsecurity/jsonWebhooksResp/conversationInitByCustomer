@@ -1,0 +1,123 @@
+MSG vinda do Paciente --- 
+
+MSG FROM CLIENT ************
+{"object":"whatsapp_business_account","entry":[{"id":"102569209367228","changes":[{"value":{"messaging_product":"whatsapp","metadata":{"display_phone_number":"15550533002","phone_number_id":"100958496197655"},"contacts":[{"profile":{"name":"Johnes"},"wa_id":"5511994022187"}],"messages":[{"from":"5511994022187","id":"wamid.HBgNNTUxMTk5NDAyMjE4NxUCABIYFDNBNzdCOEZGNEYzNDA0RTU2RDBDAA==","timestamp":"1678379593","text":{"body":"Hi"},"type":"text"}]},"field":"messages"}]}]}
+
+MY MSG RESPONSE FROM MY WEBHOOK *******************
+{"messaging_product":"whatsapp","recipient_type":"individual","to":"5511994022187","type":"interactive","interactive":{"type":"button","body":{"text":"Clínica de olhos IMAV. Olá, espero que esteja bem! Obrigado por nos procurar. Este é um canal exclusivo para confirmação de consultas e exames, porém, podemos lhe ajudar. Clique na opção abaixo que melhor atende a tua necessidade."},"action":{"buttons":[{"type":"reply","reply":{"id":"button-telefone","title":"TELEFONE DA IMAV"}},{"type":"reply","reply":{"id":"button-whatsapp","title":"WHATSAPP DA IMAV"}},{"type":"reply","reply":{"id":"button-localizacao","title":"LOCALIZAÇÃO"}}]}}}
+
+{"messaging_product":"whatsapp","contacts":[{"input":"5511994022187","wa_id":"5511994022187"}],"messages":[{"id":"wamid.HBgNNTUxMTk5NDAyMjE4NxUCABEYEjJBQkJDMjQ1MEFFNTNDQTFBMgA="}]}
+
+SENT *********** ENVIADO
+{"object":"whatsapp_business_account","entry":[{"id":"102569209367228","changes":[{"value":{"messaging_product":"whatsapp","metadata":{"display_phone_number":"15550533002","phone_number_id":"100958496197655"},"statuses":[{"id":"wamid.HBgNNTUxMTk5NDAyMjE4NxUCABEYEjJBQkJDMjQ1MEFFNTNDQTFBMgA=","status":"sent","timestamp":"1678379596","recipient_id":"5511994022187","conversation":{"id":"189b24be4bcc6b343e9c35205cff2299","expiration_timestamp":"1678388160","origin":{"type":"user_initiated"}},"pricing":{"billable":true,"pricing_model":"CBP","category":"user_initiated"}}]},"field":"messages"}]}]}
+
+DELIVERED ************ RECEBIDO
+{"object":"whatsapp_business_account","entry":[{"id":"102569209367228","changes":[{"value":{"messaging_product":"whatsapp","metadata":{"display_phone_number":"15550533002","phone_number_id":"100958496197655"},"statuses":[{"id":"wamid.HBgNNTUxMTk5NDAyMjE4NxUCABEYEjJBQkJDMjQ1MEFFNTNDQTFBMgA=","status":"delivered","timestamp":"1678379596","recipient_id":"5511994022187","conversation":{"id":"189b24be4bcc6b343e9c35205cff2299","origin":{"type":"user_initiated"}},"pricing":{"billable":true,"pricing_model":"CBP","category":"user_initiated"}}]},"field":"messages"}]}]}
+
+READ ************** LIDO
+{"object":"whatsapp_business_account","entry":[{"id":"102569209367228","changes":[{"value":{"messaging_product":"whatsapp","metadata":{"display_phone_number":"15550533002","phone_number_id":"100958496197655"},"statuses":[{"id":"wamid.HBgNNTUxMTk5NDAyMjE4NxUCABEYEjJBQkJDMjQ1MEFFNTNDQTFBMgA=","status":"read","timestamp":"1678379596","recipient_id":"5511994022187"}]},"field":"messages"}]}]}
+
+
+RESPONSE BUTTON LOCATION *********************
+{"object":"whatsapp_business_account","entry":[{"id":"102569209367228","changes":[{"value":{"messaging_product":"whatsapp","metadata":{"display_phone_number":"15550533002","phone_number_id":"100958496197655"},"contacts":[{"profile":{"name":"Johnes"},"wa_id":"5511994022187"}],"messages":[{"context":{"from":"15550533002","id":"wamid.HBgNNTUxMTk5NDAyMjE4NxUCABEYEjJBQkJDMjQ1MEFFNTNDQTFBMgA="},"from":"5511994022187","id":"wamid.HBgNNTUxMTk5NDAyMjE4NxUCABIYFDNBNUNDMjU4NkJEODZGQTdCRjA4AA==","timestamp":"1678379617","type":"interactive","interactive":{"type":"button_reply","button_reply":{"id":"button-localizacao","title":"LOCALIZA\u00c7\u00c3O"}}}]},"field":"messages"}]}]}
+
+MY MSG LOCATION **********************
+{"messaging_product":"whatsapp","to":"5511994022187","type":"location","location":{"longitude":-46.569769,"latitude":-23.657796,"name":"Clínica IMAV","address":"Av. Min. Osvaldo Aranha, 207 - Vila Franca, São Bernardo do Campo - SP, 09626-000"}}
+
+{"messaging_product":"whatsapp","contacts":[{"input":"5511994022187","wa_id":"5511994022187"}],"messages":[{"id":"wamid.HBgNNTUxMTk5NDAyMjE4NxUCABEYEjBEQzEzRTMyOUU3RDM5QjJENgA="}]}
+
+SENT ***********
+{"object":"whatsapp_business_account","entry":[{"id":"102569209367228","changes":[{"value":{"messaging_product":"whatsapp","metadata":{"display_phone_number":"15550533002","phone_number_id":"100958496197655"},"statuses":[{"id":"wamid.HBgNNTUxMTk5NDAyMjE4NxUCABEYEjBEQzEzRTMyOUU3RDM5QjJENgA=","status":"sent","timestamp":"1678379619","recipient_id":"5511994022187","conversation":{"id":"189b24be4bcc6b343e9c35205cff2299","expiration_timestamp":"1678388160","origin":{"type":"user_initiated"}},"pricing":{"billable":true,"pricing_model":"CBP","category":"user_initiated"}}]},"field":"messages"}]}]}
+
+DELIVERED ************
+{"object":"whatsapp_business_account","entry":[{"id":"102569209367228","changes":[{"value":{"messaging_product":"whatsapp","metadata":{"display_phone_number":"15550533002","phone_number_id":"100958496197655"},"statuses":[{"id":"wamid.HBgNNTUxMTk5NDAyMjE4NxUCABEYEjBEQzEzRTMyOUU3RDM5QjJENgA=","status":"delivered","timestamp":"1678379619","recipient_id":"5511994022187","conversation":{"id":"189b24be4bcc6b343e9c35205cff2299","origin":{"type":"user_initiated"}},"pricing":{"billable":true,"pricing_model":"CBP","category":"user_initiated"}}]},"field":"messages"}]}]}
+
+READ **************
+{"object":"whatsapp_business_account","entry":[{"id":"102569209367228","changes":[{"value":{"messaging_product":"whatsapp","metadata":{"display_phone_number":"15550533002","phone_number_id":"100958496197655"},"statuses":[{"id":"wamid.HBgNNTUxMTk5NDAyMjE4NxUCABEYEjBEQzEzRTMyOUU3RDM5QjJENgA=","status":"read","timestamp":"1678379619","recipient_id":"5511994022187"}]},"field":"messages"}]}]}
+
+RESPONSE WHATSAPP DA IMAV ***********************
+{"object":"whatsapp_business_account","entry":[{"id":"102569209367228","changes":[{"value":{"messaging_product":"whatsapp","metadata":{"display_phone_number":"15550533002","phone_number_id":"100958496197655"},"contacts":[{"profile":{"name":"Johnes"},"wa_id":"5511994022187"}],"messages":[{"context":{"from":"15550533002","id":"wamid.HBgNNTUxMTk5NDAyMjE4NxUCABEYEjJBQkJDMjQ1MEFFNTNDQTFBMgA="},"from":"5511994022187","id":"wamid.HBgNNTUxMTk5NDAyMjE4NxUCABIYFDNBMkY5NzA0MjA4MTNGQkUwNTk4AA==","timestamp":"1678379624","type":"interactive","interactive":{"type":"button_reply","button_reply":{"id":"button-whatsapp","title":"WHATSAPP DA IMAV"}}}]},"field":"messages"}]}]}
+
+MY MSG WHATSAPP DA IMAV
+{"messaging_product":"whatsapp","to":"5511994022187","text":{"preview_url":true,"body":"Clinica de olhos IMAV\r\nCliqui em mim!\r\n  \r\nhttp://wa.me/551143671577"}}
+
+{"messaging_product":"whatsapp","contacts":[{"input":"5511994022187","wa_id":"5511994022187"}],"messages":[{"id":"wamid.HBgNNTUxMTk5NDAyMjE4NxUCABEYEkY5N0MyMzM1MjlEN0RCM0MyQgA="}]}
+
+
+{"object":"whatsapp_business_account","entry":[{"id":"102569209367228","changes":[{"value":{"messaging_product":"whatsapp","metadata":{"display_phone_number":"15550533002","phone_number_id":"100958496197655"},"statuses":[{"id":"wamid.HBgNNTUxMTk5NDAyMjE4NxUCABEYEkY5N0MyMzM1MjlEN0RCM0MyQgA=","status":"sent","timestamp":"1678379626","recipient_id":"5511994022187","conversation":{"id":"189b24be4bcc6b343e9c35205cff2299","expiration_timestamp":"1678388160","origin":{"type":"user_initiated"}},"pricing":{"billable":true,"pricing_model":"CBP","category":"user_initiated"}}]},"field":"messages"}]}]}
+
+{"object":"whatsapp_business_account","entry":[{"id":"102569209367228","changes":[{"value":{"messaging_product":"whatsapp","metadata":{"display_phone_number":"15550533002","phone_number_id":"100958496197655"},"statuses":[{"id":"wamid.HBgNNTUxMTk5NDAyMjE4NxUCABEYEkY5N0MyMzM1MjlEN0RCM0MyQgA=","status":"delivered","timestamp":"1678379626","recipient_id":"5511994022187","conversation":{"id":"189b24be4bcc6b343e9c35205cff2299","origin":{"type":"user_initiated"}},"pricing":{"billable":true,"pricing_model":"CBP","category":"user_initiated"}}]},"field":"messages"}]}]}
+
+{"object":"whatsapp_business_account","entry":[{"id":"102569209367228","changes":[{"value":{"messaging_product":"whatsapp","metadata":{"display_phone_number":"15550533002","phone_number_id":"100958496197655"},"statuses":[{"id":"wamid.HBgNNTUxMTk5NDAyMjE4NxUCABEYEkY5N0MyMzM1MjlEN0RCM0MyQgA=","status":"read","timestamp":"1678379626","recipient_id":"5511994022187"}]},"field":"messages"}]}]}
+
+
+RESPONSE TELEFONE DA IMAV *************************
+{"object":"whatsapp_business_account","entry":[{"id":"102569209367228","changes":[{"value":{"messaging_product":"whatsapp","metadata":{"display_phone_number":"15550533002","phone_number_id":"100958496197655"},"contacts":[{"profile":{"name":"Johnes"},"wa_id":"5511994022187"}],"messages":[{"context":{"from":"15550533002","id":"wamid.HBgNNTUxMTk5NDAyMjE4NxUCABEYEjJBQkJDMjQ1MEFFNTNDQTFBMgA="},"from":"5511994022187","id":"wamid.HBgNNTUxMTk5NDAyMjE4NxUCABIYFDNBNzAxMzVDNTAwNzU2NzhERTA0AA==","timestamp":"1678379630","type":"interactive","interactive":{"type":"button_reply","button_reply":{"id":"button-telefone","title":"TELEFONE DA IMAV"}}}]},"field":"messages"}]}]}
+
+{"messaging_product":"whatsapp","to":"5511994022187","text":{"body":"Nosso número de telefone é o:\r\n1143671577\r\nMuito obrigado."}}
+
+{"messaging_product":"whatsapp","contacts":[{"input":"5511994022187","wa_id":"5511994022187"}],"messages":[{"id":"wamid.HBgNNTUxMTk5NDAyMjE4NxUCABEYEkY5REI1QkY1MzI5QUQ1NDBFMQA="}]}
+
+{"object":"whatsapp_business_account","entry":[{"id":"102569209367228","changes":[{"value":{"messaging_product":"whatsapp","metadata":{"display_phone_number":"15550533002","phone_number_id":"100958496197655"},"statuses":[{"id":"wamid.HBgNNTUxMTk5NDAyMjE4NxUCABEYEkY5REI1QkY1MzI5QUQ1NDBFMQA=","status":"sent","timestamp":"1678379631","recipient_id":"5511994022187","conversation":{"id":"189b24be4bcc6b343e9c35205cff2299","expiration_timestamp":"1678388160","origin":{"type":"user_initiated"}},"pricing":{"billable":true,"pricing_model":"CBP","category":"user_initiated"}}]},"field":"messages"}]}]}
+
+{"object":"whatsapp_business_account","entry":[{"id":"102569209367228","changes":[{"value":{"messaging_product":"whatsapp","metadata":{"display_phone_number":"15550533002","phone_number_id":"100958496197655"},"statuses":[{"id":"wamid.HBgNNTUxMTk5NDAyMjE4NxUCABEYEkY5REI1QkY1MzI5QUQ1NDBFMQA=","status":"delivered","timestamp":"1678379631","recipient_id":"5511994022187","conversation":{"id":"189b24be4bcc6b343e9c35205cff2299","origin":{"type":"user_initiated"}},"pricing":{"billable":true,"pricing_model":"CBP","category":"user_initiated"}}]},"field":"messages"}]}]}
+
+{"object":"whatsapp_business_account","entry":[{"id":"102569209367228","changes":[{"value":{"messaging_product":"whatsapp","metadata":{"display_phone_number":"15550533002","phone_number_id":"100958496197655"},"statuses":[{"id":"wamid.HBgNNTUxMTk5NDAyMjE4NxUCABEYEkY5REI1QkY1MzI5QUQ1NDBFMQA=","status":"read","timestamp":"1678379631","recipient_id":"5511994022187"}]},"field":"messages"}]}]}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

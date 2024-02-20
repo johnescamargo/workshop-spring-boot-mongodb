@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+	xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<script src="/webjars/jquery/jquery.min.js"></script>
+	<script src="/webjars/sockjs-client/sockjs.min.js"></script>
+	<script src="/webjars/stomp-websocket/stomp.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+	<link rel="stylesheet" th:href="@{/css/chat.css}" />
+	<title>Chat</title>
+</head>
+
+<body onload="connect()">
+	<div class="main-div">
+		<div class="main-div-conversations">
+			<header class="div-header">
+				<ul class="my-ul">
+					<li class="my-li"><a class="my-a" th:href="home">ENVIAR</a></li>
+					<li class="my-li"><a class="my-a" th:href="chat">CHAT</a></li>
+					<li class="my-li"><a class="my-a" th:href="register">USUÁRIOS</a></li>
+					<li class="my-li"><a class="my-a" th:href="@{/logout}">SAIR</a></li>
+				</ul>
+			</header>
+
+			<div class="search-bar">
+				<input type="text" id="search-bar-text" />
+			</div>
+
+			<div class="box-contacts" id="box-customers">
+				<!--
+
+	<div class="contact" onClick="reply_click(this.id)" id="11111111">
+		<div class="picture"></div>
+		<div class="div-contact">
+		<span dir="auto" class="name-contact">ODETE FERNANDES DA COSTA E SILVA</span>
+		<span dir="auto" class="phone-contact" id="phone_number">5511994055689</span>
+		</div> 
+	</div>
+-->
+
+			</div>
+		</div>
+		<div class="main-div-chat">
+			<header class="div-header">
+
+				<div class="conversation-box"></div>
+
+			</header>
+			<div class="chat" id="chat-box">
+
+				<!--				
+          <div class="my-message">
+            <p>Some text</p>
+            <div class="time" id="time">
+             <div id="time-conversation">12:01</div> 
+             <div id="ticks">
+              <div class="check"></div>
+              <div class="check2"></div>
+            </div> 
+            </div>
+          </div>
+          <div class="other-message">
+            <p>Other message</p>
+            <div class="time" id="time">
+              <div id="time-conversation">12:01</div> 
+              <div id="ticks">
+                <div class="check"></div>
+                <div class="check2"></div>
+              </div> 
+             </div>
+          </div>
+ 
+				<div class="div-box-dialogue">
+					<div class="message-dialogue">
+						<div class="my-message">
+							<p>Por favor, clique no botão SIM para confirmar ou REMARCAR para remarcar.</p>
+							<div class="time" id="time">
+								<div id="time-conversation">12:01</div>
+								<div id="ticks">
+									<div class="check"></div>
+									<div class="check2"></div>
+								</div>
+							</div>
+						</div>
+						<div class="button-dialogue">
+							<div class="my-message-button">TELEFONE DA IMAVE</div>
+							<div class="my-message-button">WHATSAPP DA IMAVE</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="div-box-dialogue">
+					<div class="message-dialogue-customer">
+						<div class="other-message">
+							<p>Por favor, clique no botão SIM para confirmar ou REMARCAR para remarcar.</p>
+							<div class="time" id="time">
+								<div id="time-conversation">12:01</div>
+								<div id="ticks">
+									<div class="check"></div>
+									<div class="check2"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+-->
+
+			</div>
+			<form>
+				<div id="insert-text">
+					<input type="text" id="insert-text-text" />
+					<button id="send-message" onclick="sendMessageChat()">Enviar</button>
+				</div>
+				<form>
+		</div>
+
+		<script th:src="@{/js/chat.js}"></script>
+</body>
+
+</html>

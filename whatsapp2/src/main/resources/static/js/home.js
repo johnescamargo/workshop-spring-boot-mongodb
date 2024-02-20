@@ -406,6 +406,7 @@ function sendJsonData(data) {
       if (response.data === true) {
         let tr = document.querySelector("#tr-" + id);
         tr.style.backgroundColor = "rgba(58, 159, 97, 0.51)";
+        messageResponse(response.data)
       } else if (response.data === false) {
         let tr = document.querySelector("#tr-" + id);
         tr.style.backgroundColor = "rgba(159, 58, 58, 0.51)";
@@ -444,6 +445,7 @@ function sendJsonAllMessages() {
       sleep(2000);
       modal.style.display = "none";
       setResponseColor(response.data);
+      messageResponse(response.data)
       //console.log(response.data);
     })
     .catch((error) => {
@@ -602,6 +604,11 @@ function updateTemplateText(e) {
   document.getElementById("texto-temp").innerHTML = e.value;  
 }
 
+function updateTemplateName(e) {
+  document.getElementById("name-b").innerHTML = "";
+  document.getElementById("name-b").innerHTML = e.value;  
+}
+
 function getSelectData() {
 
 	axios({
@@ -625,8 +632,8 @@ function sendMessage() {
 	var phone = document.getElementById("telephone").value;
 	var name = document.getElementById("name").value;
 	var text = document.getElementById("textarea").value;
-	var messages = text.split("\n");
-
+	let messages = [];
+	messages = text.split("\n");
 	//console.log(messages);
 
 	axios
@@ -739,13 +746,13 @@ function validateName() {
 function snackbarShowSuccess() {
 	var x = document.getElementById("snackbarOk");
 	x.className = "show";
-	setTimeout(function() { x.className = x.className.replace("show", ""); }, 3000);
+	setTimeout(function() { x.className = x.className.replace("show", ""); }, 4000);
 }
 
 function snackbarShowError() {
 	var x = document.getElementById("snackbarError");
 	x.className = "show";
-	setTimeout(function() { x.className = x.className.replace("show", ""); }, 3000);
+	setTimeout(function() { x.className = x.className.replace("show", ""); }, 4000);
 }
 
 function toggleHamburger(x) {
@@ -761,12 +768,14 @@ function toggleHamburger(x) {
   }
 }
 
-window.toggleHamburger = toggleHamburger;
 window.addEventListener('onload', onloadInit());
 window.addEventListener('onload', onloadInit);
 window.sendJsonData = sendJsonData;
 window.sendJsonAllMessages = sendJsonAllMessages;
 window.validateMessage = validateMessage;
 window.updateTemplateText = updateTemplateText;
-
+window.toggleHamburger = toggleHamburger;
+window.snackbarShowError = snackbarShowError;
+window.snackbarShowSuccess = snackbarShowSuccess;
+window.updateTemplateName = updateTemplateName;
 

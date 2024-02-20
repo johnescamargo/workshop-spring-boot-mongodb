@@ -109,6 +109,24 @@ public class DBMessageResource {
 		return messagedb;
 	}
 	
+	public ImavMessage saveImavMessageIntoDB(ImavMessage message) {
+
+		String timestamp = Long.toString(System.currentTimeMillis() / 1000);
+		String phoneNumber = message.getTo();
+		
+		try {
+			imavMessageRepo.save(message);
+
+			updateCustomersTimestamp(phoneNumber, timestamp);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return message;
+	}
+	
+	
+	
+	
 	public ImavMessage saveImavFrontEndMessageIntoDatabase(MessageModel message, String id) {
 
 		ImavMessage messagedb = new ImavMessage();
