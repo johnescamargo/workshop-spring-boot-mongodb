@@ -216,7 +216,7 @@ function saveToArrayExcel() {
 function htmlDisplay() {
   checkMessageType(); // Type of service
   arrayOfAllMessages = [];
-
+  
   var table_output =
     '<div><button onclick="sendJsonAllMessages()" id="btn-all" class="btn btn-success btn-sm">Enviar para todos</button></div><br>' +
     "<div>" +
@@ -314,6 +314,7 @@ function htmlDisplay() {
 
   document.getElementById("send-div").style.display = "none";
   document.getElementById("excel_data").innerHTML = table_output;
+  document.getElementById("showcase").style.display = "inline-flex";
 }
 
 function displayHtmlTemplate() {
