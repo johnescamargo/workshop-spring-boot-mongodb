@@ -16,7 +16,7 @@ public class EmailService {
 
 	@Value("${spring.mail.username}")
 	private String sender;
-	private final static String EMAIL_LOCAWEB = "credenciamento@imav.com.br";
+	private final static String EMAIL_GMAIL = "credenciamento@imav.com.br";
 
 	public String sendEmail(EmailDto dto) {
 
@@ -27,7 +27,7 @@ public class EmailService {
 
 			// Setting up necessary details
 			mailMessage.setFrom(sender);
-			mailMessage.setTo(EMAIL_LOCAWEB);
+			mailMessage.setTo(EMAIL_GMAIL);
 			mailMessage.setText(
 					"Nome: " + dto.getName() + " | " + "E-mail: " + dto.getEmail() + " | Texto: " + dto.getBody());
 			mailMessage.setSubject(dto.getSubject());
