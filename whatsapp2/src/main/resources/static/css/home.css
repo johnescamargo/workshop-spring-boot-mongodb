@@ -19,9 +19,11 @@ body {
 
 /* Navbar */
 .nav-bar {
-    font-family: "Source Sans Pro", sans-serif;
-    height: 50px;
-    width: 100%;
+  font-family: "Source Sans Pro", sans-serif;
+  height: 50px;
+  width: 100%;
+  position: fixed;
+  z-index: 1;
 }
 
 ul {
@@ -297,6 +299,7 @@ button:focus {
   justify-content: flex-start;
   position: relative;
   z-index: 0;
+  top: 50px;
 }
 
 .container-send input {

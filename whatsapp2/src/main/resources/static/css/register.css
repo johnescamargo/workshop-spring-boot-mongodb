@@ -13,9 +13,11 @@ body {
 
 /* Navbar */
 .nav-bar {
-    font-family: "Source Sans Pro", sans-serif;
-    height: 50px;
-    width: 100%;
+  font-family: "Source Sans Pro", sans-serif;
+  height: 50px;
+  width: 100%;
+  position: fixed;
+  z-index: 1;
 }
 
 ul {
@@ -58,43 +60,49 @@ li a:hover:not(.active) {
 }
 
 .main-div {
-  padding-top: 20px;
-  margin-left: 20px;
-  margin-right: 20px;
+  margin-bottom: 10px;		
+  padding-top: 50px;
+  margin-left: 10px;
+  margin-right: 10px;
   display: flex;
-}
-
-.form-div {
-  width: 30%;
+  flex-wrap: wrap;
 }
 
 .users-container {
-  margin-left: 20px;
-  width: 70%;
+  margin-top: 10px;
+  margin-right: 10px;	
+  max-width: 670px;
+  min-width: 580px;
   padding: 16px;
   background-color: white;
   border-radius: 8px;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%), 0 6px 20px 0 rgb(0 0 0 / 19%);
+  height: 495px;
+  overflow: auto;
 }
 
 /* Add padding to containers */
 .container {
-  padding: 16px;
+  margin-top: 10px;
+  margin-right: 10px;
+  padding: 12px;
   background-color: white;
   border-radius: 8px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  width: 242px;  
 }
 
 /* Full-width input fields */
 input[type="text"],
 input[type="password"] {
   width: 100%;
-  padding: 15px;
-  margin: 5px 0 22px 0;
+  padding: 10px;
+  margin: 5px 0 12px 0;
   display: inline-block;
   border: none;
   background: #dbdbe194;
   border-radius: 8px;
+  	height: 30px;
 }
 
 input[type="text"]:focus,
@@ -106,12 +114,13 @@ input[type="password"]:focus {
 
 select {
   width: 100%;
-  padding: 8px;
-  margin: 5px 0 22px 0;
+  padding-left: 8px;
+  margin: 5px 0 10px 0;
   display: inline-block;
   border: none;
   background: #dbdbe194;
   border-radius: 8px;
+  height: 30px;
 }
 
 .option-tag {
@@ -181,27 +190,23 @@ th {
   height: 40px;
 }
 
-#email {
-  height: 40px;
-}
-
 .button-update {
   background-color: rgb(17 41 70);
-  padding: 8px 16px;
+  padding: 8px 0px;
   color: white;
   border: none;
   cursor: pointer;
-  width: 100%;
+  width: 67px;
   border-radius: 8px;
 }
 
 .button-delete {
   background-color: rgb(139, 23, 23);
-  padding: 8px 16px;
+  padding: 8px 0px;
   color: white;
   border: none;
   cursor: pointer;
-  width: 100%;
+  width: 67px;
   border-radius: 8px;
 }
 
@@ -298,11 +303,217 @@ li button:focus {
   display: block;
 }
 
+/* Time */
+.main-div-time {
+  background-color: rgb(255 255 255);
+  padding: 13px;
+  height: 322px;
+  width: 497px;
+  border-radius: 7px;
+  box-shadow: 0 1px 0px 0 rgba(0, 0, 0, -0.8), 0 4px 20px 0 rgba(0, 0, 0, 0.19);
+  margin-right: 10px;
+  margin-top: 10px;
+}
+
+.week {
+  min-width: 400px;
+  max-width: 600px;
+}
+
+.days {
+  width: 110px;
+}
+
+input[type=time] {
+  border-radius: 6px;
+  border-radius: 6px;
+  border-style: solid;
+  margin-right: 7px;
+}
+
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 24px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 18px;
+  width: 19px;
+  left: 8px;
+  bottom: 3px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked+.slider {
+  background-color: #2196F3;
+}
+
+input:focus+.slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked+.slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+label {
+  display: inline-block;
+  margin-bottom: 0.5rem;
+  margin-right: 3px;
+}
+
+.savebtn {
+  background-color: rgb(17 41 70);
+  color: white;
+  padding: 16px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  opacity: 0.9;
+  border-radius: 8px;
+}
+
+.savebtn:hover {
+  opacity: 1;
+}
+
+/* Time end */
+
+#snackbarError {
+  visibility: hidden;
+  min-width: 250px;
+  margin-left: -125px;
+  background-color: rgb(204, 0, 0);
+  color: #fff;
+  text-align: center;
+  border-radius: 2px;
+  padding: 16px;
+  position: fixed;
+  z-index: 1;
+  left: 50%;
+  bottom: 30px;
+  font-size: 17px;
+}
+
+#snackbarOk {
+  visibility: hidden;
+  min-width: 250px;
+  margin-left: -125px;
+  background-color: rgb(32, 74, 135);
+  color: #fff;
+  text-align: center;
+  border-radius: 2px;
+  padding: 16px;
+  position: fixed;
+  z-index: 1;
+  left: 50%;
+  bottom: 30px;
+  font-size: 17px;
+}
+
+#snackbarOk.show {
+  visibility: visible;
+  -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+  animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+
+#snackbarError.show {
+  visibility: visible;
+  -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+  animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+
+@-webkit-keyframes fadein {
+  from {
+    bottom: 0;
+    opacity: 0;
+  }
+
+  to {
+    bottom: 30px;
+    opacity: 1;
+  }
+}
+
+@keyframes fadein {
+  from {
+    bottom: 0;
+    opacity: 0;
+  }
+
+  to {
+    bottom: 30px;
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes fadeout {
+  from {
+    bottom: 30px;
+    opacity: 1;
+  }
+
+  to {
+    bottom: 0;
+    opacity: 0;
+  }
+}
+
+@keyframes fadeout {
+  from {
+    bottom: 30px;
+    opacity: 1;
+  }
+
+  to {
+    bottom: 0;
+    opacity: 0;
+  }
+}
+
 @media (max-width: 1177px) {
 	
 	.main-div{
-	  padding-top: 70px;
-      margin-left: 20px;
-      margin-right: 20px;
+	  padding-top: 50px;
+      margin-left: 10px;
+      margin-right: 10px;
+      margin-bottom: 10px;
 	}
 }

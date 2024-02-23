@@ -19,6 +19,8 @@ html {
   font-family: "Source Sans Pro", sans-serif;
   height: 50px;
   width: 100%;
+  position: fixed;
+  z-index: 1;
 }
 
 ul {
@@ -245,10 +247,12 @@ h4 {
 .division {
   display: flex;
   background-color: rgb(220, 220, 230);
+  padding-top: 55px;
 }
 
 .division2 {
   display: block;
+  margin-top: 0px;
 }
 
 .customer-div {
@@ -500,4 +504,10 @@ a:hover span {
   border-radius: 6px;
   border-width: 2px;
   width: 100%;
+}
+
+@media (max-width: 1177px) {
+	.division {
+       padding-top: 0px;
+	}
 }

@@ -71,7 +71,7 @@
 	<div class="main-div">
 		<div class="form-div">
 			<div class="container">
-				<h3>Novo usuário</h3>
+				<h4>Novo usuário</h4>
 				<hr />
 
 				<label for="nickname"><b>Nome de usuário</b></label>
@@ -118,7 +118,92 @@
 				</tbody>
 			</table>
 		</div>
+
+
+		<div class="main-div-time">
+			<div class="week">
+				<label class="days" for="week">Segunda-feira</label>
+				<label for="segunda-comeco">De</label>
+				<input type="time" id="segunda-comeco" name="segunda-comeco">
+				<label for="segunda-fim">Até</label>
+				<input type="time" id="segunda-fim" name="segunda-fim">
+				<label class="switch">
+					<input type="checkbox" id="segunda-off">
+					<span class="slider round"></span>
+				</label>
+			</div>
+			<div class="week">
+				<label class="days" for="week">Terça-feira</label>
+				<label for="terca-comeco">De</label>
+				<input type="time" id="terca-comeco" name="appt">
+				<label for="appt">Até</label>
+				<input type="time" id="terca-fim" name="terca-fim">
+				<label class="switch">
+					<input type="checkbox" id="terca-off">
+					<span class="slider round"></span>
+				</label>
+			</div>
+			<div class="week">
+				<label class="days" for="week">Quarta-feira</label>
+				<label for="quarta-comeco">De</label>
+				<input type="time" id="quarta-comeco" name="quarta-comeco">
+				<label for="appt">Até</label>
+				<input type="time" id="quarta-fim" name="quarta-fim">
+				<label class="switch">
+					<input type="checkbox" id="quarta-off">
+					<span class="slider round"></span>
+				</label>
+			</div>
+			<div class="week">
+				<label class="days" for="week">Quinta-feira</label>
+				<label for="quinta-comeco">De</label>
+				<input type="time" id="quinta-comeco" name="quinta-comeco">
+				<label for="appt">Até</label>
+				<input type="time" id="quinta-fim" name="quinta-fim">
+				<label class="switch">
+					<input type="checkbox" id="quinta-off">
+					<span class="slider round"></span>
+				</label>
+			</div>
+			<div class="week">
+				<label class="days" for="week">Sexta-feira</label>
+				<label for="sexta-comeco">De</label>
+				<input type="time" id="sexta-comeco" name="appt">
+				<label for="appt">Até</label>
+				<input type="time" id="sexta-fim" name="sexta-fim">
+				<label class="switch">
+					<input type="checkbox" id="sexta-off">
+					<span class="slider round"></span>
+				</label>
+			</div>
+			<div class="week">
+				<label class="days" for="week">Sábado</label>
+				<label for="sabado-comeco">De</label>
+				<input type="time" id="sabado-comeco" name="appt">
+				<label for="appt">Até</label>
+				<input type="time" id="sabado-fim" name="sabado-fim">
+				<label class="switch">
+					<input type="checkbox" id="sabado-off">
+					<span class="slider round"></span>
+				</label>
+			</div>
+			<div class="week">
+				<label class="days" for="week">Domingo</label>
+				<label for="domingo-comeco">De</label>
+				<input type="time" id="domingo-comeco" name="domingo-comeco">
+				<label for="domingo-fim">Até</label>
+				<input type="time" id="domingo-fim" name="domingo-fim">
+				<label class="switch">
+					<input type="checkbox" id="domingo-off">
+					<span class="slider round"></span>
+				</label>
+			</div>
+			<button onclick="updateTime()" class="savebtn">Salvar</button>
+		</div>
 	</div>
+
+	<div id="snackbarOk">Horários salvos com sucesso..</div>
+	<div id="snackbarError">Erro, falha ao salvar horários..</div>
 
 </body>
 
