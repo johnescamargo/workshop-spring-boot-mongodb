@@ -34,12 +34,14 @@
 			<div sec:authorize="hasAuthority('NF')">
 				<li><a onclick="disconnect()" th:href="particular">NF Particular</a></li>
 				<li><a onclick="disconnect()" id="active" class="active" th:href="notafiscal">Nota Fiscal</a></li>
+				<li><a onclick="disconnect()" th:href="convenios">Convênios</a></li>
 			</div>
 
 			<div sec:authorize="hasAuthority('USER')">
 				<li><a onclick="disconnect()" th:href="particular">NF Particular</a></li>
 				<li><a onclick="disconnect()" id="active" class="active" th:href="notafiscal">Nota Fiscal</a></li>
-				<li><a onclick="disconnect()" th:href="home">Enviar Agenda</a></li>
+				<li><a onclick="disconnect()" th:href="convenios">Convênios</a></li>
+				<li><a onclick="disconnect()" th:href="send">Enviar Agenda</a></li>
 				<li><a onclick="disconnect()" th:href="chat">Chat</a></li>
 				<li><a onclick="disconnect()" th:href="confirmation">Confirmação</a></li>
 			</div>
@@ -47,11 +49,11 @@
 			<div sec:authorize="hasAuthority('ADMIN')">
 				<li><a onclick="disconnect()" th:href="particular">NF Particular</a></li>
 				<li><a onclick="disconnect()" id="active" class="active" th:href="notafiscal">Nota Fiscal</a></li>
-				<li><a onclick="disconnect()" th:href="home">Enviar Agenda</a></li>
+				<li><a onclick="disconnect()" th:href="convenios">Convênios</a></li>
+				<li><a onclick="disconnect()" th:href="send">Enviar Agenda</a></li>
 				<li><a onclick="disconnect()" th:href="chat">Chat</a></li>
 				<li><a onclick="disconnect()" th:href="confirmation">Confirmação</a></li>
 				<li><a onclick="disconnect()" th:href="register">Novo Usuário</a></li>
-				<li><a onclick="disconnect()" th:href="settings">Configurações</a></li>
 			</div>
 
 			<div id="exit-config">

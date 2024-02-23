@@ -1,23 +1,19 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+	xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 
 <head>
-	<meta charset="UTF-8" />
-	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
-	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-		integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
 	<script src="/webjars/jquery/jquery.min.js"></script>
 	<script src="/webjars/sockjs-client/sockjs.min.js"></script>
 	<script src="/webjars/stomp-websocket/stomp.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-	<link rel="stylesheet" th:href="@{/css/confirmation.css}" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+	<link rel="stylesheet" th:href="@{/css/convenios.css}" />
 	<link rel="stylesheet" th:href="@{/css/hamburger.css}">
-	<script defer th:type="module" th:src="@{/js/confirmation.js}"></script>
+	<script defer th:type="module" th:src="@{/js/convenios.js}"></script>
 	<link rel="icon" type="image/x-icon" th:href="@{/img/imav-icon.jpg}">
-	<title>Confirmações</title>
+	<title>Convênios</title>
 </head>
 
 <body>
@@ -28,30 +24,30 @@
 		<div class="bar3"></div>
 	</label>
 
-	<nav class="nav-bar">
+	<nav class="nav-bar" id="nav-bar-div">
 		<ul id="div-ul">
 			<div sec:authorize="hasAuthority('NF')">
 				<li><a onclick="disconnect()" th:href="particular">NF Particular</a></li>
 				<li><a onclick="disconnect()" th:href="notafiscal">Nota Fiscal</a></li>
-				<li><a onclick="disconnect()" th:href="convenios">Convênios</a></li>
+				<li><a onclick="disconnect()" id="active" class="active" th:href="convenios">Convênios</a></li>
 			</div>
 
 			<div sec:authorize="hasAuthority('USER')">
 				<li><a onclick="disconnect()" th:href="particular">NF Particular</a></li>
 				<li><a onclick="disconnect()" th:href="notafiscal">Nota Fiscal</a></li>
-				<li><a onclick="disconnect()" th:href="convenios">Convênios</a></li>
+				<li><a onclick="disconnect()" id="active" class="active" th:href="convenios">Convênios</a></li>
 				<li><a onclick="disconnect()" th:href="send">Enviar Agenda</a></li>
 				<li><a onclick="disconnect()" th:href="chat">Chat</a></li>
-				<li><a onclick="disconnect()" id="active" class="active" th:href="confirmation">Confirmação</a></li>
+				<li><a onclick="disconnect()" th:href="confirmation">Confirmação</a></li>
 			</div>
 
 			<div sec:authorize="hasAuthority('ADMIN')">
 				<li><a onclick="disconnect()" th:href="particular">NF Particular</a></li>
 				<li><a onclick="disconnect()" th:href="notafiscal">Nota Fiscal</a></li>
-				<li><a onclick="disconnect()" th:href="convenios">Convênios</a></li>
+				<li><a onclick="disconnect()" id="active" class="active" th:href="convenios">Convênios</a></li>
 				<li><a onclick="disconnect()" th:href="send">Enviar Agenda</a></li>
 				<li><a onclick="disconnect()" th:href="chat">Chat</a></li>
-				<li><a onclick="disconnect()" id="active" class="active" th:href="confirmation">Confirmação</a></li>
+				<li><a onclick="disconnect()" th:href="confirmation">Confirmação</a></li>
 				<li><a onclick="disconnect()" th:href="register">Novo Usuário</a></li>
 			</div>
 
@@ -61,8 +57,14 @@
 							Sair</i></a>
 				</li>
 				<li class="exit">
-					<a onclick="disconnect()" th:href="config"><i class="fa fa-user fa-1.5x" aria-hidden="true"><span>
-							</span><span th:remove="tag" sec:authentication="name"> </span></i></a>
+					<a onclick="disconnect()" th:href="config">
+						<i class="fa fa-user fa-1.5x" aria-hidden="true">
+							<span> </span>
+							<span id="my-username">
+								<span th:remove="tag" sec:authentication="name"></span>
+							</span>
+						</i>
+					</a>
 				</li>
 			</div>
 
@@ -72,23 +74,7 @@
 		</ul>
 	</nav>
 
-	<div class="search-and-header">
-		<div class="search-bar">
-			<i class="fa fa-search fa-2x" aria-hidden="true"></i>
-			<input type="text" id="search-bar-text" />
-		</div>
 
-		<header class="div-header">
-			<input id="datepicker" type="date" onchange="loadContent(this.value)" class="datepicker"
-				data-date-format="dd/MM/yyyy">
-		</header>
-	</div>
-
-
-	<div class="main-div" id="main-div">
-
-
-	</div>
 </body>
 
 </html>

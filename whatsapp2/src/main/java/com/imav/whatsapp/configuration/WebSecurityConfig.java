@@ -70,20 +70,21 @@ public class WebSecurityConfig {
 				.requestMatchers(
 						  "/particular"
 						, "/notafiscal"
-						, "/home"
+						, "/convenios"
+						, "/send"
 						, "/config"
 						).hasAnyAuthority("NF", "USER", "ADMIN")
 				.requestMatchers(
 						  "/particular"
 						, "/notafiscal"
-						, "/home"
+						, "/convenios"
+						, "/send"
 						, "/chat"
 						, "/config"
 						, "/confirmation"
 						).hasAnyAuthority("USER", "ADMIN")
 				.requestMatchers(
-						  "/register", 
-						  "/settings"
+						  "/register"
 						  ).hasAuthority("ADMIN")
 				.anyRequest().authenticated()
 				.and()

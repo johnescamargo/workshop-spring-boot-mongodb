@@ -19,10 +19,10 @@ public class MvcConfig implements WebMvcConfigurer {
 		return "login";
 	}
 
-	@GetMapping("/home")
-	public String hello() {
+	@GetMapping("/send")
+	public String send() {
 
-		return "home";
+		return "send";
 	}
 	
 	@GetMapping("/chat")
@@ -43,10 +43,10 @@ public class MvcConfig implements WebMvcConfigurer {
 		return "config";
 	}
 	
-	@GetMapping("/settings")
-	public String settings() {
+	@GetMapping("/convenios")
+	public String convenios() {
 
-		return "settings";
+		return "convenios";
 	}
 
 	@GetMapping("/register")

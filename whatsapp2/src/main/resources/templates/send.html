@@ -13,9 +13,9 @@
 	<script src="/webjars/sockjs-client/sockjs.min.js"></script>
 	<script src="/webjars/stomp-websocket/stomp.min.js"></script>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
-	<link rel="stylesheet" th:href="@{/css/home.css}" />
+	<link rel="stylesheet" th:href="@{/css/send.css}" />
 	<link rel="stylesheet" th:href="@{/css/hamburger.css}">
-	<script defer th:type="module" th:src="@{/js/home.js}"></script>
+	<script defer th:type="module" th:src="@{/js/send.js}"></script>
 	<link rel="icon" type="image/x-icon" th:href="@{/img/imav-icon.jpg}">
 	<title>Enviar Agenda</title>
 </head>
@@ -35,12 +35,14 @@
 			<div sec:authorize="hasAuthority('NF')">
 				<li><a onclick="disconnect()" th:href="particular">NF Particular</a></li>
 				<li><a onclick="disconnect()" th:href="notafiscal">Nota Fiscal</a></li>
+				<li><a onclick="disconnect()" th:href="convenios">Convênios</a></li>
 			</div>
 
 			<div sec:authorize="hasAuthority('USER')">
 				<li><a onclick="disconnect()" th:href="particular">NF Particular</a></li>
 				<li><a onclick="disconnect()" th:href="notafiscal">Nota Fiscal</a></li>
-				<li><a onclick="disconnect()" id="active" class="active" th:href="home">Enviar Agenda</a></li>
+				<li><a onclick="disconnect()" th:href="convenios">Convênios</a></li>
+				<li><a onclick="disconnect()" id="active" class="active" th:href="send">Enviar Agenda</a></li>
 				<li><a onclick="disconnect()" th:href="chat">Chat</a></li>
 				<li><a onclick="disconnect()" th:href="confirmation">Confirmação</a></li>
 			</div>
@@ -48,11 +50,11 @@
 			<div sec:authorize="hasAuthority('ADMIN')">
 				<li><a onclick="disconnect()" th:href="particular">NF Particular</a></li>
 				<li><a onclick="disconnect()" th:href="notafiscal">Nota Fiscal</a></li>
-				<li><a onclick="disconnect()" id="active" class="active" th:href="home">Enviar Agenda</a></li>
+				<li><a onclick="disconnect()" th:href="convenios">Convênios</a></li>
+				<li><a onclick="disconnect()" id="active" class="active" th:href="send">Enviar Agenda</a></li>
 				<li><a onclick="disconnect()" th:href="chat">Chat</a></li>
 				<li><a onclick="disconnect()" th:href="confirmation">Confirmação</a></li>
 				<li><a onclick="disconnect()" th:href="register">Novo Usuário</a></li>
-				<li><a onclick="disconnect()" th:href="settings">Configurações</a></li>
 			</div>
 
 			<div id="exit-config">
