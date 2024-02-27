@@ -2,92 +2,91 @@ var stompClient = null;
 const dropdown = document.querySelector("#exit");
 
 export default function connect() {
-	websocketFunction();
-	loadWantsToTalk();
+  websocketFunction();
+  loadWantsToTalk();
 }
 
 // ********** Websocket connection
 export function setConnected(connected) {
-	$("#connect").prop("disabled", connected);
-	$("#disconnect").prop("disabled", !connected);
+  $("#connect").prop("disabled", connected);
+  $("#disconnect").prop("disabled", !connected);
 }
 
 export function disconnect() {
-	if (stompClient !== null) {
-		stompClient.disconnect();
-	}
-	setConnected(false);
-	console.log("Disconnected");
+  if (stompClient !== null) {
+    stompClient.disconnect();
+  }
+  setConnected(false);
+  console.log("Disconnected");
 }
 
 export function websocketFunction() {
-	// HTTPS for TLS conncetions VPS
-	//var socket = new SockJS("https://www.web.login.imav.com.br:5000/websocket-server");
+  // HTTPS for TLS conncetions VPS
+  //var socket = new SockJS("https://www.web.login.imav.com.br:5000/websocket-server");
 
-	// Localhost
-	var socket = new SockJS("http://localhost:5000/websocket-server");
+  // Localhost
+  var socket = new SockJS("http://localhost:5000/websocket-server");
 
-	stompClient = Stomp.over(socket);
-	stompClient.connect({}, function() {
-		setConnected(true);
+  stompClient = Stomp.over(socket);
+  stompClient.connect({}, function () {
+    setConnected(true);
 
-		// Update reload DOM
-		stompClient.subscribe("/topic/talks", function(response) {
-			//console.log(response);
-			loadWantsToTalk();
-		});
-	});
+    // Update reload DOM
+    stompClient.subscribe("/topic/talks", function (response) {
+      //console.log(response);
+      loadWantsToTalk();
+    });
+  });
 }
 
 export function loadWantsToTalk() {
-	axios({
-		method: "get",
-		url: "/talk/all",
-	}).then(function(response) {
-		if (response.status === 200) {
-			//console.log(response);
-			wantsTotalkToHtml(response.data);
-		} else if (response.status === 404) {
-			console.log("404 - Pacientes não encontrados...");
-		} else {
-			console.log(response);
-		}
-	});
+  axios({
+    method: "get",
+    url: "/talk/all",
+  }).then(function (response) {
+    if (response.status === 200) {
+      //console.log(response);
+      wantsTotalkToHtml(response.data);
+    } else if (response.status === 404) {
+      console.log("404 - Pacientes não encontrados...");
+    } else {
+      console.log(response);
+    }
+  });
 }
 
 export function wantsTotalkToHtml(data) {
+  var dataLength = data.length;
+  var dataHtml = "";
+  document.getElementById("exit").innerHTML = dataHtml;
 
-	var dataLength = data.length;
-	var dataHtml = "";
-	document.getElementById("exit").innerHTML = dataHtml;
+  if (dataLength > 0) {
+    dataHtml =
+      '<button class="dropbtn">' +
+      '<div id="alert-div">' +
+      '<div id="alert-number">' +
+      dataLength +
+      "</div>" +
+      "</div>" +
+      "</button>" +
+      '<div class="dropdown-content" id="myDropdown">';
 
-	if (dataLength > 0) {
-		dataHtml = '<button class="dropbtn">'
-			+ '<div id="alert-div">'
-			+ '<div id="alert-number">' + dataLength + '</div>'
-			+ '</div>'
-			+ '</button>'
-			+ '<div class="dropdown-content" id="myDropdown">';
+    for (var i = 0; i < data.length; i++) {
+      dataHtml += "<p>" + data[i].name + " - " + data[i].phone + "</p>";
+    }
 
-		for (var i = 0; i < data.length; i++) {
-			dataHtml += '<p>' + data[i].name + ' - ' + data[i].phone + '</p>';
-		}
-
-		dataHtml += '</div>';
-	}
-	document.getElementById("exit").innerHTML = dataHtml;
+    dataHtml += "</div>";
+  }
+  document.getElementById("exit").innerHTML = dataHtml;
 }
 
 /* When the user clicks on the button, 
 toggle between hiding and showing the dropdown content */
 export function myDropdown() {
-	document.getElementById("myDropdown").classList.toggle("show");
+  document.getElementById("myDropdown").classList.toggle("show");
 }
 
 // add a click event listener to the div
-dropdown.addEventListener("click", function() {
-	myDropdown();
+dropdown.addEventListener("click", function () {
+  myDropdown();
 });
-
-
-

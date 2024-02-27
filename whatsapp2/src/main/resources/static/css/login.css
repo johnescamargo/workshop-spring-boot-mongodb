@@ -18,16 +18,15 @@ body {
 
 /* Add padding to containers */
 .container {
-    height: fit-content;
-    /* padding: 16px; */
-    background-color: white;
-    border-radius: 8px;
-    width: 300px;
-    position: absolute;
-    top: 156px;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    padding-left: 25px;
-    padding-right: 25px;
+  height: fit-content;
+  background-color: white;
+  border-radius: 8px;
+  width: 300px;
+  position: absolute;
+  top: 156px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  padding-left: 25px;
+  padding-right: 25px;
 }
 
 h1 {
@@ -43,7 +42,7 @@ input[type="password"] {
   padding-left: 15px;
   padding-right: 15px;
   padding-top: 10px;
-  padding-bottom: 10px;  
+  padding-bottom: 10px;
   margin: 5px 0 15px 0;
   display: inline-block;
   border: none;

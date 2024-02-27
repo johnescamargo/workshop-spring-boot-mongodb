@@ -11,9 +11,9 @@ html {
 
 /* Navbar */
 .nav-bar {
-    font-family: "Source Sans Pro", sans-serif;
-    height: 50px;
-    width: 100%;
+  font-family: "Source Sans Pro", sans-serif;
+  height: 50px;
+  width: 100%;
 }
 
 ul {
@@ -132,7 +132,7 @@ li a:hover:not(.active) {
 }
 
 .div-contact span {
-	/* font-family: 'Montserrat', sans-serif; */
+  /* font-family: 'Montserrat', sans-serif; */
   font-family: Arial, Helvetica, sans-serif;
   font-size: 15px;
   padding-left: 10px;
@@ -282,7 +282,6 @@ li a:hover:not(.active) {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
-
 .other-message-interactive {
   border-left: 6px solid rgb(255 80 80);
   min-width: 159px;
@@ -299,9 +298,8 @@ li a:hover:not(.active) {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
-
 p {
-  font-family: 'Montserrat', sans-serif;	
+  font-family: "Montserrat", sans-serif;
   margin-top: 6px;
   margin-left: 2px;
 }
@@ -329,8 +327,8 @@ p {
   transform: rotate(45deg);
   height: var(--height);
   width: var(--width);
-  border-bottom: var(--borderWidth) solid  #a7a7a7;
-  border-right: var(--borderWidth) solid  #a7a7a7;
+  border-bottom: var(--borderWidth) solid #a7a7a7;
+  border-right: var(--borderWidth) solid #a7a7a7;
 }
 
 .check2 {
@@ -339,7 +337,7 @@ p {
   transform: rotate(45deg);
   height: var(--height);
   width: var(--width);
-  border-right: var(--height2) solid  #a7a7a7;
+  border-right: var(--height2) solid #a7a7a7;
 }
 
 .check3 {
@@ -517,21 +515,21 @@ li button:focus {
 
 @-webkit-keyframes zoom {
   from {
-    -webkit-transform: scale(0)
+    -webkit-transform: scale(0);
   }
 
   to {
-    -webkit-transform: scale(1)
+    -webkit-transform: scale(1);
   }
 }
 
 @keyframes zoom {
   from {
-    transform: scale(0)
+    transform: scale(0);
   }
 
   to {
-    transform: scale(1)
+    transform: scale(1);
   }
 }
 

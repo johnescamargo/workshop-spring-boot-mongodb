@@ -250,7 +250,7 @@ li button:focus {
 }
 
 button:focus {
-    outline: 5px none -webkit-focus-ring-color;
+  outline: 5px none -webkit-focus-ring-color;
 }
 
 #myDropdown {
@@ -327,17 +327,17 @@ button:focus {
 }
 
 .my-message {
- border-radius: 10px;
- display: flow-root;
- background-color: rgb(23 57 97);
- font-size: 14px;
- color: rgb(255 255 255);
- margin-bottom: 5px;
- margin-top: 14px;
- padding-left: 5px;
- padding-right: 5px;
- padding-top: 5px;
- box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  border-radius: 10px;
+  display: flow-root;
+  background-color: rgb(23 57 97);
+  font-size: 14px;
+  color: rgb(255 255 255);
+  margin-bottom: 5px;
+  margin-top: 14px;
+  padding-left: 5px;
+  padding-right: 5px;
+  padding-top: 5px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 .my-message-button {
@@ -500,7 +500,7 @@ tbody {
 }
 
 @media (max-width: 1177px) {
-	.home-div {
-		top:50px;
-	}
+  .home-div {
+    top: 50px;
+  }
 }

@@ -60,7 +60,7 @@ li a:hover:not(.active) {
 }
 
 .main-div {
-  margin-bottom: 10px;		
+  margin-bottom: 10px;
   padding-top: 50px;
   margin-left: 10px;
   margin-right: 10px;
@@ -70,7 +70,7 @@ li a:hover:not(.active) {
 
 .users-container {
   margin-top: 10px;
-  margin-right: 10px;	
+  margin-right: 10px;
   max-width: 670px;
   min-width: 580px;
   padding: 16px;
@@ -89,7 +89,7 @@ li a:hover:not(.active) {
   background-color: white;
   border-radius: 8px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-  width: 242px;  
+  width: 242px;
 }
 
 /* Full-width input fields */
@@ -102,7 +102,7 @@ input[type="password"] {
   border: none;
   background: #dbdbe194;
   border-radius: 8px;
-  	height: 30px;
+  height: 30px;
 }
 
 input[type="text"]:focus,
@@ -324,13 +324,12 @@ li button:focus {
   width: 110px;
 }
 
-input[type=time] {
+input[type="time"] {
   border-radius: 6px;
   border-radius: 6px;
   border-style: solid;
   margin-right: 7px;
 }
-
 
 .switch {
   position: relative;
@@ -353,8 +352,8 @@ input[type=time] {
   right: 0;
   bottom: 0;
   background-color: #ccc;
-  -webkit-transition: .4s;
-  transition: .4s;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
 }
 
 .slider:before {
@@ -365,19 +364,19 @@ input[type=time] {
   left: 8px;
   bottom: 3px;
   background-color: white;
-  -webkit-transition: .4s;
-  transition: .4s;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
 }
 
-input:checked+.slider {
-  background-color: #2196F3;
+input:checked + .slider {
+  background-color: #2196f3;
 }
 
-input:focus+.slider {
-  box-shadow: 0 0 1px #2196F3;
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196f3;
 }
 
-input:checked+.slider:before {
+input:checked + .slider:before {
   -webkit-transform: translateX(26px);
   -ms-transform: translateX(26px);
   transform: translateX(26px);
@@ -509,11 +508,10 @@ label {
 }
 
 @media (max-width: 1177px) {
-	
-	.main-div{
-	  padding-top: 50px;
-      margin-left: 10px;
-      margin-right: 10px;
-      margin-bottom: 10px;
-	}
+  .main-div {
+    padding-top: 50px;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+  }
 }

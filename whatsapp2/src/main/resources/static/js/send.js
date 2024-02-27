@@ -24,10 +24,9 @@ let newArray = [];
 var cssWrong = "border: 2px solid #ff0000;";
 var cssRight = "border: 1px solid #ced4da;";
 
-
-function onloadInit(){
-	getSelectData();
-	websocket.connect;
+function onloadInit() {
+  getSelectData();
+  websocket.connect;
 }
 
 excel_file.addEventListener("change", (event) => {
@@ -216,7 +215,7 @@ function saveToArrayExcel() {
 function htmlDisplay() {
   checkMessageType(); // Type of service
   arrayOfAllMessages = [];
-  
+
   var table_output =
     '<div><button onclick="sendJsonAllMessages()" id="btn-all" class="btn btn-success btn-sm">Enviar para todos</button></div><br>' +
     "<div>" +
@@ -322,7 +321,7 @@ function displayHtmlTemplate() {
     '<div class="message-dialogue">' +
     '<div class="template-model"><b>Modelo</b></div>' +
     '<div class="my-message">' +
-    '<p>Olá <b>' +
+    "<p>Olá <b>" +
     excel_array[0].excel_name +
     "</b>, espero que esteja bem. 😊</p>" +
     "<p>Somos da Clínica de Olhos <b>IMAV</b> e estamos entrando em contato " +
@@ -383,7 +382,7 @@ function sendJsonData(data) {
   var id = data.slice(4);
 
   var username = document.getElementById("username").innerText;
-  var date = document.querySelector('#date-' + id).innerText;
+  var date = document.querySelector("#date-" + id).innerText;
   var time = document.querySelector("#time-" + id).value;
   var name = document.querySelector("#name-" + id).value;
   var phone = document.querySelector("#phone-" + id).value;
@@ -392,7 +391,7 @@ function sendJsonData(data) {
 
   axios
     .post("/message/send", {
-	  user: username,		
+      user: username,
       date: date,
       time: time,
       name: name,
@@ -407,7 +406,7 @@ function sendJsonData(data) {
       if (response.data === true) {
         let tr = document.querySelector("#tr-" + id);
         tr.style.backgroundColor = "rgba(58, 159, 97, 0.51)";
-        messageResponse(response.data)
+        messageResponse(response.data);
       } else if (response.data === false) {
         let tr = document.querySelector("#tr-" + id);
         tr.style.backgroundColor = "rgba(159, 58, 58, 0.51)";
@@ -446,7 +445,7 @@ function sendJsonAllMessages() {
       sleep(2000);
       modal.style.display = "none";
       setResponseColor(response.data);
-      messageResponse(response.data)
+      messageResponse(response.data);
       //console.log(response.data);
     })
     .catch((error) => {
@@ -559,7 +558,6 @@ function sleep(milliseconds) {
 
 // Get everything new from DOM
 function updateArrayOfAllMessages() {
-
   newArray = [];
 
   let textArea = document.getElementById("textarea1");
@@ -570,7 +568,7 @@ function updateArrayOfAllMessages() {
   for (var i = 0; i < arrayOfAllMessages.length; i++) {
     var id = count;
 
-    var date = document.querySelector('#date-' + id).innerText;
+    var date = document.querySelector("#date-" + id).innerText;
     var time = document.querySelector("#time-" + id).value;
     var name = document.querySelector("#name-" + id).value;
     var phone = document.querySelector("#phone-" + id).value;
@@ -602,158 +600,168 @@ const messageMapeamento = ["Chegar com pelo menos 10 minutos de antecedência."]
 
 function updateTemplateText(e) {
   document.getElementById("texto-temp").innerHTML = "";
-  document.getElementById("texto-temp").innerHTML = e.value;  
+  document.getElementById("texto-temp").innerHTML = e.value;
 }
 
 function updateTemplateName(e) {
   document.getElementById("name-b").innerHTML = "";
-  document.getElementById("name-b").innerHTML = e.value;  
+  document.getElementById("name-b").innerHTML = e.value;
 }
 
 function getSelectData() {
-
-	axios({
-		method: "get",
-		url: "/countries/getcountries",
-	}).then(function(response) {
-		if (response.status === 200) {
-			//console.log(response);
-			setSelectHtml(response.data);
-		} else if (response.status === 404) {
-			console.log("404 - Lista de paises não encontrada...");
-		} else {
-			console.log(response);
-		}
-	});
+  axios({
+    method: "get",
+    url: "/countries/getcountries",
+  }).then(function (response) {
+    if (response.status === 200) {
+      //console.log(response);
+      setSelectHtml(response.data);
+    } else if (response.status === 404) {
+      console.log("404 - Lista de paises não encontrada...");
+    } else {
+      console.log(response);
+    }
+  });
 }
 
 function sendMessage() {
-	document.getElementById("myModal").style.display = "block";
-	var countryCodeSelect = document.getElementById("countryCodeSelect").value;
-	var phone = document.getElementById("telephone").value;
-	var name = document.getElementById("name").value;
-	var text = document.getElementById("textarea").value;
-	let messages = [];
-	messages = text.split("\n");
-	//console.log(messages);
+  document.getElementById("myModal").style.display = "block";
+  var countryCodeSelect = document.getElementById("countryCodeSelect").value;
+  var phone = document.getElementById("telephone").value;
+  var name = document.getElementById("name").value;
+  var text = document.getElementById("textarea").value;
+  let messages = [];
+  messages = text.split("\n");
+  //console.log(messages);
 
-	axios
-		.post("/message/envia", {
-			internacionalCode: countryCodeSelect,
-			phone: phone,
-			name: name,
-			messages: messages
-		})
-		.then(function(response) {
-			if (response.status === 200) {
-				document.getElementById("myModal").style.display = "none";
-				messageResponse(response.data)
-			} else if (response.status === 400) {
-				console.log(response);
-			} else {
-				console.log(response);
-			}
-		});
+  axios
+    .post("/message/envia", {
+      internacionalCode: countryCodeSelect,
+      phone: phone,
+      name: name,
+      messages: messages,
+    })
+    .then(function (response) {
+      if (response.status === 200) {
+        document.getElementById("myModal").style.display = "none";
+        messageResponse(response.data);
+      } else if (response.status === 400) {
+        console.log(response);
+      } else {
+        console.log(response);
+      }
+    });
 }
 
 function messageResponse(data) {
-
-	if (data) {
-		snackbarShowSuccess();
-	} else {
-		snackbarShowError();
-	}
+  if (data) {
+    snackbarShowSuccess();
+  } else {
+    snackbarShowError();
+  }
 }
 
 function setSelectHtml(data) {
+  var selectHtml =
+    '<select id="countryCodeSelect">' +
+    '<option value="55">Brasil (+55)</option>';
 
-	var selectHtml = '<select id="countryCodeSelect">'
-		+ '<option value="55">Brasil (+55)</option>';
+  for (var i = 0; i < data.length; i++) {
+    selectHtml +=
+      '<option value="' +
+      data[i].code +
+      '">' +
+      data[i].country +
+      " (+" +
+      data[i].code +
+      ")</option>";
+  }
 
-	for (var i = 0; i < data.length; i++) {
-		selectHtml += '<option value="' + data[i].code + '">' + data[i].country + ' (+' + data[i].code + ')</option>';
-	}
+  selectHtml += "</select>";
 
-	selectHtml += '</select>';
-
-	document.getElementById("select-div").innerHTML = selectHtml;
+  document.getElementById("select-div").innerHTML = selectHtml;
 }
 
 function validateMessage() {
-	var code = validateCode();
-	var phone = validatePhoneNumber();
-	var message = validateTextArea();
-	var name = validateName();
+  var code = validateCode();
+  var phone = validatePhoneNumber();
+  var message = validateTextArea();
+  var name = validateName();
 
-	if (code && phone && message && name) {
-		sendMessage();
-	}
+  if (code && phone && message && name) {
+    sendMessage();
+  }
 }
 
 function validateCode() {
-	var countryCodeSelect = document.getElementById("countryCodeSelect");
-	var valueSelect = countryCodeSelect.options[countryCodeSelect.selectedIndex].value;
+  var countryCodeSelect = document.getElementById("countryCodeSelect");
+  var valueSelect =
+    countryCodeSelect.options[countryCodeSelect.selectedIndex].value;
 
-	if (valueSelect) {
-		document.getElementById("countryCodeSelect").style = cssRight;
-		return true;
-	} else {
-		document.getElementById("countryCodeSelect").style = cssWrong;
-		return false;
-	}
+  if (valueSelect) {
+    document.getElementById("countryCodeSelect").style = cssRight;
+    return true;
+  } else {
+    document.getElementById("countryCodeSelect").style = cssWrong;
+    return false;
+  }
 }
 
 function validatePhoneNumber() {
-	var phone = document.getElementById("telephone").value;
+  var phone = document.getElementById("telephone").value;
 
-	if (phone) {
-		if (!isNaN(phone)) {
-			document.getElementById("telephone").style = cssRight;
-			return true;
-		} else {
-			document.getElementById("telephone").style = cssWrong;
-			return false
-		}
-	} else {
-		document.getElementById("telephone").style = cssWrong;
-		return false;
-	}
+  if (phone) {
+    if (!isNaN(phone)) {
+      document.getElementById("telephone").style = cssRight;
+      return true;
+    } else {
+      document.getElementById("telephone").style = cssWrong;
+      return false;
+    }
+  } else {
+    document.getElementById("telephone").style = cssWrong;
+    return false;
+  }
 }
 
 function validateTextArea() {
-	var text = document.getElementById("textarea").value;
+  var text = document.getElementById("textarea").value;
 
-	if (text) {
-		document.getElementById("textarea").style = cssRight;
-		return true;
-	} else {
-		document.getElementById("textarea").style = cssWrong;
-		return false;
-	}
+  if (text) {
+    document.getElementById("textarea").style = cssRight;
+    return true;
+  } else {
+    document.getElementById("textarea").style = cssWrong;
+    return false;
+  }
 }
 
 function validateName() {
-	var name = document.getElementById("name").value;
+  var name = document.getElementById("name").value;
 
-	if (name) {
-		document.getElementById("name").style = cssRight;
-		return true;
-	} else {
-		document.getElementById("name").style = cssWrong;
-		return false;
-	}
+  if (name) {
+    document.getElementById("name").style = cssRight;
+    return true;
+  } else {
+    document.getElementById("name").style = cssWrong;
+    return false;
+  }
 }
 
 function snackbarShowSuccess() {
-	var x = document.getElementById("snackbarOk");
-	x.className = "show";
-	setTimeout(function() { x.className = x.className.replace("show", ""); }, 4000);
+  var x = document.getElementById("snackbarOk");
+  x.className = "show";
+  setTimeout(function () {
+    x.className = x.className.replace("show", "");
+  }, 4000);
 }
 
 function snackbarShowError() {
-	var x = document.getElementById("snackbarError");
-	x.className = "show";
-	setTimeout(function() { x.className = x.className.replace("show", ""); }, 4000);
+  var x = document.getElementById("snackbarError");
+  x.className = "show";
+  setTimeout(function () {
+    x.className = x.className.replace("show", "");
+  }, 4000);
 }
 
 function toggleHamburger(x) {
@@ -769,8 +777,8 @@ function toggleHamburger(x) {
   }
 }
 
-window.addEventListener('onload', onloadInit());
-window.addEventListener('onload', onloadInit);
+window.addEventListener("onload", onloadInit());
+window.addEventListener("onload", onloadInit);
 window.sendJsonData = sendJsonData;
 window.sendJsonAllMessages = sendJsonAllMessages;
 window.validateMessage = validateMessage;
@@ -779,4 +787,3 @@ window.toggleHamburger = toggleHamburger;
 window.snackbarShowError = snackbarShowError;
 window.snackbarShowSuccess = snackbarShowSuccess;
 window.updateTemplateName = updateTemplateName;
-

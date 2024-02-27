@@ -294,7 +294,7 @@ label {
 }
 
 label[for="prontuario"] {
-  width: 170px;
+  width: 190px;
   padding-top: 4px;
   padding-right: 3px;
 }
@@ -507,7 +507,7 @@ a:hover span {
 }
 
 @media (max-width: 1177px) {
-	.division {
-       padding-top: 0px;
-	}
+  .division {
+    padding-top: 0px;
+  }
 }

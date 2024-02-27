@@ -1,8 +1,8 @@
 import Websocket from "./websocket.js";
 const websocket = new Websocket();
 
-function onloadInit(){
-	websocket.connect;
+function onloadInit() {
+  websocket.connect;
 }
 
 function toggleHamburger(x) {
@@ -18,10 +18,6 @@ function toggleHamburger(x) {
   }
 }
 
-window.addEventListener('onload', onloadInit());
-window.addEventListener('onload', onloadInit);
+window.addEventListener("onload", onloadInit());
+window.addEventListener("onload", onloadInit);
 window.toggleHamburger = toggleHamburger;
-
-
-
-

@@ -4,8 +4,8 @@ const websocket = new Websocket();
 let passwordText = document.getElementById("psw");
 let passwordText2 = document.getElementById("psw-repeat");
 
-function onloadInit(){
-	websocket.connect;
+function onloadInit() {
+  websocket.connect;
 }
 
 passwordText2.addEventListener("input", function () {
@@ -51,7 +51,6 @@ function toggleHamburger(x) {
 }
 
 window.toggleHamburger = toggleHamburger;
-window.addEventListener('onload', onloadInit());
-window.addEventListener('onload', onloadInit);
+window.addEventListener("onload", onloadInit());
+window.addEventListener("onload", onloadInit);
 window.newPassword = newPassword;
-

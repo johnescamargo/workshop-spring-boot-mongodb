@@ -13,9 +13,9 @@ body {
 
 /* Navbar */
 .nav-bar {
-    font-family: "Source Sans Pro", sans-serif;
-    height: 50px;
-    width: 100%;
+  font-family: "Source Sans Pro", sans-serif;
+  height: 50px;
+  width: 100%;
 }
 
 ul {
@@ -79,7 +79,7 @@ h3 {
 
 /* Add padding to containers */
 .container {
-  margin-top: 25px;	
+  margin-top: 25px;
   padding: 16px;
   width: 300px;
   background-color: white;
@@ -209,15 +209,13 @@ li button:focus {
 }
 
 @media (max-width: 1177px) {
-	
   .main-div {
-	position: fixed;
-	margin-top: 70px;
-	margin-left: 20px;
+    position: fixed;
+    margin-top: 70px;
+    margin-left: 20px;
   }
-  
+
   .container {
     margin-top: 75px;
   }
 }
-

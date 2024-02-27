@@ -92,19 +92,20 @@
   li button:hover:not(.active) {
     background-color: transparent;
   }
-  
-  .frame-div, .division2 {
+
+  .frame-div,
+  .division2 {
     padding-top: 55px;
     margin-top: 0px;
     margin-bottom: 10px;
   }
-  
+
   .search-and-header {
     padding-top: 105px;
   }
-  
-  .search-bar, .div-header {
-	margin-top: -55px;
-  }
 
+  .search-bar,
+  .div-header {
+    margin-top: -55px;
+  }
 }

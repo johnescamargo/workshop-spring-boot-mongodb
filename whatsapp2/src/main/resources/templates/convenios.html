@@ -48,7 +48,7 @@
 				<li><a onclick="disconnect()" th:href="send">Enviar Agenda</a></li>
 				<li><a onclick="disconnect()" th:href="chat">Chat</a></li>
 				<li><a onclick="disconnect()" th:href="confirmation">Confirmação</a></li>
-				<li><a onclick="disconnect()" th:href="register">Novo Usuário</a></li>
+				<li><a onclick="disconnect()" th:href="register">Configurações</a></li>
 			</div>
 
 			<div id="exit-config">
@@ -73,6 +73,53 @@
 			</li>
 		</ul>
 	</nav>
+
+	<div class="main-div">
+
+		<div class="left-div">
+			<div class="header-div">
+
+				<label for="pesquisa">Pesquisa Convênio</label>
+				<input type="text" class="pesquisa" id="pesquisa">
+
+				<label for="convenio">Convênio</label>
+				<select name="convenio" id="convenio" required>
+					<option value selected disabled>Selecione *</option>
+					<option value="convenio 1">convenio 1</option>
+					<option value="convenio 2">convenio 2</option>
+				</select>
+
+			</div>
+
+			<div class="info-div">
+
+			</div>
+
+		</div>
+
+		<div class="right-div">
+			<div class="header-div">
+
+				<label for="pesquisa">Pesquisa Plano</label>
+				<input type="text" class="pesquisa" id="pesquisa">
+
+				<label for="convenio">Convênio</label>
+				<select name="convenio" id="convenio" required>
+					<option value selected disabled>Selecione *</option>
+					<option value="convenio 1">convenio 1</option>
+					<option value="convenio 2">convenio 2</option>
+				</select>
+
+			</div>
+
+			<div class="data-div">
+
+			</div>
+
+		</div>
+
+
+	</div>
 
 
 </body>

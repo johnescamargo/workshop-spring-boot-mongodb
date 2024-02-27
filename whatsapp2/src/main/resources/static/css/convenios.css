@@ -13,9 +13,9 @@ body {
 
 /* Navbar */
 .nav-bar {
-    font-family: "Source Sans Pro", sans-serif;
-    height: 50px;
-    width: 100%;
+  font-family: "Source Sans Pro", sans-serif;
+  height: 50px;
+  width: 100%;
 }
 
 ul {
@@ -101,7 +101,7 @@ li button:focus {
 }
 
 button:focus {
-    outline: 5px none -webkit-focus-ring-color;
+  outline: 5px none -webkit-focus-ring-color;
 }
 
 #myDropdown {
@@ -143,4 +143,70 @@ button:focus {
   display: block;
 }
 /* Websocket end */
+
+
+.main-div {
+  display: flex;
+  margin-left: 10px;
+  margin-right: 10px;
+  padding-top: 10px;
+}
+
+.left-div{
+  width: 50%;
+  height: 125px;
+  margin: 10px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  padding: 10px;
+  border-left: 4px solid rgb(32, 74, 135);
+}
+
+.right-div{
+  width: 50%;
+  height: 125px;
+  margin: 10px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  padding: 10px;
+  border-left: 4px solid rgb(17, 41, 70);
+}
+
+.header-div {
+  display: grid;
+}
+
+.info-div {
+	
+}
+
+.data-div {
+	
+}
+
+input[type="text"] {
+    border-radius: 6px;
+    height: 25px;
+    width: 100%;
+    border-style: solid;
+    border-color: dimgrey;
+    margin-bottom: 10px;
+}
+
+select {
+    border-radius: 6px;
+    height: 25px;
+    width: 100%;
+    border-style: solid;
+}
+
+@media (max-width: 1177px) {
+  .main-div {
+	padding-top: 60px;
+  }
+
+}
+
 
