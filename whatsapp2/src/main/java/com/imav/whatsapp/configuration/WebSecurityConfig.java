@@ -51,6 +51,8 @@ public class WebSecurityConfig {
 						, "/process-message"
 						, "/process-messages"
 						, "/customers"
+						, "/convenios/save/**"
+						, "/convenios/getAll/**"
 						, "/outside-message"
 						, "/websocket-server"
 						, "/webjars/**"

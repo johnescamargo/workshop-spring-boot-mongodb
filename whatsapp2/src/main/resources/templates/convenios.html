@@ -76,51 +76,46 @@
 
 	<div class="main-div">
 
-		<div class="left-div">
-			<div class="header-div">
+		<div class="left-space">
+			<div class="left-div">
+				<div class="header-div">
 
-				<label for="pesquisa">Pesquisa Convênio</label>
-				<input type="text" class="pesquisa" id="pesquisa">
+					<label for="pesquisa">Pesquisa Convênio</label>
+					<input type="text" class="pesquisa" id="pesquisa">
 
-				<label for="convenio">Convênio</label>
-				<select name="convenio" id="convenio" required>
-					<option value selected disabled>Selecione *</option>
-					<option value="convenio 1">convenio 1</option>
-					<option value="convenio 2">convenio 2</option>
-				</select>
+					<label for="convenio">Convênio</label>
+					<div id="select-convenio">
+						<!-- select goes here -->
+					</div>
 
-			</div>
-
-			<div class="info-div">
+				</div>
 
 			</div>
 
-		</div>
-
-		<div class="right-div">
-			<div class="header-div">
-
-				<label for="pesquisa">Pesquisa Plano</label>
-				<input type="text" class="pesquisa" id="pesquisa">
-
-				<label for="convenio">Convênio</label>
-				<select name="convenio" id="convenio" required>
-					<option value selected disabled>Selecione *</option>
-					<option value="convenio 1">convenio 1</option>
-					<option value="convenio 2">convenio 2</option>
-				</select>
-
+			<div class="convenios" id="convenios">
+				<!-- convenios go here -->
 			</div>
 
-			<div class="data-div">
-
+			<div class="info-div-display" id="info-div-display">
+				<!-- information goes here -->
 			</div>
 
 		</div>
 
+		<div class="right-space" id="right-space">
+			<div class="right-div">
+				<div class="header-div">
+					<h4>Pesquisa Plano/Rede</h4>
+					<input type="text" class="pesquisa" id="pesquisa-plano">
+				</div>
+			</div>
 
+			<div class="data-div" id="data-div">
+				<!-- Planos and Redes go here -->
+			</div>
+
+		</div>
 	</div>
-
 
 </body>
 
