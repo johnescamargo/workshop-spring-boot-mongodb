@@ -149,4 +149,27 @@ public class ConvenioResource {
 		return convenio;
 	}
 
+	public List<ConvenioNameDto> livesearch(String input) {
+				
+		List<ConvenioNameDto> dtos = new ArrayList<>();
+
+		try {
+
+			List<Convenio> objs = convenioRepository.livesearch(input);
+
+			for (int i = 0; i < objs.size(); i++) {
+				ConvenioNameDto dto = new ConvenioNameDto();
+				dto.setId(objs.get(i).getId());
+				dto.setName(objs.get(i).getName());
+
+				dtos.add(dto);
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return dtos;
+	}
+
 }

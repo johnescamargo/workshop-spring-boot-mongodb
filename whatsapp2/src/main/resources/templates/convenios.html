@@ -90,6 +90,11 @@
 
 				</div>
 
+				<div class="new-convenio" id="new-convenio" sec:authorize="hasAuthority('ADMIN')">
+					<h4>Cadastrar convênio</h4>
+					<button>Novo</button>
+				</div>
+
 			</div>
 
 			<div class="convenios" id="convenios">
@@ -105,8 +110,9 @@
 		<div class="right-space" id="right-space">
 			<div class="right-div">
 				<div class="header-div">
-					<h4>Pesquisa Plano/Rede</h4>
+					<h4 id="type-plano"></h4>
 					<input type="text" class="pesquisa" id="pesquisa-plano">
+					<div id="convenio-name"></div>
 				</div>
 			</div>
 

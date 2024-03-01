@@ -28,17 +28,17 @@ public class ConvenioController {
 	@GetMapping("/getAll")
 	public ResponseEntity<List<ConvenioNameDto>> getAll() {
 
-		List<ConvenioNameDto> objs = new ArrayList<>();
+		List<ConvenioNameDto> dtos = new ArrayList<>();
 
 		try {
 
-			objs = convenioResource.getAll();
+			dtos = convenioResource.getAll();
 
 		} catch (Exception e) {
 			e.printStackTrace();
-			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>(dtos, HttpStatus.NOT_FOUND);
 		}
-		return new ResponseEntity<>(objs, HttpStatus.OK);
+		return new ResponseEntity<>(dtos, HttpStatus.OK);
 	}
 
 	@PostMapping("/save")
@@ -71,6 +71,23 @@ public class ConvenioController {
 			return new ResponseEntity<>(convenio, HttpStatus.NOT_FOUND);
 		}
 		return new ResponseEntity<>(convenio, HttpStatus.OK);
+	}
+	
+	@GetMapping("/livesearch")
+	public ResponseEntity<List<ConvenioNameDto>> liveSearch(@RequestParam String input) {
+		
+		List<ConvenioNameDto> dtos = new ArrayList<>();
+		
+		try {
+			
+			dtos = convenioResource.livesearch(input);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<>(dtos, HttpStatus.OK);
+		}
+		
+		return new ResponseEntity<>(dtos, HttpStatus.OK);
 	}
 
 }

@@ -166,6 +166,7 @@ button:focus {
   border-left: 4px solid rgb(32, 74, 135);
   margin-right: 10px;
   margin-bottom: 10px;
+  display: flex;
 }
 
 .right-space {
@@ -184,6 +185,11 @@ button:focus {
 
 .header-div {
   display: grid;
+  width: 60%;
+}
+
+.new-convenio {
+  margin-left: 10px;
 }
 
 .info-div {
@@ -245,6 +251,11 @@ select {
   height: 25px;
   width: 100%;
   border-style: solid;
+}
+
+#convenio-name {
+  color: red;
+  font-size: 21px;
 }
 
 @media (max-width: 1177px) {

@@ -1,7 +1,9 @@
 import Websocket from "./websocket.js";
 const websocket = new Websocket();
 
-
+const searchConvenio = document.getElementById("pesquisa");
+const searchPlano = document.getElementById("pesquisa-plano");
+var convenioId = '';
 
 function onloadInit() {
 	websocket.connect;
@@ -50,10 +52,15 @@ function setConveniosHtml(response) {
 }
 
 function getId(id) {
+	
+	document.getElementById("convenios").innerHTML = '';
+	document.getElementById("info-div-display").innerHTML = '';
+	document.getElementById("right-space").style.display = 'none';
 
 	if (id === 'null') {
 		getAllConvenios();
 	} else {
+		
 		axios
 			.get("/convenios/findbyid", {
 				params: {
@@ -64,6 +71,9 @@ function getId(id) {
 				if (response.status === 200) {
 					setConvenio(response.data.infos);
 					setPlanos(response.data.planos);
+					setConvenioName(response.data.name);
+					setPlanoName(response.data.redePlano);
+					convenioId = response.data.id;
 				} else {
 					console.log(response);
 				}
@@ -71,46 +81,76 @@ function getId(id) {
 	}
 }
 
-function setConvenio(response){
+function getPlanoById(input) {
+	
+	document.getElementById("convenios").innerHTML = '';
+
+	axios
+		.get("/convenios/findplanobyid", {
+			params: {
+				id: convenioId,
+				input: input
+			},
+		})
+		.then(function(response) {
+			if (response.status === 200) {
+
+			} else {
+				console.log(response);
+			}
+		});
+}
+
+function setPlanoName(typePlano) {
+	document.getElementById("type-plano").innerHTML = "Pesquisa " + typePlano;
+}
+
+function setConvenio(response) {
 	//console.log(response);
 	var data = '';
-	
-	for(let i = 0; i < response.length; i++){
+
+
+	for (let i = 0; i < response.length; i++) {
 		data += '<div class="info-div">'
-			 +	'<div class="info">'
-			 +	 	'<h4>' + response[i].title + '</h4>'
-			 +	 	'<div class="info-field">'
-			 +			setContent(response[i].content)
-			 +	 	'</div>'
-			 +	 '</div>'
-			 + '</div>';
+			+ '<div class="info">'
+			+ '<h4>' + response[i].title + '</h4>'
+			+ '<div class="info-field">'
+			+ setContent(response[i].content)
+			+ '</div>'
+			+ '</div>'
+			+ '</div>';
 	}
-	
+
 	document.getElementById("info-div-display").innerHTML = data;
 }
 
-function setContent(response){
-	
+function setConvenioName(name) {
+	var dataName = '<h3>' + name + '</h3>';
+	document.getElementById("convenio-name").innerHTML = dataName;
+}
+
+function setContent(response) {
+
 	var data = '';
-	
-		for(let i = 0; i < response.length; i++){
-			data += '<p>' + response[i].text + '</p>';	
-		}
+
+	for (let i = 0; i < response.length; i++) {
+		data += '<p>' + response[i].text + '</p>';
+	}
 	return data;
 }
 
-function setPlanos(response){
-	
+function setPlanos(response) {
+
 	document.getElementById("right-space").style.display = 'initial';
-	console.log(response);
+	//console.log(response);
 	var data = '';
-	
-	for(let i = 0; i < response.length; i++){
-		data += '<div class="plano">'
-			 +	  '<p>' + response[i].textOne + ' ' + response[i].textTwo + '</p>'
-			 +  '</div>';
+
+	for (let i = 0; i < response.length; i++) {
+		data += '<div class="plano" id="' + response[i].id + '">'
+			+ '<p>' + response[i].textOne + ' ' + response[i].textTwo + '</p>'
+			+ '</div>';
 	}
-	
+
 	document.getElementById("data-div").innerHTML = data;
 }
 
@@ -122,6 +162,48 @@ function selectGetById() {
 
 	getId(id);
 }
+
+function findConvenio(search) {
+	if (search !== " ") {
+		axios
+			.get("/convenios/livesearch", {
+				params: {
+					input: search,
+				},
+			})
+			.then(function(response) {
+				if (response.status === 200) {
+					setConveniosHtml(response.data);
+				} else if (response.status === 404) {
+					console.log("404 - convenio não encontrado...");
+				} else {
+					console.log(response);
+				}
+			});
+	}
+}
+
+searchConvenio.addEventListener("input", function() {
+
+	document.getElementById("convenios").innerHTML = '';
+	document.getElementById("info-div-display").innerHTML = '';
+	document.getElementById("right-space").style.display = 'none';
+
+	if (this.value !== "") {
+		findConvenio(this.value);
+	} else {
+		getAllConvenios();
+	}
+});
+
+searchPlano.addEventListener("input", function() {
+
+	document.getElementById("data-div").innerHTML = '';
+
+	if (this.value !== "") {
+		getPlanoById(this.value);
+	} 
+});
 
 function toggleHamburger(x) {
 	x.classList.toggle("change");
