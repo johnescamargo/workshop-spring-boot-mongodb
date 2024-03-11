@@ -10,8 +10,10 @@
 	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
 	<link rel="stylesheet" th:href="@{/css/convenios.css}" />
-	<link rel="stylesheet" th:href="@{/css/hamburger.css}">
+	<link rel="stylesheet" th:href="@{/css/hamburger.css}" />
+	<link rel="stylesheet" th:href="@{/css/convenio-config.css}" />
 	<script defer th:type="module" th:src="@{/js/convenios.js}"></script>
+	<script defer th:src="@{/js/convenio-config.js}"></script>
 	<link rel="icon" type="image/x-icon" th:href="@{/img/imav-icon.jpg}">
 	<title>Convênios</title>
 </head>
@@ -74,7 +76,7 @@
 		</ul>
 	</nav>
 
-	<div class="main-div">
+	<div class="main-div" id="main-div">
 
 		<div class="left-space">
 			<div class="left-div">
@@ -91,8 +93,8 @@
 				</div>
 
 				<div class="new-convenio" id="new-convenio" sec:authorize="hasAuthority('ADMIN')">
-					<h4>Cadastrar convênio</h4>
-					<button>Novo</button>
+					<h4>Cadastrar/Editar</h4>
+					<button onclick="configBtn()" id="btn">Configuração</button>
 				</div>
 
 			</div>
@@ -122,6 +124,51 @@
 
 		</div>
 	</div>
+	
+    <div class="cadastro-div" id="cadastro-div">
+
+        <div class="left-space-cadastro">
+            <div class="left-div-cadastro">
+                <div class="div-main-btn">
+                    <h4>Cadastro de Convênio</h4>
+                    <button onclick="btnExit()" class="exit-btn" id="exit-btn">Voltar</button>
+                </div>
+                <label for="name-cadastro">Nome</label>
+                <input type="text" class="name-cadastro" id="name-cadastro">
+            </div>
+
+            <div class="add-convenios-div" id="add-convenios-div">
+                <div class="add-convenio">
+                    <p class="p-info">Adicionar Informação</p>
+                    <div onclick="btnAddInfo()" class="class-btn">+</div>
+                </div>
+                <div class="add-rede">
+                    <p class="p-info">Adicionar Plano ou Rede</p>
+                    <div onclick="btnAddPlano()" class="class-btn">+</div>
+                </div>
+            </div>
+
+            <div id="div-all">
+
+            </div>
+
+        </div>
+
+        <div class="right-space-cadastro" id="right-space-cadastro">
+
+            <div id="cadastro-all-info" class="cadastro-all-info">
+                <h4 id="name-h4"></h4>
+                <div id="div-data-tick">
+
+                </div>
+                <button onclick="saveData()" id="save-all" class="btn-save">Salvar</button>
+            </div>
+        </div>
+
+
+    </div>
+    
+    <button onclick="deletar102()">DELETAR 102</button>
 
 </body>
 

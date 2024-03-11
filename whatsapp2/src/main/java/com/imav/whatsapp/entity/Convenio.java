@@ -21,10 +21,10 @@ public class Convenio implements Serializable {
 	private String name;
 	private String redePlano;
 
-	@OneToMany(mappedBy = "convenio")
+	@OneToMany(mappedBy = "convenio", orphanRemoval = true)
 	private List<Info> infos;
 
-	@OneToMany(mappedBy = "convenio")
+	@OneToMany(mappedBy = "convenio", orphanRemoval = true)
 	private List<Plano> planos;
 
 	public Convenio() {

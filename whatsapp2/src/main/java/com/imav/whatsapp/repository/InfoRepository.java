@@ -6,4 +6,5 @@ import com.imav.whatsapp.entity.Info;
 
 public interface InfoRepository extends JpaRepository<Info, Long>{
 
+
 }

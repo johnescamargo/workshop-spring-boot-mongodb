@@ -39,10 +39,10 @@ function connect() {
 
 function websocketFunction() {
   // HTTPS for TLS conncetions VPS
-  //var socket = new SockJS("https://www.web.login.imav.com.br:5000/websocket-server");
+  var socket = new SockJS("https://www.web.login.imav.com.br:5000/websocket-server");
 
   // Localhost
-  var socket = new SockJS("http://localhost:5000/websocket-server");
+  //var socket = new SockJS("http://localhost:5000/websocket-server");
 
   stompClient = Stomp.over(socket);
   stompClient.connect({}, function () {
@@ -68,7 +68,7 @@ function websocketFunction() {
     });
 
     // Update statuses and reload DOM
-    stompClient.subscribe("/topic/messages-customers", function (response) {
+    stompClient.subscribe("/topic/messages-customers", function () {
       //console.log(response);
       loadCustomerMessages(conversationNumber);
     });
@@ -80,7 +80,7 @@ function websocketFunction() {
     });
 
     // Update reload DOM
-    stompClient.subscribe("/topic/talks", function (response) {
+    stompClient.subscribe("/topic/talks", function () {
       //console.log(response);
       loadWantsToTalk();
     });

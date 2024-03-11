@@ -91,6 +91,7 @@ public class ConvenioResource {
 				info.setConvenio(convenio2);
 				Info info2 = new Info();
 
+				// TODO Error
 				info2 = infoRepository.save(info);
 
 				// Save content
@@ -150,7 +151,7 @@ public class ConvenioResource {
 	}
 
 	public List<ConvenioNameDto> livesearch(String input) {
-				
+
 		List<ConvenioNameDto> dtos = new ArrayList<>();
 
 		try {
@@ -170,6 +171,37 @@ public class ConvenioResource {
 		}
 
 		return dtos;
+	}
+
+	public boolean checkDeleteConvenioById(Long id) {
+
+		boolean exists = false;
+
+		try {
+
+			exists = convenioRepository.existsById(id);
+
+			if (exists) {
+				deleteConvenioById(id);
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return exists;
+	}
+
+	public void deleteConvenioById(Long id) {
+
+		try {
+
+			convenioRepository.deleteById(id);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
 	}
 
 }

@@ -169,9 +169,9 @@ public class ButtonReplyService {
 			case "button-falar":
 				messageService.updateConfirmationResponse(idWamid, "REMARCAR");
 				buttonReplyService.messageTalkToUsResponseDayOff(phone);
-				
-				break;
 
+				break;
+				
 			case "button-cancel":
 				messageService.updateConfirmationResponse(idWamid, "CANCELADO");
 				saveInteractiveMessageFromCustomer(buttonClicked, phone);

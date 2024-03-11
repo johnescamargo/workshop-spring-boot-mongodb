@@ -1,13 +1,32 @@
 import Websocket from "./websocket.js";
+
 const websocket = new Websocket();
 
 const searchConvenio = document.getElementById("pesquisa");
 const searchPlano = document.getElementById("pesquisa-plano");
-var convenioId = '';
 
 function onloadInit() {
 	websocket.connect;
 	getAllConvenios();
+}
+
+function deletar102(){
+	axios
+			.delete("/convenios/delete", {
+				params: {
+					id: 102
+				},
+			})
+			.then(function(response) {
+					console.log(response);
+			}).catch(error => {
+				console.log(error);
+			});
+}
+
+function configBtn(){
+	document.getElementById("main-div").style.display = 'none';
+	document.getElementById("cadastro-div").style.display = 'flex';
 }
 
 function getAllConvenios() {
@@ -27,7 +46,7 @@ function getAllConvenios() {
 
 function setSelectConvenios(response) {
 	var data = '<select name="convenio" id="convenio" onchange="selectGetById()" required>'
-		+ '<option value="null" selected>Todos *</option>';
+		     + '<option value="null" selected>Todos *</option>';
 
 	for (let i = 0; i < response.length; i++) {
 		data += '<option value="' + response[i].id + '">' + response[i].name + '</option>';
@@ -44,15 +63,15 @@ function setConveniosHtml(response) {
 
 	for (let i = 0; i < response.length; i++) {
 		data += '<div onclick="getId(this.id)" id="' + response[i].id + '" class="convenio">'
-			+ '<p>' + response[i].name + '</p>'
-			+ '</div>';
+			 +  '<p>' + response[i].name + '</p>'
+			 +  '</div>';
 	}
 
 	document.getElementById("convenios").innerHTML = data;
 }
 
 function getId(id) {
-	
+
 	document.getElementById("convenios").innerHTML = '';
 	document.getElementById("info-div-display").innerHTML = '';
 	document.getElementById("right-space").style.display = 'none';
@@ -60,7 +79,7 @@ function getId(id) {
 	if (id === 'null') {
 		getAllConvenios();
 	} else {
-		
+
 		axios
 			.get("/convenios/findbyid", {
 				params: {
@@ -69,11 +88,12 @@ function getId(id) {
 			})
 			.then(function(response) {
 				if (response.status === 200) {
+					//console.log(response);
 					setConvenio(response.data.infos);
 					setPlanos(response.data.planos);
 					setConvenioName(response.data.name);
 					setPlanoName(response.data.redePlano);
-					convenioId = response.data.id;
+					sessionStorage.setItem("id", response.data.id);
 				} else {
 					console.log(response);
 				}
@@ -82,23 +102,33 @@ function getId(id) {
 }
 
 function getPlanoById(input) {
-	
+
 	document.getElementById("convenios").innerHTML = '';
+	//console.log(input);
+	var id = sessionStorage.getItem("id");
 
-	axios
-		.get("/convenios/findplanobyid", {
-			params: {
-				id: convenioId,
-				input: input
-			},
-		})
-		.then(function(response) {
-			if (response.status === 200) {
+	if (input !== " ") {
+		axios
+			.get("/planos/livesearch", {
+				params: {
+					id: id,
+					input: input
+				},
+			})
+			.then(function(response) {
+				if (response.status === 200) {
+					//console.log(response);
+					setPlanos(response.data);
+				} else if (response.status === 404) {
+					console.log("404 - convenio não encontrado...");
+				} else {
+					console.log(response);
+				}
+			});
+	} else {
+		getId(id);
+	}
 
-			} else {
-				console.log(response);
-			}
-		});
 }
 
 function setPlanoName(typePlano) {
@@ -109,16 +139,15 @@ function setConvenio(response) {
 	//console.log(response);
 	var data = '';
 
-
 	for (let i = 0; i < response.length; i++) {
 		data += '<div class="info-div">'
-			+ '<div class="info">'
-			+ '<h4>' + response[i].title + '</h4>'
-			+ '<div class="info-field">'
-			+ setContent(response[i].content)
-			+ '</div>'
-			+ '</div>'
-			+ '</div>';
+			  + '<div class="info">'
+			  + '<h4>' + response[i].title + '</h4>'
+			  + '<div class="info-field">'
+			  + setContent(response[i].content)
+			  + '</div>'
+			  + '</div>'
+			  + '</div>';
 	}
 
 	document.getElementById("info-div-display").innerHTML = data;
@@ -147,12 +176,13 @@ function setPlanos(response) {
 
 	for (let i = 0; i < response.length; i++) {
 		data += '<div class="plano" id="' + response[i].id + '">'
-			+ '<p>' + response[i].textOne + ' ' + response[i].textTwo + '</p>'
+			+ '<p>' + response[i].text + '</p>'
 			+ '</div>';
 	}
 
 	document.getElementById("data-div").innerHTML = data;
 }
+
 
 function selectGetById() {
 	var id = document.getElementById("convenio").value;
@@ -202,7 +232,9 @@ searchPlano.addEventListener("input", function() {
 
 	if (this.value !== "") {
 		getPlanoById(this.value);
-	} 
+	} else {
+		getId(sessionStorage.getItem("id"));
+	}
 });
 
 function toggleHamburger(x) {
@@ -224,4 +256,8 @@ window.toggleHamburger = toggleHamburger;
 window.getId = getId;
 window.getAllConvenios = getAllConvenios;
 window.selectGetById = selectGetById;
+window.configBtn = configBtn;
+window.deletar102 = deletar102;
+
+
 

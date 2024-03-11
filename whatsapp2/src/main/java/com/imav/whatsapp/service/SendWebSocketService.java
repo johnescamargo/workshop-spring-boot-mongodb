@@ -100,32 +100,32 @@ public class SendWebSocketService {
 	}
 
 	public void sendMessageToWebSocket(GenericMessageDto dto) {
-		//StompSession session = stompConnectionTLS();
-		StompSession session = stompConnectionHttp();
+		StompSession session = stompConnectionTLS();
+		//StompSession session = stompConnectionHttp();
 		session.subscribe("/topic/message", CLIENT_SESSION_HANDLER);
 		session.send("/app/process-message", dto);
 		session.disconnect();
 	}
 
 	public void showCustomerToWebSocket() {
-		//StompSession session = stompConnectionTLS();
-		StompSession session = stompConnectionHttp();
+		StompSession session = stompConnectionTLS();
+		//StompSession session = stompConnectionHttp();
 		session.subscribe("/topic/customers", CLIENT_SESSION_HANDLER);
 		session.send("/app/customers", true);
 		session.disconnect();
 	}
 
 	public void updateWebsocket() {
-		//StompSession session = stompConnectionTLS();
-		StompSession session = stompConnectionHttp();
+		StompSession session = stompConnectionTLS();
+		//StompSession session = stompConnectionHttp();
 		session.subscribe("/topic/messages-customers", CLIENT_SESSION_HANDLER);
 		session.send("/app/process-messages-customers", true);
 		session.disconnect();
 	}
 
 	public void updateWantsToTalk() {
-		//StompSession session = stompConnectionTLS();
-		StompSession session = stompConnectionHttp();
+		StompSession session = stompConnectionTLS();
+		//StompSession session = stompConnectionHttp();
 		session.subscribe("/topic/talks", CLIENT_SESSION_HANDLER);
 		session.send("/app/talk", true);
 		session.disconnect();

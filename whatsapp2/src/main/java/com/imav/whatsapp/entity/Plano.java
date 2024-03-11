@@ -22,8 +22,7 @@ public class Plano implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private Long id;
-	private String textOne;
-	private String textTwo;
+	private String text;
 
 	// This stops infinite looping
 	@JsonIgnore
@@ -35,9 +34,8 @@ public class Plano implements Serializable {
 
 	}
 
-	public Plano(String textOne, String textTwo, Convenio convenio) {
-		this.textOne = textOne;
-		this.textTwo = textTwo;
+	public Plano(String text, Convenio convenio) {
+		this.text = text;
 		this.convenio = convenio;
 	}
 
@@ -49,20 +47,12 @@ public class Plano implements Serializable {
 		this.id = id;
 	}
 
-	public String getTextOne() {
-		return textOne;
+	public String getText() {
+		return text;
 	}
 
-	public void setTextOne(String textOne) {
-		this.textOne = textOne;
-	}
-
-	public String getTextTwo() {
-		return textTwo;
-	}
-
-	public void setTextTwo(String textTwo) {
-		this.textTwo = textTwo;
+	public void setText(String text) {
+		this.text = text;
 	}
 
 	public Convenio getConvenio() {
@@ -75,7 +65,7 @@ public class Plano implements Serializable {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(convenio, id, textOne, textTwo);
+		return Objects.hash(id);
 	}
 
 	@Override
@@ -87,13 +77,12 @@ public class Plano implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Plano other = (Plano) obj;
-		return Objects.equals(convenio, other.convenio) && Objects.equals(id, other.id)
-				&& Objects.equals(textOne, other.textOne) && Objects.equals(textTwo, other.textTwo);
+		return Objects.equals(id, other.id);
 	}
 
 	@Override
 	public String toString() {
-		return "Plano [id=" + id + ", textOne=" + textOne + ", textTwo=" + textTwo + ", convenio=" + convenio + "]";
+		return "Plano [id=" + id + ", text=" + text + ", convenio=" + convenio + "]";
 	}
 
 }

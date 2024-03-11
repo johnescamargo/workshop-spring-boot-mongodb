@@ -26,7 +26,7 @@ public class Info implements Serializable {
 	private Long id;
 	private String title;
 	
-	@OneToMany(mappedBy = "info")
+	@OneToMany(mappedBy = "info", orphanRemoval = true)
 	private List<Content> content;
 
 	// This stops infinite looping

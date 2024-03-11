@@ -403,7 +403,6 @@ public class MessageService {
 		}
 
 	}
-	
 
 	public void updateConfirmationResponse(String idWamid, String reply) {
 		ConfirmationResponse confirmation = new ConfirmationResponse();
@@ -456,7 +455,5 @@ public class MessageService {
 
 		return json;
 	}
-
-
 
 }

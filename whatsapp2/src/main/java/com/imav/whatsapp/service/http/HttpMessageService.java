@@ -31,35 +31,35 @@ public class HttpMessageService {
 
 		logger.info("Sending Message POST - HTTP .........");
 
-		String resp = sendSuccess();
-		//String resp = "";
+		//String resp = sendSuccess();
+		String resp = "";
 
 		try {
 
-//			URL url = new URL(
-//					"https://graph.facebook.com/v15.0/" + whatsappTokens.getFromPhoneNumberId() + "/messages");
-//			HttpURLConnection httpConn = (HttpURLConnection) url.openConnection();
-//			httpConn.setRequestMethod("POST");
-//
-//			httpConn.setRequestProperty("Authorization", "Bearer " + whatsappTokens.getAccessToken());
-//			httpConn.setRequestProperty("Content-Type", "application/json");
-//
-//			httpConn.setDoOutput(true);
-//			OutputStreamWriter writer = new OutputStreamWriter(httpConn.getOutputStream());
-//			writer.write(jsonMessage);
-//			writer.flush();
-//			writer.close();
-//			httpConn.getOutputStream().close();
-//
-//			InputStream responseStream = httpConn.getResponseCode() / 100 == 2 ? httpConn.getInputStream()
-//					: httpConn.getErrorStream();
-//			try (Scanner s = new Scanner(responseStream).useDelimiter("\\A")) {
-//				String response = s.hasNext() ? s.next() : "";
-//				System.out.println(response);
-//				logger.info("Receiving response after sending data https:");
-//				logger.info(response);
-//				resp = response;
-//			}
+			URL url = new URL(
+					"https://graph.facebook.com/v15.0/" + whatsappTokens.getFromPhoneNumberId() + "/messages");
+			HttpURLConnection httpConn = (HttpURLConnection) url.openConnection();
+			httpConn.setRequestMethod("POST");
+
+			httpConn.setRequestProperty("Authorization", "Bearer " + whatsappTokens.getAccessToken());
+			httpConn.setRequestProperty("Content-Type", "application/json");
+
+			httpConn.setDoOutput(true);
+			OutputStreamWriter writer = new OutputStreamWriter(httpConn.getOutputStream());
+			writer.write(jsonMessage);
+			writer.flush();
+			writer.close();
+			httpConn.getOutputStream().close();
+
+			InputStream responseStream = httpConn.getResponseCode() / 100 == 2 ? httpConn.getInputStream()
+					: httpConn.getErrorStream();
+			try (Scanner s = new Scanner(responseStream).useDelimiter("\\A")) {
+				String response = s.hasNext() ? s.next() : "";
+				System.out.println(response);
+				logger.info("Receiving response after sending data https:");
+				logger.info(response);
+				resp = response;
+			}
 
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -1,0 +1,281 @@
+.cadastro-div {
+  display: flex;
+  margin-left: 10px;
+  margin-right: 10px;
+  padding-top: 10px;
+}
+
+#cadastro-div{
+  display: none;
+}
+
+.div-main-btn {
+  display: flex;
+  justify-content: space-between;
+}
+
+.exit-btn {
+  background-color: rgb(165 19 19);
+  color: #ececec;
+  border-style: none;
+  border-radius: 8px;
+  height: 35px;
+  width: 120px;
+  margin-top: 7px;
+  cursor: pointer;
+  font-size: medium;
+}
+
+.exit-btn:hover {
+  background-color: rgb(177, 105, 105);
+  color: #ececec;
+}
+
+.left-space-cadastro {
+  width: 65%;
+}
+
+.left-div-cadastro {
+  min-height: 95px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  padding: 10px;
+  border-left: 4px solid rgb(32, 74, 135);
+  margin-right: 10px;
+  margin-bottom: 10px;
+}
+
+.right-space-cadastro {
+  width: 50%;
+}
+
+.right-div-cadastro {
+  height: 125px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  padding: 10px;
+  border-left: 4px solid rgb(17, 41, 70);
+}
+
+.header-div {
+  display: grid;
+  width: 60%;
+}
+
+.new-convenio {
+  margin-left: 10px;
+}
+
+/* Information div */
+.add-info-div {
+  display: grid;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+
+.add-plano-div {
+  display: grid;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+
+.data-div {
+  display: grid;
+  margin-top: 10px;
+}
+
+.add-info {
+  height: fit-content;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  padding: 10px;
+  border-left: 4px solid rgb(21, 63, 116);
+  background-color: white;
+  padding-right: 18px;
+}
+
+.add-plano {
+  height: fit-content;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  padding: 10px;
+  border-left: 4px solid rgb(21, 63, 116);
+  background-color: white;
+  padding-right: 18px;
+}
+
+.plano {
+  height: fit-content;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  padding: 10px;
+  border-left: 4px solid rgb(33, 17, 70);
+  background-color: white;
+  margin-bottom: 1px;
+}
+
+.add-convenio {
+  height: fit-content;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  padding: 10px;
+  border-left: 4px solid rgb(33, 17, 70);
+  background-color: white;
+  margin-bottom: 3px;
+  margin-right: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.add-rede {
+  height: fit-content;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  padding: 10px;
+  border-left: 4px solid rgb(109, 25, 91);
+  background-color: white;
+  margin-bottom: 3px;
+  margin-right: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.added-convenio {
+  height: fit-content;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px 0 rgb(0 0 0 / 13%), 0 6px 20px 0 rgb(0 0 0 / 13%);
+  padding: 10px;
+  border-left: 4px solid rgb(28, 114, 42);
+  background-color: white;
+  margin-bottom: 3px;
+  margin-right: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.class-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 7px;
+  font-size: xx-large;
+  background-color: cornflowerblue;
+  height: 28px;
+  width: 28px;
+  border-radius: 15px;
+  color: #141414;
+  cursor: pointer;
+}
+
+.class-btn:hover {
+  background-color: rgb(8, 50, 128);
+  color: #d4d2d2;
+}
+
+.p-info {
+  display: grid;
+  justify-content: center;
+  align-content: center;
+}
+
+.textarea {
+  width: 100%;
+  border-radius: 6px;
+  border-style: solid;
+  border-color: dimgrey;
+  border-width: 2px;
+}
+
+input[type="text"] {
+  border-radius: 6px;
+  height: 25px;
+  width: 100%;
+  border-style: solid;
+  border-color: dimgrey;
+  margin-bottom: 10px;
+}
+
+#name-cadastro {
+  width: calc(100% - 7px);
+}
+
+select {
+  border-radius: 6px;
+  height: 25px;
+  width: 100%;
+  border-style: solid;
+}
+
+#convenio-name {
+  color: red;
+  font-size: 21px;
+}
+
+.btn-save {
+  background-color: rgb(18, 18, 155);
+  color: #ececec;
+  border-style: none;
+  border-radius: 8px;
+  height: 35px;
+  width: calc(100% + 7px);
+  margin-top: 7px;
+  cursor: pointer;
+  font-size: medium;
+}
+
+.btn-save:hover {
+  background-color: rgb(100, 100, 189);
+  color: #ececec;
+}
+
+h4 {
+  margin-top: 5px;
+  margin-bottom: 15px;
+}
+
+.cadastro-all-info {
+  height: fit-content;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  padding: 20px;
+  border-left: 4px solid rgb(32, 74, 135);
+  margin-right: 10px;
+  margin-bottom: 10px;
+}
+
+#cadastro-all-info {
+  display: none;
+}
+
+.tick {
+  margin-right: 10px;
+  display: inline-block;
+  transform: rotate(45deg);
+  height: 22px;
+  width: 10px;
+  border-bottom: 4px solid green;
+  border-right: 4px solid green;
+}
+
+#save-all {
+  width: calc(100% - 9px);
+}
+
+.deeper-div {
+  display: flex;
+  justify-content: space-between;
+}
+
+
+@media (max-width: 1177px) {
+  .cadastro-div {
+    padding-top: 60px;
+  }
+
+}
+

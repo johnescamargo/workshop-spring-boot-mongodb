@@ -167,6 +167,7 @@ button:focus {
   margin-right: 10px;
   margin-bottom: 10px;
   display: flex;
+  justify-content: space-between;
 }
 
 .right-space {
@@ -256,6 +257,21 @@ select {
 #convenio-name {
   color: red;
   font-size: 21px;
+}
+
+#btn{
+  width: 125px;
+  height: 35px;
+  margin-top: 4px;
+  border-radius: 8px;
+  background-color: rgb(57, 57, 192);
+  color: aliceblue;
+  cursor: pointer;
+  border-style: none;
+}
+
+#btn:hover {
+  background-color: rgb(94, 94, 185);
 }
 
 @media (max-width: 1177px) {
