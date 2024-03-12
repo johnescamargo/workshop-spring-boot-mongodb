@@ -5,8 +5,12 @@
   margin: 0;
 }
 
+:root {
+  --border-color-div: rgb(207, 207, 207);
+}
+
 html {
-  background-color: rgb(220, 220, 230);
+  background-color:rgb(245 245 245);
 }
 
 #username {
@@ -164,7 +168,7 @@ button:focus {
   line-height: normal;
   font-size: 16px;
   font-family: "Times New Roman", Times, serif;
-  background-color: rgb(220, 220, 230);
+  background-color:rgb(245 245 245);
 }
 
 .frame-div h3 {
@@ -238,9 +242,12 @@ input[type="checkbox"] {
   height: 140px;
   background-color: rgb(255, 255, 255);
   width: 295px;
-  border-radius: 8px;
+  border-radius: 6px;
   padding: 10px;
   border-left: 4px solid rgb(77, 146, 103);
+  border-right: 1px solid var(--border-color-div);
+  border-bottom: 1px solid var(--border-color-div);
+  border-top: 1px solid var(--border-color-div);
   margin-bottom: 10px;
   margin-right: 10px;
 }
@@ -255,9 +262,12 @@ input[type="checkbox"] {
   height: 360px;
   background-color: rgb(255, 255, 255);
   width: 295px;
-  border-radius: 8px;
+  border-radius: 6px;
   padding: 10px;
   border-left: 4px solid rgb(126, 77, 146);
+  border-right: 1px solid var(--border-color-div);
+  border-bottom: 1px solid var(--border-color-div);
+  border-top: 1px solid var(--border-color-div);
   margin-right: 10px;
   margin-bottom: 10px;
 }
@@ -291,9 +301,12 @@ input[type="checkbox"] {
   height: 510px;
   background-color: rgb(255, 255, 255);
   width: 295px;
-  border-radius: 8px;
+  border-radius: 6px;
   padding: 10px;
   border-left: 4px solid rgb(213, 37, 37);
+  border-right: 1px solid var(--border-color-div);
+  border-bottom: 1px solid var(--border-color-div);
+  border-top: 1px solid var(--border-color-div);
 }
 
 .cep-data input {
@@ -313,9 +326,12 @@ input[type="checkbox"] {
   height: 510px;
   background-color: rgb(255, 255, 255);
   width: 295px;
-  border-radius: 8px;
+  border-radius: 6px;
   padding: 10px;
   border-left: 4px solid rgb(73, 72, 141);
+  border-right: 1px solid var(--border-color-div);
+  border-bottom: 1px solid var(--border-color-div);
+  border-top: 1px solid var(--border-color-div);
 }
 
 .exames h4 {

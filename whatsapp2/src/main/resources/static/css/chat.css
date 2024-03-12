@@ -5,8 +5,12 @@
   margin: 0;
 }
 
+:root {
+  --border-color-div: rgb(207, 207, 207);
+}
+
 html {
-  background-color: rgb(220, 220, 230);
+  background-color:rgb(245 245 245);
 }
 
 /* Navbar */
@@ -164,7 +168,7 @@ li a:hover:not(.active) {
   height: 40px;
   position: fixed;
   bottom: 45px;
-  left: 410px;
+  left: 370px;
   right: 0;
 }
 
@@ -219,8 +223,7 @@ li a:hover:not(.active) {
 
 #footer {
   background-color: rgb(220, 220, 230);
-  height: 30px;
-  /* position: fixed; */
+  height: 45px;
   width: 100%;
   bottom: 0;
 }

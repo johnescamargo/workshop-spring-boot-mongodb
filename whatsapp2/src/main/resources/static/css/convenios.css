@@ -5,9 +5,16 @@
   margin: 0px;
 }
 
+:root {
+  --border-color-div: rgb(207, 207, 207);
+}
+
+html {
+  background-color:rgb(245 245 245);
+}
+
 body {
   font-family: Arial, Helvetica, sans-serif;
-  background-color: rgb(226 227 229 / 85%);
   margin: 0px;
 }
 
@@ -160,10 +167,13 @@ button:focus {
 .left-div {
   height: 125px;
   background-color: white;
-  border-radius: 8px;
+  border-radius: 6px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   padding: 10px;
   border-left: 4px solid rgb(32, 74, 135);
+  border-right: 1px solid var(--border-color-div);
+  border-bottom: 1px solid var(--border-color-div);
+  border-top: 1px solid var(--border-color-div);
   margin-right: 10px;
   margin-bottom: 10px;
   display: flex;
@@ -178,10 +188,13 @@ button:focus {
 .right-div {
   height: 125px;
   background-color: white;
-  border-radius: 8px;
+  border-radius: 6px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   padding: 10px;
   border-left: 4px solid rgb(17, 41, 70);
+  border-right: 1px solid var(--border-color-div);
+  border-bottom: 1px solid var(--border-color-div);
+  border-top: 1px solid var(--border-color-div);
 }
 
 .header-div {
@@ -207,30 +220,39 @@ button:focus {
 .info {
   width: 100%;
   height: fit-content;
-  border-radius: 8px;
+  border-radius: 6px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   padding: 10px;
   border-left: 4px solid rgb(21, 63, 116);
+  border-right: 1px solid var(--border-color-div);
+  border-bottom: 1px solid var(--border-color-div);
+  border-top: 1px solid var(--border-color-div);
   background-color: white;
 }
 
 .plano {
   width: 100%;
   height: fit-content;
-  border-radius: 8px;
+  border-radius: 6px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   padding: 10px;
   border-left: 4px solid rgb(33, 17, 70);
+  border-right: 1px solid var(--border-color-div);
+  border-bottom: 1px solid var(--border-color-div);
+  border-top: 1px solid var(--border-color-div);
   background-color: white;
   margin-bottom: 1px;
 }
 
 .convenio {
   height: fit-content;
-  border-radius: 8px;
+  border-radius: 6px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   padding: 10px;
   border-left: 4px solid rgb(33, 17, 70);
+  border-right: 1px solid var(--border-color-div);
+  border-bottom: 1px solid var(--border-color-div);
+  border-top: 1px solid var(--border-color-div);
   background-color: white;
   margin-bottom: 3px;
   margin-right: 10px;
