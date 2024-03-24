@@ -144,11 +144,13 @@ public class NotaFiscalResource {
 
 		List<NotaFiscalDto> dtos = new ArrayList<>();
 		List<NotaFiscal> nfs = new ArrayList<>();
-		
+
 		try {
-			
-			long beginDate = new java.text.SimpleDateFormat("dd/MM/yyyy HH:mm:ss").parse(date + " 00:00:01").getTime() / 1000;
-			long endDate = new java.text.SimpleDateFormat("dd/MM/yyyy HH:mm:ss").parse(date + " 23:59:59").getTime() / 1000; 
+
+			long beginDate = new java.text.SimpleDateFormat("dd/MM/yyyy HH:mm:ss").parse(date + " 00:00:01").getTime()
+					/ 1000;
+			long endDate = new java.text.SimpleDateFormat("dd/MM/yyyy HH:mm:ss").parse(date + " 23:59:59").getTime()
+					/ 1000;
 
 			nfs = fiscalRepository.findAllByTimestampCreated(beginDate, endDate);
 
@@ -170,34 +172,115 @@ public class NotaFiscalResource {
 	}
 
 	public void updateNotaFiscal(String obj) {
-		
+
 		Long timestamp = System.currentTimeMillis() / 1000;
 
 		try {
-			
-			System.out.println(obj);
 
 			NotaFiscalUpdateDto dto = new NotaFiscalUpdateDto();
 			dto = gson.fromJson(obj, NotaFiscalUpdateDto.class);
-			
+
 			long id = dto.getId();
 			Optional<NotaFiscal> nfOp = java.util.Optional.empty();
 			nfOp = fiscalRepository.findById(id);
-			
+
 			NotaFiscal nf = new NotaFiscal();
 			nf = nfOp.get();
-			
+
 			nf.setnfDone(true);
 			nf.setNfDoneBy(dto.getNfDoneBy());
 			nf.setNfNumero(dto.getNfNumero());
 			nf.setTimestampNf(timestamp);
-			
-			fiscalRepository.save(nf);		
+
+			fiscalRepository.save(nf);
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
+	}
+
+	public void updateNF(String obj) {
+
+		try {
+
+			System.out.println(obj);
+
+			NotaFiscal nf = new NotaFiscal();
+			NotaFiscal nf2 = new NotaFiscal();
+			nf = gson.fromJson(obj, NotaFiscal.class);
+			nf2 = gson.fromJson(obj, NotaFiscal.class);
+
+			Long id = (Long) nf.getId();
+
+			Optional<NotaFiscal> nfdb = fiscalRepository.findById(id);
+
+			nf.setTimestampCreated(nfdb.get().getTimestampCreated());
+			nf.setTimestampNf(nfdb.get().getTimestampNf());
+
+			nf = fiscalRepository.save(nf);
+
+			updateExames(nf2);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void updateExames(NotaFiscal nf) {
+
+		List<Exames> examesDb = new ArrayList<>();
+
+		List<Exames> examesNf = new ArrayList<>();
+
+		try {
+
+			examesDb = examesRepository.findAllByNotaFiscal(nf);
+			examesNf = nf.getExames();
+
+			// Working - delete if it does not exist
+			for (int i = 0; i < examesDb.size(); i++) {
+
+				String nameIdDb = examesDb.get(i).getNameId();
+				boolean resp = false;
+
+				for (int j = 0; j < examesNf.size(); j++) {
+					if (nameIdDb.equals(examesNf.get(j).getNameId())) {
+						resp = true;
+						break;
+					}
+				}
+
+				if (!resp) {
+					examesRepository.deleteById(examesDb.get(i).getId());
+				}
+			}
+
+			for (int i = 0; i < examesNf.size(); i++) {
+
+				String nameIdNf = examesNf.get(i).getNameId();
+				//Long id = examesNf.get(i).getId();
+				boolean resp = false;
+
+				for (int j = 0; j < examesDb.size(); j++) {
+					if (nameIdNf.equals(examesDb.get(j).getNameId())) {
+						resp = true;
+						break;
+					}
+				}
+
+				if (!resp) {
+					Exames exame = new Exames();
+					exame.setName(examesNf.get(i).getName());
+					exame.setNameId(examesNf.get(i).getNameId());
+					exame.setNotaFiscal(nf);
+					exame = examesRepository.save(exame);
+				}
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 }

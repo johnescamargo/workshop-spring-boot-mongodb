@@ -10,23 +10,14 @@ function onloadInit() {
 	getAllConvenios();
 }
 
-function deletar102(){
-	axios
-			.delete("/convenios/delete", {
-				params: {
-					id: 102
-				},
-			})
-			.then(function(response) {
-					console.log(response);
-			}).catch(error => {
-				console.log(error);
-			});
-}
-
 function configBtn(){
 	document.getElementById("main-div").style.display = 'none';
 	document.getElementById("cadastro-div").style.display = 'flex';
+}
+
+function deleteBtn(){
+	document.getElementById("main-div").style.display = 'none';
+	document.getElementById("delete-div").style.display = 'flex';
 }
 
 function getAllConvenios() {
@@ -257,7 +248,7 @@ window.getId = getId;
 window.getAllConvenios = getAllConvenios;
 window.selectGetById = selectGetById;
 window.configBtn = configBtn;
-window.deletar102 = deletar102;
+window.deleteBtn = deleteBtn;
 
 
 

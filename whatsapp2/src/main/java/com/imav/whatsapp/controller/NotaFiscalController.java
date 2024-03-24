@@ -50,6 +50,19 @@ public class NotaFiscalController {
 
 		return new ResponseEntity<>("Working...", HttpStatus.OK);
 	}
+	
+	// Update
+	@PostMapping("/updatenf")
+	public ResponseEntity<String> updateNF(@RequestBody String obj) {
+
+		try {
+			fiscalResource.updateNF(obj);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return new ResponseEntity<>("Working...", HttpStatus.OK);
+	}
 
 	// Get all by NF not done
 	@GetMapping("/all")

@@ -12,6 +12,10 @@ html {
   background-color:rgb(245 245 245);
 }
 
+body {
+  background-color:rgb(245 245 245);
+}
+
 #username {
   display: none;
 }
@@ -120,7 +124,7 @@ li a:hover:not(.active) {
   margin-left: 16px;
   margin-right: 22px;
   padding: 10px;
-  background-color: snow;
+  background-color:rgb(255 255 255);
   border-left: 4px solid rgb(32, 74, 135);
   border-right: 1px solid var(--border-color-div);
   border-bottom: 1px solid var(--border-color-div);

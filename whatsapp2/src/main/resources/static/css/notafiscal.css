@@ -499,6 +499,21 @@ select {
   background-color: rgb(94, 94, 185);
 }
 
+.button-update {
+  width: 125px;
+  height: 35px;
+  margin-top: 4px;
+  border-radius: 8px;
+  background-color: rgb(57, 113, 4);
+  color: aliceblue;
+  cursor: pointer;
+  border-style: none;
+}
+
+.button-update:hover {
+  background-color: rgb(116 197 40);
+}
+
 a span {
   display: none;
   position: absolute;
@@ -526,6 +541,11 @@ a:hover span {
   border-radius: 6px;
   border-width: 2px;
   width: 100%;
+}
+
+.div-auth {
+  display: flex;
+  justify-content: space-between;	
 }
 
 @media (max-width: 1177px) {

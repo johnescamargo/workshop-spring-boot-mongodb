@@ -29,7 +29,7 @@ public class Exames implements Serializable {
 
 	// This stops infinite looping
 	@JsonIgnore
-	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
 	@JoinColumn(name = "notafiscal_id", nullable = false)
 	private NotaFiscal notaFiscal;
 
