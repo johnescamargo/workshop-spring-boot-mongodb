@@ -6,6 +6,7 @@ var examesSelecionados = [];
 var customer;
 var datepicker = document.getElementById("datepicker");
 var pesquisa = document.getElementById("pesquisa");
+var month = document.getElementById("start");
 var outros = "";
 
 function onloadInit() {
@@ -86,6 +87,10 @@ pesquisa.addEventListener("input", function() {
 	} else {
 		setTable();
 	}
+});
+
+month.addEventListener("input", function() {
+	getMonthByDate(this.value);
 });
 
 function changeformat(val) {
@@ -198,6 +203,23 @@ function getCustomersByDate(data) {
 		.then(function(response) {
 			//console.log(response);
 			displayTableHtml(response);
+		})
+		.catch(function(error) {
+			console.log(error);
+		});
+}
+
+function getMonthByDate(data) {
+	var resp = changeDateformatMonth(data);
+
+	axios
+		.get("/nf/getbymonth", {
+			params: {
+				date: resp,
+			},
+		})
+		.then(function(response) {
+			console.log(response);
 		})
 		.catch(function(error) {
 			console.log(error);
@@ -735,6 +757,15 @@ function changeDateformat(val) {
 	return formatteddate;
 }
 
+function changeDateformatMonth(val) {
+	const myArray = val.split("-");
+	let year = myArray[0];
+	let month = myArray[1];
+	let formatteddate =  month + "/" + year;
+
+	return formatteddate;
+}
+
 function toggleHamburger(x) {
 	x.classList.toggle("change");
 	let lengthX = x.classList.length;
@@ -818,12 +849,12 @@ function updateNF(id) {
 	const formaPagamento = document.getElementById("forma-pagamento");
 	const medico = document.getElementById("medico");
 	const nfNumero = document.getElementById("nota-fiscal");
-	
+
 	var username = document.getElementById("username").innerText;
 
 	getExamesSelecionados();
 	getDadosPagamento();
-	
+
 	axios
 		.post("/nf/updatenf", {
 			id: id,

@@ -548,6 +548,16 @@ a:hover span {
   justify-content: space-between;	
 }
 
+#start {
+    border-radius: 6px;
+    height: 30px;
+    width: 180px;
+    border-style: solid;
+    border-color: dimgrey;
+    font-size: larger;
+    margin-bottom: 10px;
+}
+
 @media (max-width: 1177px) {
   .division {
     padding-top: 0px;

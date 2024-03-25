@@ -22,13 +22,13 @@
 <body>
 
 	<div id="username" sec:authentication="name"></div>
-	
+
 	<label class="hamburger" onclick="toggleHamburger(this)">
 		<div class="bar1"></div>
 		<div class="bar2"></div>
 		<div class="bar3"></div>
 	</label>
-	
+
 	<nav class="nav-bar">
 		<ul id="div-ul">
 			<div sec:authorize="hasAuthority('NF')">
@@ -85,7 +85,6 @@
 				</div>
 			</div>
 
-
 			<div class="div-customers">
 				<h4 id="h4-nf">Lista de Notas fiscais</h4>
 				<!-- Table -->
@@ -93,12 +92,17 @@
 
 				</div>
 			</div>
-
-
+			
 		</div>
 
 		<div class="customer-div" id="customer-div">
 
+		</div>
+		
+		<div class="div-datepicker" id="month-div" sec:authorize="hasAuthority('ADMIN')">
+			<h4 id="h4-nf">Relatório</h4>
+			<label for="start">Selecione o mês</label>
+			<input class="datepicker" type="month" id="start" name="start" min="02-2024" />
 		</div>
 
 	</div>

@@ -120,5 +120,19 @@ public class NotaFiscalController {
 
 		return new ResponseEntity<>(nfs, HttpStatus.OK);
 	}
+	
+	@GetMapping("/getbymonth")
+	public ResponseEntity<List<NotaFiscal>> getByMonth(@RequestParam String date) {
+
+		List<NotaFiscal> nfs = new ArrayList<>();
+
+		try {
+			nfs = fiscalResource.findAllByMonth(date);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return new ResponseEntity<>(nfs, HttpStatus.OK);
+	}
 
 }

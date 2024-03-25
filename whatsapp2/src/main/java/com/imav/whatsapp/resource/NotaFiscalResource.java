@@ -1,5 +1,7 @@
 package com.imav.whatsapp.resource;
 
+import java.text.ParseException;
+import java.time.YearMonth;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -139,7 +141,6 @@ public class NotaFiscalResource {
 		return dtos;
 	}
 
-	// TODO
 	public List<NotaFiscalDto> findAllByTimestampCreated(@RequestParam String date) {
 
 		List<NotaFiscalDto> dtos = new ArrayList<>();
@@ -259,7 +260,7 @@ public class NotaFiscalResource {
 			for (int i = 0; i < examesNf.size(); i++) {
 
 				String nameIdNf = examesNf.get(i).getNameId();
-				//Long id = examesNf.get(i).getId();
+				// Long id = examesNf.get(i).getId();
 				boolean resp = false;
 
 				for (int j = 0; j < examesDb.size(); j++) {
@@ -281,6 +282,42 @@ public class NotaFiscalResource {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	public List<NotaFiscal> findAllByMonth(String date) {
+		
+		List<NotaFiscal> nfs = new ArrayList<>();
+
+		try {
+			
+			// 1 - Get month and year from JavaScript (Integer).
+			String[] sentences = date.split("\\/");
+			int month = Integer.parseInt(sentences[0]);
+			int year = Integer.parseInt(sentences[1]);
+
+			// 2 - Get the number of days in that month
+			YearMonth monthAndYear = YearMonth.of(year, month);
+			int daysInAMonth = monthAndYear.lengthOfMonth();
+			System.out.println(daysInAMonth);
+
+			// 3 - Convert the first day and the last day in a month to epoch (Example: 01 and 29 of 02/2024).
+			long beginDate = new java.text.SimpleDateFormat("dd/MM/yyyy HH:mm:ss")
+					.parse("01/" + month + "/" + year + " 00:00:01").getTime() / 1000;
+
+			long endDate = new java.text.SimpleDateFormat("dd/MM/yyyy HH:mm:ss")
+					.parse(daysInAMonth + "/" + month + "/" + year + " 23:59:59").getTime() / 1000;
+
+			// 4 - search for everything into the database between the first and last day
+			// from that month and year.
+			nfs = fiscalRepository.findAllByTimestampCreated(beginDate, endDate);
+
+			// 5 - Return the result.
+
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+
+		return nfs;
 	}
 
 }
