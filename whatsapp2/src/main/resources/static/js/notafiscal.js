@@ -1,13 +1,174 @@
 import Websocket from "./websocket.js";
 const websocket = new Websocket();
 
+const nfDiv = document.getElementById("nf-div");
+const relatorioDiv = document.getElementById("relatorio-div");
+const nfMenu = document.getElementById("nf-menu");
+const relatorioMenu = document.getElementById("relatorio-menu");
+
 var dadosPagamento = [];
 var examesSelecionados = [];
 var customer;
 var datepicker = document.getElementById("datepicker");
 var pesquisa = document.getElementById("pesquisa");
 var month = document.getElementById("start");
+var doctor = document.getElementById("medico");
 var outros = "";
+
+var relatorioArr = [];
+var monthRelatorio;
+var yearRelatorio;
+
+const textName = document.getElementById('text-name');
+const textDate = document.getElementById('text-date');
+
+const bioQuant = document.getElementById('bio-quant');
+const bioValorTotal = document.getElementById('bio-valor-total');
+const bioPercentage = document.getElementById('bio-percent');
+const bioPercResult = document.getElementById('bio-perc-total');
+
+const camQuant = document.getElementById('cam-quant');
+const camValorTotal = document.getElementById('cam-valor-total');
+const camPercentage = document.getElementById('cam-percent');
+const camPercResult = document.getElementById('cam-perc-total');
+
+const capQuant = document.getElementById('cap-quant');
+const capValorTotal = document.getElementById('cap-valor-total');
+const capPercentage = document.getElementById('cap-percent');
+const capPercResult = document.getElementById('cap-perc-total');
+
+const cteQuant = document.getElementById('cte-quant');
+const cteValorTotal = document.getElementById('cte-valor-total');
+const ctePercentage = document.getElementById('cte-percent');
+const ctePercResult = document.getElementById('cte-perc-total');
+
+const torQuant = document.getElementById('tor-quant');
+const torValorTotal = document.getElementById('tor-valor-total');
+const torPercentage = document.getElementById('tor-percent');
+const torPercResult = document.getElementById('tor-perc-total');
+
+const fotQuant = document.getElementById('fot-quant');
+const fotValorTotal = document.getElementById('fot-valor-total');
+const fotPercentage = document.getElementById('fot-percent');
+const fotPercResult = document.getElementById('fot-perc-total');
+
+const gonQuant = document.getElementById('gon-quant');
+const gonValorTotal = document.getElementById('gon-valor-total');
+const gonPercentage = document.getElementById('gon-percent');
+const gonPercResult = document.getElementById('gon-perc-total');
+
+const mapQuant = document.getElementById('map-quant');
+const mapValorTotal = document.getElementById('map-valor-total');
+const mapPercentage = document.getElementById('map-percent');
+const mapPercResult = document.getElementById('map-perc-total');
+
+const micQuant = document.getElementById('mic-quant');
+const micValorTotal = document.getElementById('mic-valor-total');
+const micPercentage = document.getElementById('mic-percent');
+const micPercResult = document.getElementById('mic-perc-total');
+
+const paQuant = document.getElementById('pam-quant');
+const paValorTotal = document.getElementById('pam-valor-total');
+const paPercentage = document.getElementById('pam-percent');
+const paPercResult = document.getElementById('pam-perc-total');
+
+const paqQuant = document.getElementById('paq-quant');
+const paqValorTotal = document.getElementById('paq-valor-total');
+const paqPercentage = document.getElementById('paq-percent');
+const paqPercResult = document.getElementById('paq-perc-total');
+
+const retQuant = document.getElementById('ret-quant');
+const retValorTotal = document.getElementById('ret-valor-total');
+const retPercentage = document.getElementById('ret-percent');
+const retPercResult = document.getElementById('ret-perc-total');
+
+const tonQuant = document.getElementById('ton-quant');
+const tonValorTotal = document.getElementById('ton-valor-total');
+const tonPercentage = document.getElementById('ton-percent');
+const tonPercResult = document.getElementById('ton-perc-total');
+
+const cerQuant = document.getElementById('cer-quant');
+const cerValorTotal = document.getElementById('cer-valor-total');
+const cerPercentage = document.getElementById('cer-percent');
+const cerPercResult = document.getElementById('cer-perc-total');
+
+const ocQuant = document.getElementById('oct-quant');
+const ocValorTotal = document.getElementById('oct-valor-total');
+const ocPercentage = document.getElementById('oct-percent');
+const ocPercResult = document.getElementById('oct-perc-total');
+
+const valorTotal = document.getElementById('valor-total');
+const valorPercTotal = document.getElementById('valor-perc-total');
+
+var name;
+var monthName;
+
+var biometriaQuant = 0;
+var campimetriaQuant = 0;
+var capsulotomiaQuant = 0;
+var curvaTensionalQuant = 0;
+var testeOrtopticoQuant = 0;
+var fotocoagulacaoALaserQuant = 0;
+var gonioscopiaQuant = 0;
+var mapeamentoDeRetinaQuant = 0;
+var microscopiaQuant = 0;
+var pamQuant = 0;
+var paquimetriaQuant = 0;
+var retinografiaQuant = 0;
+var tonometriaQuant = 0;
+var ceratoscopiaQuant = 0;
+var octQuant = 0;
+
+var biometriaAmount = 0;
+var campimetriaAmount = 0;
+var capsulotomiaAmount = 0;
+var curvaTensionalAmount = 0;
+var testeOrtopticoAmount = 0;
+var fotocoagulacaoALaserAmount = 0;
+var gonioscopiaAmount = 0;
+var mapeamentoDeRetinaAmount = 0;
+var microscopiaAmount = 0;
+var pamAmount = 0;
+var paquimetriaAmount = 0;
+var retinografiaAmount = 0;
+var tonometriaAmount = 0;
+var ceratoscopiaAmount = 0;
+var octAmount = 0;
+
+var biometriaPercentage = document.getElementById('biometria');
+var campimetriaPercentage = document.getElementById('campimetria');
+var capsulotomiaPercentage = document.getElementById('capsulotomia');
+var curvaTensionalPercentage = document.getElementById('curva-tensional');
+var testeOrtopticoPercentage = document.getElementById('teste-ortoptico');
+var fotocoagulacaoALaserPercentage = document.getElementById('fotocoagulacao-a-laser');
+var gonioscopiaPercentage = document.getElementById('gonioscopia');
+var mapeamentoDeRetinaPercentage = document.getElementById('mapeamento-de-retina');
+var microscopiaPercentage = document.getElementById('microscopia');
+var pamPercentage = document.getElementById('pam');
+var paquimetriaPercentage = document.getElementById('paquimetria');
+var retinografiaPercentage = document.getElementById('retinografia');
+var tonometriaPercentage = document.getElementById('tonometria');
+var ceratoscopiaPercentage = document.getElementById('ceratoscopia');
+var octPercentage = document.getElementById('oct');
+
+var biometriaPercResult = 0;
+var campimetriaPercResult = 0;
+var capsulotomiaPercResult = 0;
+var curvaTensionalPercResult = 0;
+var testeOrtopticoPercResult = 0;
+var fotocoagulacaoALaserPercResult = 0;
+var gonioscopiaPercResult = 0;
+var mapeamentoDeRetinaPercResult = 0;
+var microscopiaPercResult = 0;
+var pamPercResult = 0;
+var paquimetriaPercResult = 0;
+var retinografiaPercResult = 0;
+var tonometriaPercResult = 0;
+var ceratoscopiaPercResult = 0;
+var octPercResult = 0;
+
+var totalAmount = 0;
+var totalPercAmount = 0;
 
 function onloadInit() {
 	loadWantsToTalk();
@@ -89,9 +250,12 @@ pesquisa.addEventListener("input", function() {
 	}
 });
 
-month.addEventListener("input", function() {
-	getMonthByDate(this.value);
-});
+if (month) {
+	month.addEventListener("input", function() {
+		getMonthByDate(this.value);
+		//getMonthByDateAndMedico(this.value);
+	});
+}
 
 function changeformat(val) {
 	const myArray = val.split("-");
@@ -165,7 +329,7 @@ function getCustomerId(id) {
 			},
 		})
 		.then(function(response) {
-			console.log(response);
+			//console.log(response);
 			customer = response.data;
 			setCustomerHtml(response.data);
 		})
@@ -215,15 +379,44 @@ function getMonthByDate(data) {
 	axios
 		.get("/nf/getbymonth", {
 			params: {
-				date: resp,
+				date: resp
 			},
 		})
 		.then(function(response) {
-			console.log(response);
+			//console.log(response.data);
+			saveRelatorioArr(response.data);
 		})
 		.catch(function(error) {
 			console.log(error);
 		});
+}
+
+function getMonthByDateAndMedico(data) {
+	var resp = changeDateformatMonth(data);
+	
+	axios
+		.get("/nf/getbymonthandmedico", {
+			params: {
+				date: resp,
+				doctor: doctor.value
+			},
+		})
+		.then(function(response) {
+			//console.log(response.data);
+			saveRelatorioArr(response.data);
+		})
+		.catch(function(error) {
+			console.log(error);
+		});
+}
+
+function saveRelatorioArr(arr) {
+
+	relatorioArr = [];
+
+	for (let i = 0; i < arr.length; i++) {
+		relatorioArr.push(arr[i])
+	}
 }
 
 function setChecked(data) {
@@ -245,7 +438,7 @@ function setCustomerHtml(customer) {
 
 	let data =
 		"" +
-		'<div class="frame-div">' +
+		'<div class="frame-div" id="frame-div">' +
 		'<div class="main-div">' +
 		"<!-- Dados Principais-->" +
 		'<div class="col-1-data">' +
@@ -761,7 +954,10 @@ function changeDateformatMonth(val) {
 	const myArray = val.split("-");
 	let year = myArray[0];
 	let month = myArray[1];
-	let formatteddate =  month + "/" + year;
+	let formatteddate = month + "/" + year;
+
+	monthRelatorio = month;
+	yearRelatorio = year;
 
 	return formatteddate;
 }
@@ -1060,6 +1256,368 @@ function getDadosPagamento() {
 	}
 }
 
+function setNfRelatorio() {
+
+	nfDiv.style.display = 'none';
+	nfMenu.style.backgroundColor = 'rgb(17 41 70)';
+
+	relatorioDiv.style.display = 'flex';
+	relatorioMenu.style.backgroundColor = 'rgb(27 67 114)';
+
+}
+
+function setNfMenu() {
+
+	nfDiv.style.display = 'flex';
+	nfMenu.style.backgroundColor = 'rgb(27 67 114)';
+
+	relatorioDiv.style.display = 'none';
+	relatorioMenu.style.backgroundColor = 'rgb(17 41 70)';
+
+}
+
+function calculateMonthRelatorio() {
+
+	biometriaQuant = 0;
+	biometriaAmount = 0;
+	biometriaPercResult = 0;
+
+	campimetriaQuant = 0;
+	campimetriaAmount = 0;
+	campimetriaPercResult = 0;
+
+	capsulotomiaQuant = 0;
+	capsulotomiaAmount = 0;
+	capsulotomiaPercResult = 0;
+
+	curvaTensionalQuant = 0;
+	curvaTensionalAmount = 0;
+	curvaTensionalPercResult = 0;
+
+	testeOrtopticoQuant = 0;
+	testeOrtopticoAmount = 0;
+	testeOrtopticoPercResult = 0;
+
+	fotocoagulacaoALaserQuant = 0;
+	fotocoagulacaoALaserAmount = 0;
+	fotocoagulacaoALaserPercResult = 0;
+
+	gonioscopiaQuant = 0;
+	gonioscopiaAmount = 0;
+	gonioscopiaPercResult = 0;
+
+	mapeamentoDeRetinaQuant = 0;
+	mapeamentoDeRetinaAmount = 0;
+	mapeamentoDeRetinaPercResult = 0;
+
+	microscopiaQuant = 0;
+	microscopiaAmount = 0;
+	microscopiaPercResult = 0;
+
+	pamQuant = 0;
+	pamAmount = 0;
+	pamPercResult = 0;
+
+	paquimetriaQuant = 0;
+	paquimetriaAmount = 0;
+	paquimetriaPercResult = 0;
+
+	retinografiaQuant = 0;
+	retinografiaAmount = 0;
+	retinografiaPercResult = 0;
+
+	tonometriaQuant = 0;
+	tonometriaAmount = 0;
+	tonometriaPercResult = 0;
+
+	ceratoscopiaQuant = 0;
+	ceratoscopiaAmount = 0;
+	ceratoscopiaPercResult = 0;
+
+	octQuant = 0;
+	octAmount = 0;
+	octPercResult = 0;
+
+	monthName = getMonthName(monthRelatorio);
+
+	if (relatorioArr.length !== 0) {
+		name = relatorioArr[0].nome;
+
+		for (let i = 0; i < relatorioArr.length; i++) {
+
+			var amount = relatorioArr[i].valor;
+			var lengthArr = relatorioArr[i].exames.length;
+
+			for (let j = 0; j < relatorioArr[i].exames.length; j++) {
+
+				var nameId = relatorioArr[i].exames[j].nameId;
+				var valor = amount / lengthArr;
+
+				valor = splitNumber(valor);
+
+				if (nameId === 'biometria') {
+					biometriaQuant++;
+					biometriaAmount = biometriaAmount + valor;
+					biometriaPercResult = calculatePercentage(biometriaAmount, biometriaPercentage.value);
+					break;
+				} else if (nameId === 'campimetria') {
+					campimetriaQuant++;
+					campimetriaAmount = campimetriaAmount + valor;
+					campimetriaPercResult = calculatePercentage(campimetriaAmount, campimetriaPercentage.value);
+					break;
+				} else if (nameId === 'capsulotomia') {
+					capsulotomiaQuant++;
+					capsulotomiaAmount = capsulotomiaAmount + valor;
+					capsulotomiaPercResult = calculatePercentage(capsulotomiaAmount, capsulotomiaPercentage.value);
+					break;
+				} else if (nameId === 'curva-tensional') {
+					curvaTensionalQuant++;
+					curvaTensionalAmount = curvaTensionalAmount + valor;
+					curvaTensionalPercResult = calculatePercentage(curvaTensionalAmount, curvaTensionalPercentage.value);
+					break;
+				} else if (nameId === 'teste-ortoptico') {
+					testeOrtopticoQuant++;
+					testeOrtopticoAmount = testeOrtopticoAmount + valor;
+					testeOrtopticoPercResult = calculatePercentage(testeOrtopticoAmount, testeOrtopticoPercentage.value);
+					break;
+				} else if (nameId === 'fotocoagulacao-a-laser') {
+					fotocoagulacaoALaserQuant++;
+					fotocoagulacaoALaserAmount = fotocoagulacaoALaserAmount + valor;
+					fotocoagulacaoALaserPercResult = calculatePercentage(fotocoagulacaoALaserAmount, fotocoagulacaoALaserPercentage.value);
+					break;
+				} else if (nameId === 'gonioscopia') {
+					gonioscopiaQuant++;
+					gonioscopiaAmount = gonioscopiaAmount + valor;
+					gonioscopiaPercResult = calculatePercentage(gonioscopiaAmount, gonioscopiaPercentage.value);
+					break;
+				} else if (nameId === 'mapeamento de Retina') {
+					mapeamentoDeRetinaQuant++;
+					mapeamentoDeRetinaAmount = mapeamentoDeRetinaAmount + valor;
+					mapeamentoDeRetinaPercResult = calculatePercentage(mapeamentoDeRetinaAmount, mapeamentoDeRetinaPercentage.value);
+					break;
+				} else if (nameId === 'microscopia') {
+					microscopiaQuant++;
+					microscopiaAmount = microscopiaAmount + valor;
+					microscopiaPercResult = calculatePercentage(microscopiaAmount, microscopiaPercentage.value);
+					break;
+				} else if (nameId === 'pam') {
+					pamQuant++;
+					pamAmount = pamAmount + valor;
+					pamPercResult = calculatePercentage(pamAmount, pamPercentage.value);
+					break;
+				} else if (nameId === 'paquimetria') {
+					paquimetriaQuant++;
+					paquimetriaAmount = paquimetriaAmount + valor;
+					paquimetriaPercResult = calculatePercentage(paquimetriaAmount, paquimetriaPercentage.value);
+					break;
+				} else if (nameId === 'retinografia') {
+					retinografiaQuant++;
+					retinografiaAmount = retinografiaAmount + valor;
+					retinografiaPercResult = calculatePercentage(retinografiaAmount, retinografiaPercentage.value);
+					break;
+				} else if (nameId === 'tonometria') {
+					tonometriaQuant++;
+					tonometriaAmount = tonometriaAmount + valor;
+					tonometriaPercResult = calculatePercentage(tonometriaAmount, tonometriaPercentage.value);
+					break;
+				} else if (nameId === 'ceratoscopia') {
+					ceratoscopiaQuant++;
+					ceratoscopiaAmount = ceratoscopiaAmount + valor;
+					ceratoscopiaPercResult = calculatePercentage(ceratoscopiaAmount, ceratoscopiaPercentage.value);
+					break;
+				} else if (nameId === 'oct') {
+					octQuant++;
+					octAmount = octAmount + valor;
+					octPercResult = calculatePercentage(octAmount, octPercentage.value);
+					break;
+				}
+			}
+		}
+
+		totalAmount = (
+			biometriaAmount +
+			campimetriaAmount +
+			capsulotomiaAmount +
+			curvaTensionalAmount +
+			testeOrtopticoAmount +
+			fotocoagulacaoALaserAmount +
+			gonioscopiaAmount +
+			mapeamentoDeRetinaAmount +
+			microscopiaAmount +
+			pamAmount +
+			paquimetriaAmount +
+			retinografiaAmount +
+			tonometriaAmount +
+			ceratoscopiaAmount +
+			octAmount
+		);
+
+		totalPercAmount = (
+			biometriaPercResult +
+			campimetriaPercResult +
+			capsulotomiaPercResult +
+			curvaTensionalPercResult +
+			testeOrtopticoPercResult +
+			fotocoagulacaoALaserPercResult +
+			gonioscopiaPercResult +
+			mapeamentoDeRetinaPercResult +
+			microscopiaPercResult +
+			pamPercResult +
+			paquimetriaPercResult +
+			retinografiaPercResult +
+			tonometriaPercResult +
+			ceratoscopiaPercResult +
+			octPercResult
+		);
+
+		//console.log(totalPercAmount);
+	}
+
+	setHtmlRelatorio();
+}
+
+function calculatePercentage(amount, percentage) {
+
+	let valor = (amount * percentage) / 100;
+	let text = valor.toString();
+	const myArray = text.split(".");
+	let result = parseInt(myArray[0]);
+	
+	return result;
+}
+
+function setHtmlRelatorio() {
+
+	textName.innerHTML = name;
+	textDate.innerHTML = monthName.name + "/" + yearRelatorio;
+
+	bioQuant.innerHTML = biometriaQuant;
+	bioValorTotal.innerHTML = validateValor(biometriaAmount);
+	bioPercentage.innerHTML = biometriaPercentage.value + ' %';
+	bioPercResult.innerHTML = validateValor(biometriaPercResult);
+
+	camQuant.innerHTML = campimetriaQuant;
+	camValorTotal.innerHTML = validateValor(campimetriaAmount);
+	camPercentage.innerHTML = campimetriaPercentage.value + ' %';
+	camPercResult.innerHTML = validateValor(campimetriaPercResult);
+
+	capQuant.innerHTML = capsulotomiaQuant;
+	capValorTotal.innerHTML = validateValor(capsulotomiaAmount);
+	capPercentage.innerHTML = capsulotomiaPercentage.value + ' %';
+	capPercResult.innerHTML = validateValor(capsulotomiaPercResult);
+
+	cteQuant.innerHTML = curvaTensionalQuant;
+	cteValorTotal.innerHTML = validateValor(curvaTensionalAmount);
+	ctePercentage.innerHTML = curvaTensionalPercentage.value + ' %';
+	ctePercResult.innerHTML = validateValor(curvaTensionalPercResult);
+
+	torQuant.innerHTML = testeOrtopticoQuant;
+	torValorTotal.innerHTML = validateValor(testeOrtopticoAmount);
+	torPercentage.innerHTML = testeOrtopticoPercentage.value + ' %';
+	torPercResult.innerHTML = validateValor(testeOrtopticoPercResult);
+
+	fotQuant.innerHTML = fotocoagulacaoALaserQuant;
+	fotValorTotal.innerHTML = validateValor(fotocoagulacaoALaserAmount);
+	fotPercentage.innerHTML = fotocoagulacaoALaserPercentage.value + ' %';
+	fotPercResult.innerHTML = validateValor(fotocoagulacaoALaserPercResult);
+
+	gonQuant.innerHTML = gonioscopiaQuant;
+	gonValorTotal.innerHTML = validateValor(gonioscopiaAmount);
+	gonPercentage.innerHTML = gonioscopiaPercentage.value + ' %';
+	gonPercResult.innerHTML = validateValor(gonioscopiaPercResult);
+
+	mapQuant.innerHTML = mapeamentoDeRetinaQuant;
+	mapValorTotal.innerHTML = validateValor(mapeamentoDeRetinaAmount);
+	mapPercentage.innerHTML = mapeamentoDeRetinaPercentage.value + ' %';
+	mapPercResult.innerHTML = validateValor(mapeamentoDeRetinaPercResult);
+
+	micQuant.innerHTML = microscopiaQuant;
+	micValorTotal.innerHTML = validateValor(microscopiaAmount);
+	micPercentage.innerHTML = microscopiaPercentage.value + ' %';
+	micPercResult.innerHTML = validateValor(microscopiaPercResult);
+
+	paQuant.innerHTML = pamQuant;
+	paValorTotal.innerHTML = validateValor(pamAmount);
+	paPercentage.innerHTML = pamPercentage.value + ' %';
+	paPercResult.innerHTML = validateValor(pamPercResult);
+
+	paqQuant.innerHTML = paquimetriaQuant;
+	paqValorTotal.innerHTML = validateValor(paquimetriaAmount);
+	paqPercentage.innerHTML = paquimetriaPercentage.value + ' %';
+	paqPercResult.innerHTML = validateValor(paquimetriaPercResult);
+
+	retQuant.innerHTML = retinografiaQuant;
+	retValorTotal.innerHTML = validateValor(retinografiaAmount);
+	retPercentage.innerHTML = retinografiaPercentage.value + ' %';
+	retPercResult.innerHTML = validateValor(retinografiaPercResult);
+
+	tonQuant.innerHTML = tonometriaQuant;
+	tonValorTotal.innerHTML = validateValor(tonometriaAmount);
+	tonPercentage.innerHTML = tonometriaPercentage.value + ' %';
+	tonPercResult.innerHTML = validateValor(tonometriaPercResult);
+
+	cerQuant.innerHTML = ceratoscopiaQuant;
+	cerValorTotal.innerHTML = validateValor(ceratoscopiaAmount);
+	cerPercentage.innerHTML = ceratoscopiaPercentage.value + ' %';
+	cerPercResult.innerHTML = validateValor(ceratoscopiaPercResult);
+
+	ocQuant.innerHTML = octQuant;
+	ocValorTotal.innerHTML = validateValor(octAmount);
+	ocPercentage.innerHTML = octPercentage.value + ' %';
+	ocPercResult.innerHTML = validateValor(octPercResult);
+
+	valorTotal.innerHTML = validateValor(totalAmount);
+	valorPercTotal.innerHTML = validateValor(totalPercAmount);
+
+}
+
+function splitNumber(number) {
+	let text = number.toString();
+	const myArray = text.split(".");
+	let num = parseInt(myArray[0]);
+
+	return num;
+}
+
+
+function getMonthName(id) {
+	var resp;
+
+	const months = [
+		{ id: '01', name: 'Janeiro' },
+		{ id: '02', name: 'Fevereiro' },
+		{ id: '03', name: 'Março' },
+		{ id: '04', name: 'Abril' },
+		{ id: '05', name: 'Maio' },
+		{ id: '06', name: 'Junho' },
+		{ id: '07', name: 'Julho' },
+		{ id: '08', name: 'Agosto' },
+		{ id: '09', name: 'Setembro' },
+		{ id: '10', name: 'Outubro' },
+		{ id: '11', name: 'Novembro' },
+		{ id: '12', name: 'Dezembro' }
+	];
+
+	for (let i = 0; i < months.length; i++) {
+		if (months[i].id === id) {
+			resp = months[i];
+			break;
+		}
+	}
+	return resp;
+}
+
+function printDiv(divId) {
+     var printContents = document.getElementById(divId).innerHTML;
+     var originalContents = document.body.innerHTML;
+
+     document.body.innerHTML = printContents;
+
+     window.print();
+
+     document.body.innerHTML = originalContents;
+}
+
 window.addEventListener("onload", onloadInit());
 window.addEventListener("onload", onloadInit);
 window.saveNF = saveNF;
@@ -1073,3 +1631,8 @@ window.toggleHamburger = toggleHamburger;
 window.freeFields = freeFields;
 window.getDadosPagamento = getDadosPagamento;
 window.updateNF = updateNF;
+window.setNfRelatorio = setNfRelatorio;
+window.setNfMenu = setNfMenu;
+window.calculateMonthRelatorio = calculateMonthRelatorio;
+window.printDiv = printDiv;
+window.getMonthByDateAndMedico = getMonthByDateAndMedico;

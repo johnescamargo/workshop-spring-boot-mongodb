@@ -20,5 +20,8 @@ public interface NotaFiscalRepository extends JpaRepository<NotaFiscal, Long> {
 
 	@Query(value = "SELECT * FROM notafiscal n WHERE n.timestamp_created >= :begindate AND n.timestamp_created <= :enddate", nativeQuery = true)
 	List<NotaFiscal> findAllByTimestampCreated(@Param("begindate") long begindate, @Param("enddate") long enddate);
+	
+	@Query(value = "SELECT * FROM notafiscal n WHERE n.timestamp_created >= :begindate AND n.timestamp_created <= :enddate AND n.medico = :medico", nativeQuery = true)
+	List<NotaFiscal> findAllByTimestampCreatedAndMedico(@Param("begindate") long begindate, @Param("enddate") long enddate, @Param("medico") String medico);
 
 }

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.google.gson.Gson;
+import com.imav.whatsapp.dto.MonthAndMedicoDto;
 import com.imav.whatsapp.dto.NotaFiscalDto;
 import com.imav.whatsapp.dto.NotaFiscalUpdateDto;
 import com.imav.whatsapp.entity.Exames;
@@ -284,11 +285,17 @@ public class NotaFiscalResource {
 		}
 	}
 
-	public List<NotaFiscal> findAllByMonth(String date) {
+	public List<NotaFiscal> findAllByMonthAndMedico(String obj) {
 		
 		List<NotaFiscal> nfs = new ArrayList<>();
-
+		
 		try {
+			
+			MonthAndMedicoDto dto = new MonthAndMedicoDto();
+			dto = gson.fromJson(obj, MonthAndMedicoDto.class);
+			
+			String date = dto.getDate();
+			String medico = dto.getMedico();
 			
 			// 1 - Get month and year from JavaScript (Integer).
 			String[] sentences = date.split("\\/");
@@ -298,7 +305,43 @@ public class NotaFiscalResource {
 			// 2 - Get the number of days in that month
 			YearMonth monthAndYear = YearMonth.of(year, month);
 			int daysInAMonth = monthAndYear.lengthOfMonth();
-			System.out.println(daysInAMonth);
+			//System.out.println(daysInAMonth);
+
+			// 3 - Convert the first day and the last day in a month to epoch (Example: 01 and 29 of 02/2024).
+			long beginDate = new java.text.SimpleDateFormat("dd/MM/yyyy HH:mm:ss")
+					.parse("01/" + month + "/" + year + " 00:00:01").getTime() / 1000;
+
+			long endDate = new java.text.SimpleDateFormat("dd/MM/yyyy HH:mm:ss")
+					.parse(daysInAMonth + "/" + month + "/" + year + " 23:59:59").getTime() / 1000;
+
+			// 4 - search for everything into the database between the first and last day
+			// from that month and year.
+			nfs = fiscalRepository.findAllByTimestampCreatedAndMedico(beginDate, endDate, medico);
+
+			// 5 - Return the result.
+
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+
+		return nfs;
+	}
+	
+	public List<NotaFiscal> findAllByMonth(String date) {
+		
+		List<NotaFiscal> nfs = new ArrayList<>();
+		
+		try {
+						
+			// 1 - Get month and year from JavaScript (Integer).
+			String[] sentences = date.split("\\/");
+			int month = Integer.parseInt(sentences[0]);
+			int year = Integer.parseInt(sentences[1]);
+
+			// 2 - Get the number of days in that month
+			YearMonth monthAndYear = YearMonth.of(year, month);
+			int daysInAMonth = monthAndYear.lengthOfMonth();
+			//System.out.println(daysInAMonth);
 
 			// 3 - Convert the first day and the last day in a month to epoch (Example: 01 and 29 of 02/2024).
 			long beginDate = new java.text.SimpleDateFormat("dd/MM/yyyy HH:mm:ss")

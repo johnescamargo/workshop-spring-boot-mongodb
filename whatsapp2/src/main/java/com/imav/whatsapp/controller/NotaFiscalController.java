@@ -134,5 +134,19 @@ public class NotaFiscalController {
 
 		return new ResponseEntity<>(nfs, HttpStatus.OK);
 	}
+	
+	@GetMapping("/getbymonthandmedico")
+	public ResponseEntity<List<NotaFiscal>> getByMonthAndMedico(@RequestBody String obj) {
+
+		List<NotaFiscal> nfs = new ArrayList<>();
+
+		try {
+			nfs = fiscalResource.findAllByMonthAndMedico(obj);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return new ResponseEntity<>(nfs, HttpStatus.OK);
+	}
 
 }

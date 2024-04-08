@@ -73,36 +73,286 @@
 		</ul>
 	</nav>
 
-
 	<div class="division">
 
-		<div class="division2">
-			<div class="div-datepicker">
-				<input id="datepicker" type="date" format="dd/mm/yyyy" class="datepicker" data-date-format="dd/MM/yyyy">
-				<div class="div-pesquisa">
-					<label for="pesquisa">Pesquisa</label>
-					<input type="text" class="pesquisa" id="pesquisa">
-				</div>
+		<div class="side-menu">
+			<div class="side-menu-ul">
+				<div class="side-menu-li" id="nf-menu" onclick="setNfMenu()">Lista de NFs</div>
+				<div class="side-menu-li" id="relatorio-menu" onclick="setNfRelatorio()">Relatórios</div>
 			</div>
-
-			<div class="div-customers">
-				<h4 id="h4-nf">Lista de Notas fiscais</h4>
-				<!-- Table -->
-				<div id="data-table">
-
-				</div>
-			</div>
-			
 		</div>
 
-		<div class="customer-div" id="customer-div">
+		<!-- NF Lista-->
+		<div class="nf-div" id="nf-div">
+			<div class="division2" id="division2">
+				<div class="div-datepicker">
+					<input id="datepicker" type="date" format="dd/mm/yyyy" class="datepicker"
+						data-date-format="dd/MM/yyyy">
+					<div class="div-pesquisa">
+						<label for="pesquisa">Pesquisa</label>
+						<input type="text" class="pesquisa" id="pesquisa">
+					</div>
+				</div>
 
+				<div class="div-customers">
+					<h4 id="h4-nf">Lista de Notas fiscais</h4>
+					<!-- Table -->
+					<div id="data-table">
+
+					</div>
+				</div>
+
+			</div>
+
+			<div class="customer-div" id="customer-div">
+				<!-- Data -->
+			</div>
 		</div>
-		
-		<div class="div-datepicker" id="month-div" sec:authorize="hasAuthority('ADMIN')">
-			<h4 id="h4-nf">Relatório</h4>
-			<label for="start">Selecione o mês</label>
-			<input class="datepicker" type="month" id="start" name="start" min="02-2024" />
+
+
+		<!-- NF Lista-->
+		<div class="relatorio-div" id="relatorio-div">
+			<div class="left-side">
+				<div class="div-datepicker-relatorio" id="month-div">
+
+					<h4 id="h4-nf">Relatório Mensal</h4>
+					<label for="start">Selecione o mês</label>
+					<input class="datepicker" type="month" id="start" name="start" min="02-2024" />
+				</div>
+
+				<div class="div-datepicker-relatorio" id="month-div">
+					<h4 id="h4-nf">Médico Solicitante</h4>
+					<select name="medico" id="medico" required>
+						<option value selected disabled>Selecione *</option>
+						<option value="Bruno Abatti">Bruno A. Greggio</option>
+						<option value="Carlos Roberto">Carlos R. Oliveira</option>
+						<option value="Edilene Mingues">Edilene M. Fernandes</option>
+						<option value="Fernanda Marció">Fernanda Marció</option>
+						<option value="Gustavo Mansur">Gustavo Mansur</option>
+						<option value="Outro">Outro</option>
+					</select>
+				</div>
+
+				<!-- Exames -->
+				<div class="exames-relatorio">
+					<h4>Exames</h4>
+
+					<!-- Checkbox -->
+					<input type="number" value="10" min="0" max="100" id="biometria" />
+					<label for="biometria">% Biometria</label>
+					<br>
+
+					<input type="number" value="10" min="0" max="100" id="campimetria" />
+					<label for="campimetria">% Campimetria</label>
+					<br>
+
+					<input type="number" value="10" min="0" max="100" id="capsulotomia" />
+					<label for="capsulotomia">% Capsulotomia</label>
+					<br>
+
+					<input type="number" value="10" min="0" max="100" id="curva-tensional" />
+					<label for="curva-tensional">% Curva Tensional</label>
+					<br>
+
+					<input type="number" value="10" min="0" max="100" id="teste-ortoptico" />
+					<label for="teste-ortoptico">% Teste Ortóptico</label>
+					<br>
+
+					<input type="number" value="10" min="0" max="100" id="fotocoagulacao-a-laser" />
+					<label for="fotocoagulacao-a-laser">% Fotocoagulacao à Laser</label>
+					<br>
+
+					<input type="number" value="10" min="0" max="100" id="gonioscopia" />
+					<label for="gonioscopia">% Gonioscopia</label>
+					<br>
+
+					<input type="number" value="10" min="0" max="100" id="mapeamento-de-retina" />
+					<label for="mapeamento-de-retina">% Mapeamento de Retina</label>
+					<br>
+
+					<input type="number" value="10" min="0" max="100" id="microscopia" />
+					<label for="microscopia">% Microscopia</label>
+					<br>
+
+					<input type="number" value="10" min="0" max="100" id="pam" />
+					<label for="pam">% P.A.M.</label>
+					<br>
+
+					<input type="number" value="10" min="0" max="100" id="paquimetria" />
+					<label for="paquimetria">% Paquimetria</label>
+					<br>
+
+					<input type="number" value="10" min="0" max="100" id="retinografia" />
+					<label for="retinografia">% Retinografia</label>
+					<br>
+
+					<input type="number" value="10" min="0" max="100" id="tonometria" />
+					<label for="tonometria">% Tonometria</label>
+					<br>
+
+					<input type="number" value="10" min="0" max="100" id="ceratoscopia" />
+					<label for="ceratoscopia">% Ceratoscopia</label>
+					<br>
+
+					<input type="number" value="10" min="0" max="100" id="oct" />
+					<label for="oct">% OCT</label>
+					<br>
+
+					<button class="button-save" onclick="calculateMonthRelatorio()">Calcular</button>
+					<br>
+					<!-- Checkbox end-->
+
+				</div>
+				<!-- Exames end-->
+			</div>
+
+			<div class="right-side" id="right-side">
+
+				<div class="relatorio-month-card">
+
+					<div class="relatorio-name-date">
+						<label class="label-rel" for="text-name">Nome: </label>
+						<div class="text-div" id="text-name"></div>
+					</div>
+					<div class="relatorio-name-date">
+						<label class="label-rel" for="text-date">Data: </label>
+						<div class="text-div" id="text-date"></div>
+					</div>
+					<hr />
+
+					<table>
+						<tr>
+							<th>Exames</th>
+							<th>Quantidade</th>
+							<th>Valor total</th>
+							<th>%</th>
+							<th>Valor em %</th>
+						</tr>
+						<tr>
+							<td>Biometria</td>
+							<td id="bio-quant"></td>
+							<td id="bio-valor-total"></td>
+							<td id="bio-percent"></td>
+							<td id="bio-perc-total"></td>
+						</tr>
+						<tr>
+							<td>Campimetria</td>
+							<td id="cam-quant"></td>
+							<td id="cam-valor-total"></td>
+							<td id="cam-percent"></td>
+							<td id="cam-perc-total"></td>
+						</tr>
+						<tr>
+							<td>Capsulotomia</td>
+							<td id="cap-quant"></td>
+							<td id="cap-valor-total"></td>
+							<td id="cap-percent"></td>
+							<td id="cap-perc-total"></td>
+						</tr>
+						<tr>
+							<td>Curva Tensional</td>
+							<td id="cte-quant"></td>
+							<td id="cte-valor-total"></td>
+							<td id="cte-percent"></td>
+							<td id="cte-perc-total"></td>
+						</tr>
+						<tr>
+							<td>Teste Ortóptico</td>
+							<td id="tor-quant"></td>
+							<td id="tor-valor-total"></td>
+							<td id="tor-percent"></td>
+							<td id="tor-perc-total"></td>
+						</tr>
+						<tr>
+							<td>Fotocoagulacao à Laser</td>
+							<td id="fot-quant"></td>
+							<td id="fot-valor-total"></td>
+							<td id="fot-percent"></td>
+							<td id="fot-perc-total"></td>
+						</tr>
+						<tr>
+							<td>Gonioscopia</td>
+							<td id="gon-quant"></td>
+							<td id="gon-valor-total"></td>
+							<td id="gon-percent"></td>
+							<td id="gon-perc-total"></td>
+						</tr>
+						<tr>
+							<td>Mapeamento de Retina</td>
+							<td id="map-quant"></td>
+							<td id="map-valor-total"></td>
+							<td id="map-percent"></td>
+							<td id="map-perc-total"></td>
+						</tr>
+						<tr>
+							<td>Microscopia</td>
+							<td id="mic-quant"></td>
+							<td id="mic-valor-total"></td>
+							<td id="mic-percent"></td>
+							<td id="mic-perc-total"></td>
+						</tr>
+						<tr>
+							<td>P.A.M.</td>
+							<td id="pam-quant"></td>
+							<td id="pam-valor-total"></td>
+							<td id="pam-percent"></td>
+							<td id="pam-perc-total"></td>
+						</tr>
+						<tr>
+							<td>Paquimetria</td>
+							<td id="paq-quant"></td>
+							<td id="paq-valor-total"></td>
+							<td id="paq-percent"></td>
+							<td id="paq-perc-total"></td>
+						</tr>
+						<tr>
+							<td>Retinografia</td>
+							<td id="ret-quant"></td>
+							<td id="ret-valor-total"></td>
+							<td id="ret-percent"></td>
+							<td id="ret-perc-total"></td>
+						</tr>
+						<tr>
+							<td>Tonometria</td>
+							<td id="ton-quant"></td>
+							<td id="ton-valor-total"></td>
+							<td id="ton-percent"></td>
+							<td id="ton-perc-total"></td>
+						</tr>
+						<tr>
+							<td>Ceratoscopia</td>
+							<td id="cer-quant"></td>
+							<td id="cer-valor-total"></td>
+							<td id="cer-percent"></td>
+							<td id="cer-perc-total"></td>
+						</tr>
+						<tr>
+							<td>OCT</td>
+							<td id="oct-quant"></td>
+							<td id="oct-valor-total"></td>
+							<td id="oct-percent"></td>
+							<td id="oct-perc-total"></td>
+						</tr>
+						<tr>
+						    <td> </td>
+						</tr>
+
+						<tr>
+							<th></th>
+							<th>Valor total</th>
+							<td id="valor-total"></td>
+							<th>Valor em %</th>
+							<td id="valor-perc-total"></td>
+						</tr>
+
+					</table>
+					
+					<button class="button-save" onclick="printDiv('right-side')">Imprimir</button>
+
+				</div>
+
+			</div>
+
 		</div>
 
 	</div>

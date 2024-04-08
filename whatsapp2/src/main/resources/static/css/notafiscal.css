@@ -10,7 +10,7 @@
 }
 
 html {
-  background-color:rgb(245 245 245);
+  background-color: rgb(245 245 245);
 }
 
 #username {
@@ -161,8 +161,54 @@ button:focus {
 }
 /* Websocket end */
 
+/* Side menu */
+.side-menu {
+  min-width: 150px;
+  background-color: rgb(17 41 70);
+  color: white;
+  height: calc(100vh - 50px);
+}
+
+.side-menu-ul {
+  height: 40px;
+  width: 150px;
+}
+
+.side-menu-li {
+  height: 40px;
+  display: grid;
+  justify-content: left;
+  align-content: center;
+  padding-left: 10px;
+  cursor: pointer;
+  margin-bottom: 5px;
+}
+
+#nf-menu {
+  background-color: rgb(27 67 114);
+  margin: 5px;
+  border-radius: 6px;
+}
+
+#relatorio-menu {
+  background-color: rgb(17 41 70);
+  margin-left: 5px;
+  margin-right: 5px;
+  border-radius: 6px;
+}
+
+/* Side menu end */
+
+.nf-div {
+  display: flex;
+}
+
+.relatorio-div {
+  display: none;
+}
+
 h4 {
-  margin-bottom: 20px;
+  /*margin-bottom: 20px;*/
   font-size: large;
 }
 
@@ -176,10 +222,20 @@ h4 {
   border-right: 1px solid var(--border-color-div);
   border-bottom: 1px solid var(--border-color-div);
   border-top: 1px solid var(--border-color-div);
-  margin-right: 12px;
-  margin-left: 12px;
-  margin-bottom: 10px;
-  margin-top: 10px;
+  margin: 10px;
+}
+
+.div-datepicker-relatorio {
+  height: 110px;
+  background-color: rgb(255, 255, 255);
+  width: 295px;
+  border-radius: 6px;
+  padding: 10px;
+  border-left: 4px solid rgb(77, 94, 146);
+  border-right: 1px solid var(--border-color-div);
+  border-bottom: 1px solid var(--border-color-div);
+  border-top: 1px solid var(--border-color-div);
+  margin: 10px;
 }
 
 #datepicker {
@@ -191,6 +247,32 @@ h4 {
   font-size: larger;
   margin-bottom: 10px;
 }
+
+.exames-relatorio {
+  height: 530px;
+  background-color: rgb(255, 255, 255);
+  width: 295px;
+  border-radius: 6px;
+  padding: 10px;
+  border-left: 4px solid rgb(73, 72, 141);
+  border-right: 1px solid var(--border-color-div);
+  border-bottom: 1px solid var(--border-color-div);
+  border-top: 1px solid var(--border-color-div);
+  margin: 10px;
+}
+
+.left-side {
+  display: block;
+  overflow: auto;
+  max-height: calc(100vh - 50px);
+}
+
+.right-side {
+  display: block;
+  overflow: auto;
+  max-height: calc(100vh - 50px);
+}
+
 
 .div-pesquisa {
   display: grid;
@@ -214,10 +296,7 @@ h4 {
   border-right: 1px solid var(--border-color-div);
   border-bottom: 1px solid var(--border-color-div);
   border-top: 1px solid var(--border-color-div);
-  margin-right: 12px;
-  margin-left: 12px;
-  margin-bottom: 10px;
-  margin-top: 10px;
+  margin: 10px;
 }
 
 .name {
@@ -256,8 +335,8 @@ h4 {
 
 .division {
   display: flex;
-  background-color:rgb(245 245 245);
-  padding-top: 55px;
+  background-color: rgb(245 245 245);
+  padding-top: 50px;
 }
 
 .division2 {
@@ -267,6 +346,8 @@ h4 {
 
 .customer-div {
   padding-top: 10px;
+  overflow: auto;
+  max-height: calc(100vh - 50px);
 }
 
 /* Data */
@@ -280,7 +361,7 @@ h4 {
   line-height: normal;
   font-size: 16px;
   font-family: "Times New Roman", Times, serif;
-  background-color:rgb(245 245 245);
+  background-color: rgb(245 245 245);
 }
 
 .frame-div h3 {
@@ -346,6 +427,15 @@ input[type="text"] {
 
 input[type="checkbox"] {
   cursor: pointer;
+}
+
+input[type="number"] {
+  border-radius: 6px;
+  height: 25px;
+  width: 60px;
+  border-style: solid;
+  border-color: dimgrey;
+  margin-bottom: 3px;
 }
 
 .checkbox-div {
@@ -479,9 +569,12 @@ input[type="checkbox"] {
 
 select {
   border-radius: 6px;
-  height: 25px;
+  height: 30px;
   width: 100%;
   border-style: solid;
+  border-color: dimgrey;
+  font-size: larger;
+  margin-bottom: 10px;
 }
 
 .button-save {
@@ -545,21 +638,69 @@ a:hover span {
 
 .div-auth {
   display: flex;
-  justify-content: space-between;	
+  justify-content: space-between;
 }
 
 #start {
-    border-radius: 6px;
-    height: 30px;
-    width: 180px;
-    border-style: solid;
-    border-color: dimgrey;
-    font-size: larger;
-    margin-bottom: 10px;
+  border-radius: 6px;
+  height: 30px;
+  width: 180px;
+  border-style: solid;
+  border-color: dimgrey;
+  font-size: larger;
+  margin-bottom: 10px;
+}
+
+/* Relatorio */
+.relatorio-month-card {
+  min-height: auto;
+  background-color: white;
+  border-radius: 8px;
+  padding: 10px;
+  border-left: 4px solid rgb(32, 74, 135);
+  border-right: 1px solid var(--border-color-div);
+  border-bottom: 1px solid var(--border-color-div);
+  border-top: 1px solid var(--border-color-div);
+  margin: 10px;
+}
+
+.relatorio-name-date {
+  display: flex;
+}
+
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+
+.label-rel {
+  margin-right: 5px;
+  margin-bottom: 5px;
 }
 
 @media (max-width: 1177px) {
   .division {
-    padding-top: 0px;
+    padding-top: 50px;
+  }
+
+  #division2 {
+    padding-top: 0;
+    margin-top: 0px;
+    margin-bottom: 10px;
+  }
+
+  #frame-div {
+    padding-top: 0;
   }
 }
