@@ -125,7 +125,6 @@ public class UserController {
 	public ResponseEntity<String> deleteUser(@RequestParam String username) {
 		logger.info("Loading DELETE /delete user");
 
-		System.out.println(username);
 		try {
 			boolean resp = userResource.deleteUser(username);
 			if (!resp) {
@@ -137,6 +136,21 @@ public class UserController {
 			return new ResponseEntity<>("Bad Request", HttpStatus.BAD_REQUEST);
 		}
 		return new ResponseEntity<>("Excluído", HttpStatus.OK);
+	}
+	
+	@GetMapping("/getrole")
+	public ResponseEntity<String> getUserRole(@RequestParam String username) {
+		
+		String user = "";
+		
+		try {
+			
+			user = userResource.getUserRole(username);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return new ResponseEntity<>(user, HttpStatus.OK);
 	}
 
 }

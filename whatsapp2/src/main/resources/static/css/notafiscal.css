@@ -268,9 +268,12 @@ h4 {
 }
 
 .right-side {
-  display: block;
   overflow: auto;
   max-height: calc(100vh - 50px);
+}
+
+#right-side{
+  display: none;
 }
 
 

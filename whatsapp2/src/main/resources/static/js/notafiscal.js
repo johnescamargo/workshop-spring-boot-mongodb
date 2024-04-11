@@ -5,6 +5,7 @@ const nfDiv = document.getElementById("nf-div");
 const relatorioDiv = document.getElementById("relatorio-div");
 const nfMenu = document.getElementById("nf-menu");
 const relatorioMenu = document.getElementById("relatorio-menu");
+const rightSide = document.getElementById("right-side");
 
 var dadosPagamento = [];
 var examesSelecionados = [];
@@ -14,6 +15,7 @@ var pesquisa = document.getElementById("pesquisa");
 var month = document.getElementById("start");
 var doctor = document.getElementById("medico");
 var outros = "";
+let role;
 
 var relatorioArr = [];
 var monthRelatorio;
@@ -100,8 +102,11 @@ const ocPercResult = document.getElementById('oct-perc-total');
 const valorTotal = document.getElementById('valor-total');
 const valorPercTotal = document.getElementById('valor-perc-total');
 
-var name;
-var monthName;
+var name = "";
+var monthName = "";
+
+var medico2 = "";
+var name2 = "";
 
 var biometriaQuant = 0;
 var campimetriaQuant = 0;
@@ -174,6 +179,7 @@ function onloadInit() {
 	loadWantsToTalk();
 	setTable();
 	websocket.connect;
+	getCustomerRole();
 }
 
 function loadWantsToTalk() {
@@ -393,7 +399,7 @@ function getMonthByDate(data) {
 
 function getMonthByDateAndMedico(data) {
 	var resp = changeDateformatMonth(data);
-	
+
 	axios
 		.get("/nf/getbymonthandmedico", {
 			params: {
@@ -404,6 +410,27 @@ function getMonthByDateAndMedico(data) {
 		.then(function(response) {
 			//console.log(response.data);
 			saveRelatorioArr(response.data);
+		})
+		.catch(function(error) {
+			console.log(error);
+		});
+}
+
+
+function getCustomerRole() {
+
+	var username = document.getElementById("username");
+
+	axios
+		.get("/user/getrole", {
+			params: {
+				username: username.innerHTML
+			},
+		})
+		.then(function(response) {
+			//console.log(response.data);
+			//sessionStorage.setItem("role" ,response.data);
+			role = response.data;
 		})
 		.catch(function(error) {
 			console.log(error);
@@ -653,10 +680,7 @@ function setCustomerHtml(customer) {
 		'          <input type="text" id="outros-input" value="' +
 		outros +
 		'" disabled>' +
-		' <div class="div-auth" sec:authorize="hasAuthority("ADMIN")">' +
-		' <button class="button-save" onclick="freeFields(this.id)">Liberar Campos</button>' +
-		' <button class="button-update" onclick="updateNF(this.id)" id="' + customer.id + '">Atualizar</button>' +
-		' </div>' +
+		setRole(customer) +
 		"          <!-- Checkbox end-->" +
 		"      </div>" +
 		"      <!-- Exames end-->" +
@@ -665,6 +689,22 @@ function setCustomerHtml(customer) {
 		"</div>";
 
 	document.getElementById("customer-div").innerHTML = data;
+}
+
+function setRole(customer) {
+	var data = "";
+	getCustomerRole();
+
+	//let role = sessionStorage.getItem("role");
+
+	if (role === 'ADMIN') {
+		data += ' <div class="div-auth">' +
+			' <button class="button-save" onclick="freeFields(this.id)">Liberar Campos</button>' +
+			' <button class="button-update" onclick="updateNF(this.id)" id="' + customer.id + '">Atualizar</button>' +
+			' </div>';
+	}
+
+	return data;
 }
 
 function isNull(data) {
@@ -1278,6 +1318,8 @@ function setNfMenu() {
 
 function calculateMonthRelatorio() {
 
+	rightSide.style.display = 'block';
+
 	biometriaQuant = 0;
 	biometriaAmount = 0;
 	biometriaPercResult = 0;
@@ -1340,8 +1382,9 @@ function calculateMonthRelatorio() {
 
 	monthName = getMonthName(monthRelatorio);
 
+
 	if (relatorioArr.length !== 0) {
-		name = relatorioArr[0].nome;
+		name = doctor.value;
 
 		for (let i = 0; i < relatorioArr.length; i++) {
 
@@ -1350,86 +1393,96 @@ function calculateMonthRelatorio() {
 
 			for (let j = 0; j < relatorioArr[i].exames.length; j++) {
 
-				var nameId = relatorioArr[i].exames[j].nameId;
-				var valor = amount / lengthArr;
+				var medico = relatorioArr[i].medico;
+				medico2 = splitName(medico);
+				name2 = splitName(name);
 
-				valor = splitNumber(valor);
+				if (medico2 === name2) {
 
-				if (nameId === 'biometria') {
-					biometriaQuant++;
-					biometriaAmount = biometriaAmount + valor;
-					biometriaPercResult = calculatePercentage(biometriaAmount, biometriaPercentage.value);
-					break;
-				} else if (nameId === 'campimetria') {
-					campimetriaQuant++;
-					campimetriaAmount = campimetriaAmount + valor;
-					campimetriaPercResult = calculatePercentage(campimetriaAmount, campimetriaPercentage.value);
-					break;
-				} else if (nameId === 'capsulotomia') {
-					capsulotomiaQuant++;
-					capsulotomiaAmount = capsulotomiaAmount + valor;
-					capsulotomiaPercResult = calculatePercentage(capsulotomiaAmount, capsulotomiaPercentage.value);
-					break;
-				} else if (nameId === 'curva-tensional') {
-					curvaTensionalQuant++;
-					curvaTensionalAmount = curvaTensionalAmount + valor;
-					curvaTensionalPercResult = calculatePercentage(curvaTensionalAmount, curvaTensionalPercentage.value);
-					break;
-				} else if (nameId === 'teste-ortoptico') {
-					testeOrtopticoQuant++;
-					testeOrtopticoAmount = testeOrtopticoAmount + valor;
-					testeOrtopticoPercResult = calculatePercentage(testeOrtopticoAmount, testeOrtopticoPercentage.value);
-					break;
-				} else if (nameId === 'fotocoagulacao-a-laser') {
-					fotocoagulacaoALaserQuant++;
-					fotocoagulacaoALaserAmount = fotocoagulacaoALaserAmount + valor;
-					fotocoagulacaoALaserPercResult = calculatePercentage(fotocoagulacaoALaserAmount, fotocoagulacaoALaserPercentage.value);
-					break;
-				} else if (nameId === 'gonioscopia') {
-					gonioscopiaQuant++;
-					gonioscopiaAmount = gonioscopiaAmount + valor;
-					gonioscopiaPercResult = calculatePercentage(gonioscopiaAmount, gonioscopiaPercentage.value);
-					break;
-				} else if (nameId === 'mapeamento de Retina') {
-					mapeamentoDeRetinaQuant++;
-					mapeamentoDeRetinaAmount = mapeamentoDeRetinaAmount + valor;
-					mapeamentoDeRetinaPercResult = calculatePercentage(mapeamentoDeRetinaAmount, mapeamentoDeRetinaPercentage.value);
-					break;
-				} else if (nameId === 'microscopia') {
-					microscopiaQuant++;
-					microscopiaAmount = microscopiaAmount + valor;
-					microscopiaPercResult = calculatePercentage(microscopiaAmount, microscopiaPercentage.value);
-					break;
-				} else if (nameId === 'pam') {
-					pamQuant++;
-					pamAmount = pamAmount + valor;
-					pamPercResult = calculatePercentage(pamAmount, pamPercentage.value);
-					break;
-				} else if (nameId === 'paquimetria') {
-					paquimetriaQuant++;
-					paquimetriaAmount = paquimetriaAmount + valor;
-					paquimetriaPercResult = calculatePercentage(paquimetriaAmount, paquimetriaPercentage.value);
-					break;
-				} else if (nameId === 'retinografia') {
-					retinografiaQuant++;
-					retinografiaAmount = retinografiaAmount + valor;
-					retinografiaPercResult = calculatePercentage(retinografiaAmount, retinografiaPercentage.value);
-					break;
-				} else if (nameId === 'tonometria') {
-					tonometriaQuant++;
-					tonometriaAmount = tonometriaAmount + valor;
-					tonometriaPercResult = calculatePercentage(tonometriaAmount, tonometriaPercentage.value);
-					break;
-				} else if (nameId === 'ceratoscopia') {
-					ceratoscopiaQuant++;
-					ceratoscopiaAmount = ceratoscopiaAmount + valor;
-					ceratoscopiaPercResult = calculatePercentage(ceratoscopiaAmount, ceratoscopiaPercentage.value);
-					break;
-				} else if (nameId === 'oct') {
-					octQuant++;
-					octAmount = octAmount + valor;
-					octPercResult = calculatePercentage(octAmount, octPercentage.value);
-					break;
+					var nameId = relatorioArr[i].exames[j].nameId;
+					var valor = amount / lengthArr;
+
+					valor = splitNumber(valor);
+
+					if (nameId === 'biometria') {
+						biometriaQuant++;
+						biometriaAmount = biometriaAmount + valor;
+						biometriaPercResult = calculatePercentage(biometriaAmount, biometriaPercentage.value);
+
+					} else if (nameId === 'campimetria') {
+						campimetriaQuant++;
+						campimetriaAmount = campimetriaAmount + valor;
+						campimetriaPercResult = calculatePercentage(campimetriaAmount, campimetriaPercentage.value);
+
+					} else if (nameId === 'capsulotomia') {
+						capsulotomiaQuant++;
+						capsulotomiaAmount = capsulotomiaAmount + valor;
+						capsulotomiaPercResult = calculatePercentage(capsulotomiaAmount, capsulotomiaPercentage.value);
+
+					} else if (nameId === 'curva-tensional') {
+						curvaTensionalQuant++;
+						curvaTensionalAmount = curvaTensionalAmount + valor;
+						curvaTensionalPercResult = calculatePercentage(curvaTensionalAmount, curvaTensionalPercentage.value);
+
+					} else if (nameId === 'teste-ortoptico') {
+						testeOrtopticoQuant++;
+						testeOrtopticoAmount = testeOrtopticoAmount + valor;
+						testeOrtopticoPercResult = calculatePercentage(testeOrtopticoAmount, testeOrtopticoPercentage.value);
+
+					} else if (nameId === 'fotocoagulacao-a-laser') {
+						fotocoagulacaoALaserQuant++;
+						fotocoagulacaoALaserAmount = fotocoagulacaoALaserAmount + valor;
+						fotocoagulacaoALaserPercResult = calculatePercentage(fotocoagulacaoALaserAmount, fotocoagulacaoALaserPercentage.value);
+
+					} else if (nameId === 'gonioscopia') {
+						gonioscopiaQuant++;
+						gonioscopiaAmount = gonioscopiaAmount + valor;
+						gonioscopiaPercResult = calculatePercentage(gonioscopiaAmount, gonioscopiaPercentage.value);
+
+					} else if (nameId === 'mapeamento de Retina') {
+						mapeamentoDeRetinaQuant++;
+						mapeamentoDeRetinaAmount = mapeamentoDeRetinaAmount + valor;
+						mapeamentoDeRetinaPercResult = calculatePercentage(mapeamentoDeRetinaAmount, mapeamentoDeRetinaPercentage.value);
+
+					} else if (nameId === 'microscopia') {
+						microscopiaQuant++;
+						microscopiaAmount = microscopiaAmount + valor;
+						microscopiaPercResult = calculatePercentage(microscopiaAmount, microscopiaPercentage.value);
+
+					} else if (nameId === 'pam') {
+						pamQuant++;
+						pamAmount = pamAmount + valor;
+						pamPercResult = calculatePercentage(pamAmount, pamPercentage.value);
+
+					} else if (nameId === 'paquimetria') {
+						paquimetriaQuant++;
+						paquimetriaAmount = paquimetriaAmount + valor;
+						paquimetriaPercResult = calculatePercentage(paquimetriaAmount, paquimetriaPercentage.value);
+
+					} else if (nameId === 'retinografia') {
+						retinografiaQuant++;
+						retinografiaAmount = retinografiaAmount + valor;
+						retinografiaPercResult = calculatePercentage(retinografiaAmount, retinografiaPercentage.value);
+
+					} else if (nameId === 'tonometria') {
+						tonometriaQuant++;
+						tonometriaAmount = tonometriaAmount + valor;
+						tonometriaPercResult = calculatePercentage(tonometriaAmount, tonometriaPercentage.value);
+
+					} else if (nameId === 'ceratoscopia') {
+						ceratoscopiaQuant++;
+						ceratoscopiaAmount = ceratoscopiaAmount + valor;
+						ceratoscopiaPercResult = calculatePercentage(ceratoscopiaAmount, ceratoscopiaPercentage.value);
+
+					} else if (nameId === 'oct') {
+						octQuant++;
+						octAmount = octAmount + valor;
+						octPercResult = calculatePercentage(octAmount, octPercentage.value);
+
+					} else {
+						console.log("nameId Not found")
+					}
+
 				}
 			}
 		}
@@ -1482,14 +1535,14 @@ function calculatePercentage(amount, percentage) {
 	let text = valor.toString();
 	const myArray = text.split(".");
 	let result = parseInt(myArray[0]);
-	
+
 	return result;
 }
 
 function setHtmlRelatorio() {
 
 	textName.innerHTML = name;
-	textDate.innerHTML = monthName.name + "/" + yearRelatorio;
+	textDate.innerHTML = monthName + "/" + yearRelatorio;
 
 	bioQuant.innerHTML = biometriaQuant;
 	bioValorTotal.innerHTML = validateValor(biometriaAmount);
@@ -1579,6 +1632,14 @@ function splitNumber(number) {
 	return num;
 }
 
+function splitName(name) {
+
+	let text = name.toString();
+	const myArray = text.split(" ");
+	let resp = myArray[0];
+
+	return resp;
+}
 
 function getMonthName(id) {
 	var resp;
@@ -1600,22 +1661,35 @@ function getMonthName(id) {
 
 	for (let i = 0; i < months.length; i++) {
 		if (months[i].id === id) {
-			resp = months[i];
+			resp = months[i].name;
 			break;
 		}
 	}
 	return resp;
 }
 
+function printDiv2(divId) {
+	var printContents = document.getElementById(divId).innerHTML;
+	var originalContents = document.body.innerHTML;
+
+	document.body.innerHTML = printContents;
+
+	window.print();
+
+	document.body.innerHTML = originalContents;
+}
+
+
 function printDiv(divId) {
-     var printContents = document.getElementById(divId).innerHTML;
-     var originalContents = document.body.innerHTML;
+	var divText = document.getElementById(divId).innerHTML;
+	var myWindow = window.open('', '', 'width=650,height=880');
+	var doc = myWindow.document;
 
-     document.body.innerHTML = printContents;
-
-     window.print();
-
-     document.body.innerHTML = originalContents;
+	var html1 = '<!DOCTYPE html> <html> <head> <style> :root { --border-color-div: rgb(207, 207, 207); } .button-save { width: 125px; height: 35px; margin-top: 4px; border-radius: 8px; background-color: rgb(57, 57, 192); color: aliceblue; cursor: pointer; border-style: none; } .button-save:hover { background-color: rgb(94, 94, 185); } .relatorio-month-card { min-height: auto; background-color: white; border-radius: 8px; padding: 10px; border-left: 4px solid rgb(32, 74, 135); border-right: 1px solid var(--border-color-div); border-bottom: 1px solid var(--border-color-div); border-top: 1px solid var(--border-color-div); margin: 10px; } .relatorio-name-date { display: flex; } table { font-family: arial, sans-serif; border-collapse: collapse; width: 100%; } td, th { border: 1px solid #dddddd; text-align: left; padding: 8px; } tr:nth-child(even) { background-color: #dddddd; } .label-rel { margin-right: 5px; margin-bottom: 5px; } </style> </head> <body><div id="right-side">';
+	var html2 = '</div></body> <script> function printDiv() { window.print(); } </script> </html>';
+	doc.open();
+	doc.write(html1, divText, html2);
+	doc.close();
 }
 
 window.addEventListener("onload", onloadInit());
@@ -1636,3 +1710,5 @@ window.setNfMenu = setNfMenu;
 window.calculateMonthRelatorio = calculateMonthRelatorio;
 window.printDiv = printDiv;
 window.getMonthByDateAndMedico = getMonthByDateAndMedico;
+window.getCustomerRole = getCustomerRole;
+

@@ -23,11 +23,11 @@
 
 	<div id="username" sec:authentication="name"></div>
 
-	<label class="hamburger" onclick="toggleHamburger(this)">
+	<div class="hamburger" onclick="toggleHamburger(this)">
 		<div class="bar1"></div>
 		<div class="bar2"></div>
 		<div class="bar3"></div>
-	</label>
+	</div>
 
 	<nav class="nav-bar">
 		<ul id="div-ul">
@@ -198,7 +198,7 @@
 					<label for="oct">% OCT</label>
 					<br>
 
-					<button class="button-save" onclick="calculateMonthRelatorio()">Calcular</button>
+					<button class="button-save" onclick="calculateMonthRelatorio()">Calcular</button>			
 					<br>
 					<!-- Checkbox end-->
 
@@ -211,11 +211,11 @@
 				<div class="relatorio-month-card">
 
 					<div class="relatorio-name-date">
-						<label class="label-rel" for="text-name">Nome: </label>
+						<div class="label-rel" for="text-name">Nome: </div>
 						<div class="text-div" id="text-name"></div>
 					</div>
 					<div class="relatorio-name-date">
-						<label class="label-rel" for="text-date">Data: </label>
+						<div class="label-rel" for="text-date">Data: </div>
 						<div class="text-div" id="text-date"></div>
 					</div>
 					<hr />

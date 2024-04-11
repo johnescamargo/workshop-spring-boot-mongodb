@@ -170,5 +170,22 @@ public class DBUserResource {
 		}
 		return true;
 	}
+	
+	public String getUserRole(String username) {
+		
+		String resp = "none";
+		
+		try {
+
+			UserEntity user = new UserEntity();
+			user = userRepository.findByUsername(username);
+			resp = user.getRoles().get(0).getName();
+			
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return resp;
+	}
 
 }
