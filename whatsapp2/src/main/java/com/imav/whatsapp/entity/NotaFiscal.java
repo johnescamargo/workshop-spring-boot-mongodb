@@ -45,6 +45,8 @@ public class NotaFiscal implements Serializable {
 	private String pagamento2;
 	private String userName;
 	private String nfDoneBy;
+	private String nomeConvenio;
+	private String nomeRede;
 
 	@OneToMany(mappedBy = "notaFiscal")
 	List<Exames> exames;
@@ -57,7 +59,7 @@ public class NotaFiscal implements Serializable {
 			String nome, String cpf, String email, Long telefone, String cep, String rua, String numero,
 			String complemento, String bairro, String cidade, String estado, int valor, String formaPagamento,
 			String medico, String nfNumero, boolean nfDone, String pagamento1, String pagamento2, String userName,
-			String nfDoneBy, List<Exames> exames) {
+			String nfDoneBy, String nomeConvenio, String nomeRede, List<Exames> exames) {
 		this.timestampCreated = timestampCreated;
 		this.timestampNf = timestampNf;
 		this.prontuario = prontuario;
@@ -83,6 +85,8 @@ public class NotaFiscal implements Serializable {
 		this.pagamento2 = pagamento2;
 		this.userName = userName;
 		this.exames = exames;
+		this.setNomeConvenio(nomeConvenio);
+		this.setNomeRede(nomeRede);
 		this.setNfDoneBy(nfDoneBy);
 	}
 
@@ -302,6 +306,22 @@ public class NotaFiscal implements Serializable {
 		this.nfDoneBy = nfDoneBy;
 	}
 
+	public String getNomeConvenio() {
+		return nomeConvenio;
+	}
+
+	public void setNomeConvenio(String nomeConvenio) {
+		this.nomeConvenio = nomeConvenio;
+	}
+
+	public String getNomeRede() {
+		return nomeRede;
+	}
+
+	public void setNomeRede(String nomeRede) {
+		this.nomeRede = nomeRede;
+	}
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
@@ -327,8 +347,8 @@ public class NotaFiscal implements Serializable {
 				+ ", numero=" + numero + ", complemento=" + complemento + ", bairro=" + bairro + ", cidade=" + cidade
 				+ ", estado=" + estado + ", valor=" + valor + ", formaPagamento=" + formaPagamento + ", medico="
 				+ medico + ", nfNumero=" + nfNumero + ", nfDone=" + nfDone + ", pagamento1=" + pagamento1
-				+ ", pagamento2=" + pagamento2 + ", userName=" + userName + ", nfDoneBy=" + nfDoneBy + ", exames="
-				+ exames + "]";
+				+ ", pagamento2=" + pagamento2 + ", userName=" + userName + ", nfDoneBy=" + nfDoneBy + ", nomeConvenio="
+				+ nomeConvenio + ", nomeRede=" + nomeRede + ", exames=" + exames + "]";
 	}
 
 }

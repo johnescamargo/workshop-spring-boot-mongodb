@@ -113,6 +113,20 @@ public class NotaFiscalController {
 		List<NotaFiscalDto> nfs = new ArrayList<>();
 
 		try {
+			nfs = fiscalResource.findAllByTimestampCreatedDto(date);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return new ResponseEntity<>(nfs, HttpStatus.OK);
+	}
+	
+	@GetMapping("/getallbydate")
+	public ResponseEntity<List<NotaFiscal>> getAllByDate(@RequestParam String date) {
+
+		List<NotaFiscal> nfs = new ArrayList<>();
+
+		try {
 			nfs = fiscalResource.findAllByTimestampCreated(date);
 		} catch (Exception e) {
 			e.printStackTrace();

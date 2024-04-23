@@ -142,7 +142,7 @@ public class NotaFiscalResource {
 		return dtos;
 	}
 
-	public List<NotaFiscalDto> findAllByTimestampCreated(@RequestParam String date) {
+	public List<NotaFiscalDto> findAllByTimestampCreatedDto(@RequestParam String date) {
 
 		List<NotaFiscalDto> dtos = new ArrayList<>();
 		List<NotaFiscal> nfs = new ArrayList<>();
@@ -171,6 +171,26 @@ public class NotaFiscalResource {
 		}
 
 		return dtos;
+	}
+
+	public List<NotaFiscal> findAllByTimestampCreated(@RequestParam String date) {
+
+		List<NotaFiscal> nfs = new ArrayList<>();
+
+		try {
+
+			long beginDate = new java.text.SimpleDateFormat("dd/MM/yyyy HH:mm:ss").parse(date + " 00:00:01").getTime()
+					/ 1000;
+			long endDate = new java.text.SimpleDateFormat("dd/MM/yyyy HH:mm:ss").parse(date + " 23:59:59").getTime()
+					/ 1000;
+
+			nfs = fiscalRepository.findAllByTimestampCreated(beginDate, endDate);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return nfs;
 	}
 
 	public void updateNotaFiscal(String obj) {
@@ -286,17 +306,17 @@ public class NotaFiscalResource {
 	}
 
 	public List<NotaFiscal> findAllByMonthAndMedico(String obj) {
-		
+
 		List<NotaFiscal> nfs = new ArrayList<>();
-		
+
 		try {
-			
+
 			MonthAndMedicoDto dto = new MonthAndMedicoDto();
 			dto = gson.fromJson(obj, MonthAndMedicoDto.class);
-			
+
 			String date = dto.getDate();
 			String medico = dto.getMedico();
-			
+
 			// 1 - Get month and year from JavaScript (Integer).
 			String[] sentences = date.split("\\/");
 			int month = Integer.parseInt(sentences[0]);
@@ -305,9 +325,10 @@ public class NotaFiscalResource {
 			// 2 - Get the number of days in that month
 			YearMonth monthAndYear = YearMonth.of(year, month);
 			int daysInAMonth = monthAndYear.lengthOfMonth();
-			//System.out.println(daysInAMonth);
+			// System.out.println(daysInAMonth);
 
-			// 3 - Convert the first day and the last day in a month to epoch (Example: 01 and 29 of 02/2024).
+			// 3 - Convert the first day and the last day in a month to epoch (Example: 01
+			// and 29 of 02/2024).
 			long beginDate = new java.text.SimpleDateFormat("dd/MM/yyyy HH:mm:ss")
 					.parse("01/" + month + "/" + year + " 00:00:01").getTime() / 1000;
 
@@ -326,13 +347,13 @@ public class NotaFiscalResource {
 
 		return nfs;
 	}
-	
+
 	public List<NotaFiscal> findAllByMonth(String date) {
-		
+
 		List<NotaFiscal> nfs = new ArrayList<>();
-		
+
 		try {
-						
+
 			// 1 - Get month and year from JavaScript (Integer).
 			String[] sentences = date.split("\\/");
 			int month = Integer.parseInt(sentences[0]);
@@ -341,9 +362,10 @@ public class NotaFiscalResource {
 			// 2 - Get the number of days in that month
 			YearMonth monthAndYear = YearMonth.of(year, month);
 			int daysInAMonth = monthAndYear.lengthOfMonth();
-			//System.out.println(daysInAMonth);
+			// System.out.println(daysInAMonth);
 
-			// 3 - Convert the first day and the last day in a month to epoch (Example: 01 and 29 of 02/2024).
+			// 3 - Convert the first day and the last day in a month to epoch (Example: 01
+			// and 29 of 02/2024).
 			long beginDate = new java.text.SimpleDateFormat("dd/MM/yyyy HH:mm:ss")
 					.parse("01/" + month + "/" + year + " 00:00:01").getTime() / 1000;
 

@@ -470,6 +470,15 @@ function setCustomerHtml(customer) {
 		"<!-- Dados Principais-->" +
 		'<div class="col-1-data">' +
 		setNfData(customer) +
+		'<!-- Convênio -->' +
+		'<div class="dados-nf">' +
+		'<h4>Convênio</h4>' +
+		'<label for="nome-convenio">Nome</label>' +
+		'<input type="text" name="nome-convenio" id="nome-convenio" value="'+ customer.nomeConvenio + '" disabled>' +
+		'<label for="nome-rede">Nº da Carteirinha ou Rede</label>' +
+		'<input type="text" name="nome-rede" id="nome-rede" value="'+ customer.nomeRede + '" disabled>' +
+		'</div>' +
+		'<!-- Convênio end-->' +
 		'      <div class="main-data">' +
 		'          <div class="prontuario-div">' +
 		'              <label for="prontuario">Prontuário Nº 1/</label>' +
@@ -1036,6 +1045,8 @@ function freeFields() {
 	document.getElementById("valor").disabled = false;
 	document.getElementById("textarea-tag").disabled = false;
 	document.getElementById("forma-pagamento").disabled = false;
+	document.getElementById("nome-convenio").disabled = false;
+	document.getElementById("nome-rede").disabled = false;
 
 	if (document.getElementById("forma-pagamento1")) {
 		document.getElementById("forma-pagamento1").disabled = false;
@@ -1085,6 +1096,8 @@ function updateNF(id) {
 	const formaPagamento = document.getElementById("forma-pagamento");
 	const medico = document.getElementById("medico");
 	const nfNumero = document.getElementById("nota-fiscal");
+	const nomeConvenio = document.getElementById("nome-convenio");
+	const nomeRede = document.getElementById("nome-rede");
 
 	var username = document.getElementById("username").innerText;
 
@@ -1117,6 +1130,8 @@ function updateNF(id) {
 			nfDoneBy: customer.nfDoneBy,
 			pagamento1: dadosPagamento[0],
 			pagamento2: dadosPagamento[1],
+			nomeConvenio: nomeConvenio.value,
+			nomeRede: nomeRede.value,
 			exames: examesSelecionados,
 		})
 		.then(function(response) {

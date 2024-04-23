@@ -21,6 +21,10 @@ const valor = document.getElementById("valor");
 const formaPagamento = document.getElementById("forma-pagamento");
 const medico = document.getElementById("medico");
 
+// Convênio
+const nomeConvenio = document.getElementById("nome-convenio");
+const nomeRede = document.getElementById("nome-rede");
+
 // Exames
 const biometria = document.getElementById("biometria");
 const campimetria = document.getElementById("campimetria");
@@ -59,6 +63,8 @@ var creditoPagamentoBoolean = true;
 var medicoBoolean = false;
 var outrosBoolean = false;
 var cartaoCredit = false;
+var nomeConvenioBoolean = false;
+var nomeRedeCredit = false;
 
 let dadosPagamento = [];
 var examesSelecionados = [];
@@ -95,6 +101,8 @@ function getData() {
 
   let outros = document.getElementById("outros");
   var outrosInput = document.getElementById("outros-input").value;
+  
+  let nomeConve = document.getElementById("nome-convenio").value;
 
   prontuario
     ? ((document.getElementById("prontuario").style.border = "solid green"),
@@ -143,7 +151,13 @@ function getData() {
   } else {
     emailBoolean = true;
   }
-
+  
+    nomeConve
+    ? ((document.getElementById("nome-convenio").style.border = "solid green"),
+      (nomeBoolean = true))
+    : ((document.getElementById("nome-convenio").style.border = "solid red"),
+      (nomeBoolean = false));
+      
   cep
     ? ((document.getElementById("cep").style.border = "solid green"),
       (cepBoolean = true))
@@ -255,7 +269,8 @@ function getData() {
     formaPagamentoBoolean &&
     creditoPagamentoBoolean &&
     medicoBoolean &&
-    outrosBoolean
+    outrosBoolean &&
+    nomeConve
   ) {
     getExamesSelecionados();
     getDadosPagamento();
@@ -292,7 +307,9 @@ function sendData() {
       nfDoneBy: "",
       pagamento1: dadosPagamento[0],
       pagamento2: dadosPagamento[1],
-      exames: examesSelecionados,
+      nomeConvenio: nomeConvenio.value,
+      nomeRede: nomeRede.value,
+      exames: examesSelecionados
     })
     .then(function (response) {
       //console.log(response);
